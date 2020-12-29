@@ -23,6 +23,8 @@ namespace Postalservice
         public MainWindow()
         {
             InitializeComponent();
+
+            DBTest.Start();
         }
     }
 }
