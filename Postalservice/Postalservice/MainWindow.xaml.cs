@@ -24,7 +24,7 @@ namespace Postalservice
         {
             InitializeComponent();
 
-            DBTest.Start();
+            //DBTest.Start();
         }
     }
 }

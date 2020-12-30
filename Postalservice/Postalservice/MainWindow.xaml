@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Postalservice"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="1080" Width="1920">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="src/Stylesheet.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
-        
+        <Label Content="Overpass" HorizontalAlignment="Left" Margin="241,169,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Overpass}"/>
+        <Label Content="Poppins" FontSize="30" HorizontalAlignment="Left" Margin="411,459,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Poppins}" FontStyle="Normal" FontWeight="Bold"/>
+        <Label Content="Comfortaa" HorizontalAlignment="Left" Margin="456,107,0,0" VerticalAlignment="Top" Width="156" FontFamily="{StaticResource Comfortaa}" FontWeight="ExtraBold"/>
+        <Label Content="Atiba PortalService&#xD;&#xA;" HorizontalAlignment="Left" Margin="241,130,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Atiba}"/>
+
+        <Button HorizontalAlignment="Left" Margin="624,421,0,0" VerticalAlignment="Top" Style="{StaticResource MenuButtonStyle}">
+            <TextBlock TextAlignment="Center">Manage<LineBreak></LineBreak>Packages</TextBlock>
+        </Button>
+  
     </Grid>
 </Window>
