@@ -72,6 +72,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\userControl\Header.xaml.cs">
+      <DependentUpon>Header.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,6 +88,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="src\Stylesheet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\userControl\Header.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -108,11 +119,57 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="src\assets\Fonts\Atiba\Atiba.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-Black.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-BlackItalic.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-Bold.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-BoldItalic.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-ExtraBold.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-ExtraBoldItalic.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-ExtraLight.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-ExtraLightItalic.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-Italic.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-Light.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-LightItalic.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-Regular.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-SemiBold.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-SemiBoldItalic.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-Thin.ttf" />
+    <Resource Include="src\assets\Fonts\Overpass\Overpass-ThinItalic.ttf" />
+    <Resource Include="src\assets\Fonts\Comfortaa\Comfortaa-Bold.ttf" />
+    <Resource Include="src\assets\Fonts\Comfortaa\Comfortaa-Light.ttf" />
+    <Resource Include="src\assets\Fonts\Comfortaa\Comfortaa-Medium.ttf" />
+    <Resource Include="src\assets\Fonts\Comfortaa\Comfortaa-Regular.ttf" />
+    <Resource Include="src\assets\Fonts\Comfortaa\Comfortaa-SemiBold.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-Black.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-BlackItalic.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-Bold.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-BoldItalic.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-ExtraBold.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-ExtraBoldItalic.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-ExtraLight.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-ExtraLightItalic.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-Italic.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-Light.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-LightItalic.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-Medium.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-MediumItalic.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-Regular.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-SemiBold.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-SemiBoldItalic.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-Thin.ttf" />
+    <Resource Include="src\assets\Fonts\Poppins\Poppins-ThinItalic.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="src\assets\glas.png" />
+    <Resource Include="src\assets\home.png" />
+    <Resource Include="src\assets\arrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="src\assets\exit.png" />
     <Content Include="src\db\PostalServiceDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -132,6 +189,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\admin\" />
+    <Folder Include="src\customer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

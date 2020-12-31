@@ -4,9 +4,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Postalservice"
+        xmlns:UC="clr-namespace:Postalservice.src.userControl"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="1080" Width="1920">
+   
     <Grid>
+
+        <UC:Header  >
+
+        </UC:Header>
         
+
+        <Rectangle Style="{StaticResource PanelBackground}"></Rectangle>
+        
+        <Label Content="Overpass" HorizontalAlignment="Left" Margin="241,169,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Overpass}"/>
+        <Label Content="Poppins" FontSize="30" HorizontalAlignment="Left" Margin="411,459,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Poppins}" FontStyle="Normal" FontWeight="Bold"/>
+        <Label Content="Comfortaa" HorizontalAlignment="Left" Margin="456,107,0,0" VerticalAlignment="Top" Width="156" FontFamily="{StaticResource Comfortaa}" FontWeight="ExtraBold"/>
+        <Label Content="Atiba PortalService&#xD;&#xA;" HorizontalAlignment="Left" Margin="241,130,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Atiba}"/>
+
+        <Button HorizontalAlignment="Left" Margin="624,421,0,0" VerticalAlignment="Top" Style="{StaticResource MenuButtonStyle}">
+            <TextBlock TextAlignment="Center">Manage<LineBreak></LineBreak>Packages</TextBlock>
+        </Button>
+        <Button Content="Create Account" IsEnabled="False" HorizontalAlignment="Left" Margin="705,687,0,0" VerticalAlignment="Top" Style="{StaticResource SmallButtonStyle}"/>
+        <Button Content="Create Account" IsEnabled="True" HorizontalAlignment="Left" Margin="943,687,0,0" VerticalAlignment="Top" Style="{StaticResource SmallButtonStyle}"/>
+       
+
+
     </Grid>
 </Window>
