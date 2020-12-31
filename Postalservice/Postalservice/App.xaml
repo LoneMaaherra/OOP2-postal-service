@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:Postalservice"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="src/Stylesheet.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        
     </Application.Resources>
 </Application>
