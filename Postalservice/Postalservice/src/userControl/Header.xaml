@@ -7,17 +7,51 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
     Style="{StaticResource HeaderBackground}">
-    <DockPanel Background="{Binding RelativeSource={RelativeSource Self}, Path=Background}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="20,10,20,10" >
+    <DockPanel Background="{Binding RelativeSource={RelativeSource Self}, Path=Background}" 
+			   VerticalAlignment="Stretch" 
+			   HorizontalAlignment="Stretch" 
+			   Margin="20,10,20,10" >
 
-        <Button Style="{StaticResource IconButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" DockPanel.Dock="Left" >
-            <Image Source="pack://application:,,,/src/assets/arrow.png" VerticalAlignment="Top" HorizontalAlignment="Left" Height="64" Width="64"></Image>
+        <Button Style="{StaticResource IconButtonStyle}" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Left" 
+                DockPanel.Dock="Left" 
+                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}, Path=BackCommand}">
+            <Image Source="pack://application:,,,/src/assets/arrow.png" 
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Left" 
+                   Height="64" Width="64"></Image>
         </Button>
-        <Button Style="{StaticResource IconButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" DockPanel.Dock="Left" Margin="20,0,0,0" >
-            <Image Source="pack://application:,,,/src/assets/home.png" VerticalAlignment="Center" HorizontalAlignment="Left" Height="70" Width="70"/>
+        
+        <Button Style="{StaticResource IconButtonStyle}" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Left" 
+                DockPanel.Dock="Left" 
+                Margin="20,0,0,0" 
+                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}, Path=HomeCommand}">
+            <Image Source="pack://application:,,,/src/assets/home.png" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Left" 
+                   Height="70" 
+                   Width="70"/>
         </Button>
-        <Button Style="{StaticResource IconButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right"  >
-            <Image Source="pack://application:,,,/src/assets/exit.png" VerticalAlignment="Top" HorizontalAlignment="Left" Height="64" Width="64"></Image>
+        
+        <Button Style="{StaticResource IconButtonStyle}" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                DockPanel.Dock="Right" 
+                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}, Path=ExitCommand}">
+            <Image Source="pack://application:,,,/src/assets/exit.png"
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Left" 
+                   Height="64"
+                   Width="64"></Image>
         </Button>
-        <Label Content="PortalService" FontFamily="{StaticResource Atiba}" FontSize="70" VerticalAlignment="Center" Padding="50,0,0,0" ></Label>
+        
+        <Label Content="PortalService" 
+               FontFamily="{StaticResource Atiba}" 
+               FontSize="70" 
+               VerticalAlignment="Center"
+               Padding="50,0,0,0" ></Label>
     </DockPanel>
 </UserControl>
