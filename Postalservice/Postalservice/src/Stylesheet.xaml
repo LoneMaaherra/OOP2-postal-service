@@ -10,6 +10,7 @@
     <SolidColorBrush x:Key="SmallButtonDisabledColor">#9D4E5DB8</SolidColorBrush>
     <SolidColorBrush x:Key="ButtonTextColor">#E5E9FF</SolidColorBrush>
     <SolidColorBrush x:Key="HeaderFontColor">#1D2140</SolidColorBrush>
+    <SolidColorBrush x:Key="DefaultBackgroundColor">#929dd1</SolidColorBrush>
     
 
     <FontFamily x:Key="Poppins">pack://application:,,,/src/assets/Fonts/Poppins/#Poppins</FontFamily>
@@ -17,6 +18,15 @@
     <FontFamily x:Key="Overpass">pack://application:,,,/src/assets/Fonts/Overpass/#Overpass</FontFamily>
     <FontFamily x:Key="Atiba">pack://application:,,,/src/assets/Fonts/Atiba/#Atiba</FontFamily>
 
+    <Style TargetType="Page" x:Key="PageBackground">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="pack://application:,,,/src/assets/background.png" 
+                            Stretch="UniformToFill"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style TargetType="Button" x:Key="MenuButtonStyle">
         <Setter Property="Height" Value="155"/>
         <Setter Property="Width" Value="270"/>

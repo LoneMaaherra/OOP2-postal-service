@@ -62,6 +62,48 @@ namespace Postalservice.src.userControl
         public static readonly DependencyProperty ExitCommandProperty = DependencyProperty.Register(
             "ExitCommand", typeof(ICommand), typeof(Header), new PropertyMetadata());
 
+        /// <summary>
+        /// Visibility property of Header back button.
+        /// </summary>
+        public Visibility BackButtonVisibility
+        {
+            get { return (Visibility)this.GetValue(BackButtonVisibilityProperty); }
+            set { this.SetValue(BackButtonVisibilityProperty, value); }
+        }
+        /// <summary>
+        /// Dependency register for BackButtonVisibility property.
+        /// </summary>
+        public static readonly DependencyProperty BackButtonVisibilityProperty = DependencyProperty.Register(
+            "BackButtonVisibility", typeof(Visibility), typeof(Header), new PropertyMetadata());
+
+        /// <summary>
+        /// Visibility property of Header home button.
+        /// </summary>
+        public Visibility HomeButtonVisibility
+        {
+            get { return (Visibility)this.GetValue(HomeButtonVisibilityProperty); }
+            set { this.SetValue(HomeButtonVisibilityProperty, value); }
+        }
+        /// <summary>
+        /// Dependency register for BackButtonVisibility property.
+        /// </summary>
+        public static readonly DependencyProperty HomeButtonVisibilityProperty = DependencyProperty.Register(
+            "HomeButtonVisibility", typeof(Visibility), typeof(Header), new PropertyMetadata());
+
+        /// <summary>
+        /// Visibility property of Header exit button.
+        /// </summary>
+        public Visibility ExitButtonVisibility
+        {
+            get { return (Visibility)this.GetValue(ExitButtonVisibilityProperty); }
+            set { this.SetValue(ExitButtonVisibilityProperty, value); }
+        }
+        /// <summary>
+        /// Dependency register for BackButtonVisibility property.
+        /// </summary>
+        public static readonly DependencyProperty ExitButtonVisibilityProperty = DependencyProperty.Register(
+            "ExitButtonVisibility", typeof(Visibility), typeof(Header), new PropertyMetadata());
+
         public Header()
         {
             InitializeComponent();
