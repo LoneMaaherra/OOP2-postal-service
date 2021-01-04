@@ -29,7 +29,7 @@ namespace Postalservice
 
             content = Content;
 
-            OpenStartPage();
+            //OpenStartPage();
 
             //DBTest.Start();
         }

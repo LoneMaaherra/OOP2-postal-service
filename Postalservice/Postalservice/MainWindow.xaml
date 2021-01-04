@@ -7,8 +7,20 @@
         xmlns:UC="clr-namespace:Postalservice.src.userControl"
         mc:Ignorable="d"
         Title="MainWindow" Height="1080" Width="1920">
-   
+
+    <Window.Background>
+        <ImageBrush ImageSource="pack://application:,,,/src/assets/background.png" 
+                            Stretch="UniformToFill"/>
+    </Window.Background>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
         <UC:Header  >
 
@@ -27,8 +39,19 @@
         </Button>
         <Button Content="Create Account" IsEnabled="False" HorizontalAlignment="Left" Margin="705,687,0,0" VerticalAlignment="Top" Style="{StaticResource SmallButtonStyle}"/>
         <Button Content="Create Account" IsEnabled="True" HorizontalAlignment="Left" Margin="943,687,0,0" VerticalAlignment="Top" Style="{StaticResource SmallButtonStyle}"/>
-       
 
+        <UC:LogIn Grid.Column="1" 
+                  TopLabelContent="User id" 
+                  PasswordLabelContent="Password"
+                  BottomLabelContent="Zip Code"
+                  BottomInsertVisibility="Collapsed"
+                  ErrorMessageContent="Password or username ..."
+                  LeftButtonContent="New User"
+                  RightButtonContent="Log In"
+                  
+        >
+
+        </UC:LogIn>
 
     </Grid>
 </Window>
