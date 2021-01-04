@@ -10,13 +10,14 @@
     <DockPanel Background="{Binding RelativeSource={RelativeSource Self}, Path=Background}" 
 			   VerticalAlignment="Stretch" 
 			   HorizontalAlignment="Stretch" 
-			   Margin="20,10,20,10" >
+			   Margin="20,10,20,10"  >
 
         <Button Style="{StaticResource IconButtonStyle}" 
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Left" 
                 DockPanel.Dock="Left" 
-                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}, Path=BackCommand}">
+                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}, Path=BackCommand}"
+                Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}, Path=BackButtonVisibility}">
             <Image Source="pack://application:,,,/src/assets/arrow.png" 
                    VerticalAlignment="Top" 
                    HorizontalAlignment="Left" 
@@ -28,7 +29,8 @@
                 HorizontalAlignment="Left" 
                 DockPanel.Dock="Left" 
                 Margin="20,0,0,0" 
-                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}, Path=HomeCommand}">
+                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}, Path=HomeCommand}"
+                Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}, Path=HomeButtonVisibility}">
             <Image Source="pack://application:,,,/src/assets/home.png" 
                    VerticalAlignment="Center" 
                    HorizontalAlignment="Left" 
@@ -40,7 +42,8 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"
                 DockPanel.Dock="Right" 
-                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}, Path=ExitCommand}">
+                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}, Path=ExitCommand}"
+                Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Header}}, Path=ExitButtonVisibility}">
             <Image Source="pack://application:,,,/src/assets/exit.png"
                    VerticalAlignment="Top" 
                    HorizontalAlignment="Left" 
