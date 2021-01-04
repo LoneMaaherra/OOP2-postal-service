@@ -20,6 +20,48 @@ namespace Postalservice.src.userControl
     /// </summary>
     public partial class Header : UserControl
     {
+        /// <summary>
+        /// Command for Header back button.
+        /// </summary>
+        public ICommand BackCommand
+        {
+            get { return (ICommand)this.GetValue(BackCommandProperty); }
+            set { this.SetValue(BackCommandProperty, value); }
+        }
+        /// <summary>
+        /// Dependency register for BackCommand property.
+        /// </summary>
+        public static readonly DependencyProperty BackCommandProperty = DependencyProperty.Register(
+            "BackCommand", typeof(ICommand), typeof(Header), new PropertyMetadata());
+
+        /// <summary>
+        /// Command for Header home button.
+        /// </summary>
+        public ICommand HomeCommand
+        {
+            get { return (ICommand)this.GetValue(HomeCommandProperty); }
+            set { this.SetValue(HomeCommandProperty, value); }
+        }
+        /// <summary>
+        /// Dependency register for HomeCommand property.
+        /// </summary>
+        public static readonly DependencyProperty HomeCommandProperty = DependencyProperty.Register(
+            "HomeCommand", typeof(ICommand), typeof(Header), new PropertyMetadata());
+
+        /// <summary>
+        /// Command for Header home button.
+        /// </summary>
+        public ICommand ExitCommand
+        {
+            get { return (ICommand)this.GetValue(ExitCommandProperty); }
+            set { this.SetValue(ExitCommandProperty, value); }
+        }
+        /// <summary>
+        /// Dependency register for HomeCommand property.
+        /// </summary>
+        public static readonly DependencyProperty ExitCommandProperty = DependencyProperty.Register(
+            "ExitCommand", typeof(ICommand), typeof(Header), new PropertyMetadata());
+
         public Header()
         {
             InitializeComponent();
