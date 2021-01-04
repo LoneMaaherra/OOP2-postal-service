@@ -289,10 +289,6 @@ namespace Postalservice.src.userControl
 
         public LogIn()
         {
-            Color defaultColor = Color.FromRgb(0, 0, 0);
-            ErrorMessageForeground = new SolidColorBrush(defaultColor);
-            LabelForeground = new SolidColorBrush(defaultColor);
-            TextBoxForeground = new SolidColorBrush(defaultColor);
             InitializeComponent();
         }
 

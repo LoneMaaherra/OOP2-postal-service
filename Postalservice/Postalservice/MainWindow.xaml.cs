@@ -22,22 +22,35 @@ namespace Postalservice
     public partial class MainWindow : Window
     {
         private object content;
+        private Page startPage;
 
         public MainWindow()
         {
+            startPage = new StartPage(this);
             InitializeComponent();
 
             content = Content;
 
-            //OpenStartPage();
+            OpenStartPage();
 
             //DBTest.Start();
         }
 
         public void OpenStartPage()
         {
-            StartPage startpage = new StartPage(this);
-            this.Content = startpage;
+            //StartPage startpage = new StartPage(this);
+            this.Content = startPage;
+        }
+
+        public Page GetPage(string page)
+        {
+            switch (page)
+            {
+                case "start":
+                    return startPage;
+                default:
+                    return startPage;
+            }
         }
     }
 }

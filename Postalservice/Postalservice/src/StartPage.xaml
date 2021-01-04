@@ -24,7 +24,8 @@
                     Content="Admin"/>
             <Button Style="{StaticResource MenuButtonStyle}" 
                     Margin="80"
-                    Content="Customer"/>
+                    Content="Customer" 
+                    Click="BtnOpenCustomerPage"/>
         </StackPanel>
     </DockPanel>
 </Page>
