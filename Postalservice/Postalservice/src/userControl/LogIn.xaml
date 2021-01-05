@@ -52,10 +52,10 @@
                      Grid.Row="3" Grid.ColumnSpan="2"
                      Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=PasswordInsertVisibility}"/>
        
-        <Label Grid.Row="4" Grid.ColumnSpan="2"
-               Content="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=ErrorMessageContent}"
+        <TextBlock Grid.Row="4" Grid.ColumnSpan="2"
+               Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=ErrorMessageContent}"
                Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=ErrorMessageForeground}"
-               Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=ErrorMessageVisibility}"/>
+               Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=ErrorMessageVisibility}" TextWrapping="Wrap"/>
        
         <Button Style="{StaticResource SmallButtonStyle}"
                 Grid.Row="5" Grid.Column="0" 

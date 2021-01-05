@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Postalservice.src.customer;
 
 namespace Postalservice.src
 {
@@ -26,6 +27,17 @@ namespace Postalservice.src
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
+        }
+
+        private void BtnOpenCustomerPage(object sender, RoutedEventArgs e)
+        {
+            CustomerLoginPage loginpage = new CustomerLoginPage(mainWindow);
+            mainWindow.Content = loginpage;
+        }
+
+        public void GoToHomepage()
+        {
+            Content = this;
         }
     }
 }

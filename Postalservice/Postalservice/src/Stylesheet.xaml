@@ -34,6 +34,7 @@
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="TextBoxForeground" Value="{StaticResource TextBoxColor}"/>
         <Setter Property="LabelForeground" Value="Black"/>
+        <Setter Property="ErrorMessageForeground" Value="PaleVioletRed"/>
     </Style>
 
     <Style TargetType="TextBox">
@@ -176,8 +177,8 @@
                 Value="Stretch"/>
         <Setter Property="HorizontalAlignment"
                 Value="Stretch"/>
-        <Setter Property="Margin"
-                Value="100,250,100,100"/>
+        <!--<Setter Property="Margin"
+                Value="100,250,100,100"/>-->
         <Setter Property="RadiusX"
                 Value="50"/>
         <Setter Property="RadiusY"
