@@ -75,6 +75,8 @@
     <Compile Include="src\admin\AdminLoginPage.xaml.cs">
       <DependentUpon>AdminLoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\api\Customer.cs" />
+    <Compile Include="src\api\DBConnectionManger.cs" />
     <Compile Include="src\CustomCommands.cs" />
     <Compile Include="src\customer\CustomerLoginPage.xaml.cs">
       <DependentUpon>CustomerLoginPage.xaml</DependentUpon>
