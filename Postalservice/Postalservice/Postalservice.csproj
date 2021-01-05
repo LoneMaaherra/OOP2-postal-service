@@ -72,10 +72,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\CustomCommands.cs" />
     <Compile Include="src\customer\CustomerLoginPage.xaml.cs">
       <DependentUpon>CustomerLoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="src\RelayCommand.cs" />
     <Compile Include="src\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>

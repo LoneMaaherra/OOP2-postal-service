@@ -5,14 +5,23 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Postalservice.src.customer"
       xmlns:uc="clr-namespace:Postalservice.src.userControl"
+      xmlns:cc="clr-namespace:Postalservice.src"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="CustomerLoginPage"
       Style="{StaticResource PageBackground}">
-
+    
     <DockPanel>
+        <DockPanel.CommandBindings>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Return}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToLastPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Home}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToLastPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.NewUser}" CanExecute="ReturnTrue_CanExecute" Executed="BtnCreateNewUser_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.LogIn}" CanExecute="LogInCommand_CanExecute" Executed="LogInCommand_Execute"/>
+        </DockPanel.CommandBindings>
         <uc:Header DockPanel.Dock="Top"
-                   ExitButtonVisibility="Hidden"/>
+                   ExitButtonVisibility="Hidden"
+                   BackCommand="{x:Static cc:CustomCommands.Return}"
+                   HomeCommand="{x:Static cc:CustomCommands.Home}"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -25,21 +34,21 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Rectangle Style="{StaticResource PanelBackground}" Grid.Row="1" Grid.Column="1" />
-            <uc:LogIn  Grid.Row="1" Grid.Column="1" Height="400" Width="500"
+            <uc:LogIn x:Name="LogInControl" Grid.Row="1" Grid.Column="1" Height="400" Width="500"
                   TopLabelContent="Social number"
                   PasswordLabelContent="Password"
                   BottomInsertVisibility="Collapsed"
                   LeftButtonContent="New User"
                   RightButtonContent="Log In"
                   ErrorMessageContent="*Wrong social number or password."
-                  LeftButtonCommand="{Binding NewUserBtnClicked}">
+                  LeftButtonCommand="{x:Static cc:CustomCommands.NewUser}"
+                  RightButtonCommand="{x:Static cc:CustomCommands.LogIn}">
                 <uc:LogIn.Resources>
                     <Style TargetType="TextBlock">
                         <Setter Property="FontSize" Value="25"/>
                     </Style>
                 </uc:LogIn.Resources>
             </uc:LogIn>
-            <Button Click="ReturnToLastPage"/>
         </Grid>
         <!--"{Binding RelativeSource = { RelativeSource FindAncestor, AncestorType = { x:Type local:CustomerLoginPage }},-->
                       <!--Path = SearchRssItemsCommand}"-->

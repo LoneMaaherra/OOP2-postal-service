@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Postalservice.src;
 
 namespace Postalservice.src.customer
 {
@@ -21,31 +23,43 @@ namespace Postalservice.src.customer
     public partial class CustomerLoginPage : Page
     {
         private MainWindow mainWindow;
-        public ICommand NewUserBtnClicked { get; set; }
 
         public CustomerLoginPage(MainWindow mainWindow)
         {
-            NewUserBtnClicked = new RelayCommand(BtnCreateNewUser, ReturnTrue);
             this.mainWindow = mainWindow;
             InitializeComponent();
         }
 
-        private void BtnCreateNewUser(object value)
+        private void LogInCommand_CanExecute(object value, CanExecuteRoutedEventArgs e)
         {
-            Console.WriteLine("HALLLÅ!! <-----------------");
-            ReturnToLastPage(null, null);
+            if (LogInControl.TopTextBoxContent != null)
+            {
+                SecureString pword = LogInControl.GetPassword();
+                //string spword = CustomCommands.SecureStringToString(pword);
+                if (pword.Length > 5) 
+                    e.CanExecute = true;
+            }
         }
 
-        private bool ReturnTrue(object value)
+        private void LogInCommand_Execute(object value, ExecutedRoutedEventArgs e)
         {
-            return true;
+            mainWindow.Content = mainWindow.GetPage("userPage");
+            // @TODO: handle user specific data?
         }
 
-        private void ReturnToLastPage(object sender, RoutedEventArgs e)
+        private void BtnCreateNewUser_Execute(object value, ExecutedRoutedEventArgs e)
         {
-            
+            mainWindow.Content = mainWindow.GetPage("createUser");
+        }
+
+        private void ReturnTrue_CanExecute(object value, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void ReturnToLastPage_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
             mainWindow.Content = mainWindow.GetPage("start");
-
         }
 
     }
