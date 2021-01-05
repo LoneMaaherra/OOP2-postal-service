@@ -27,12 +27,15 @@ namespace Postalservice
         private Page startPage;
         private Page adminLogin;
         private Page customerLogin;
+        private Page createUser;
 
         public MainWindow()
         {
             startPage = new StartPage(this);
             adminLogin = new AdminLoginPage(this);
             customerLogin = new CustomerLoginPage(this);
+            createUser = new NewUserPage(this);
+
             InitializeComponent();
 
             content = Content;
@@ -63,7 +66,7 @@ namespace Postalservice
                 case "userPage":
                     return startPage;
                 case "createUser":
-                    return startPage;
+                    return createUser;
                 default:
                     return startPage;
             }

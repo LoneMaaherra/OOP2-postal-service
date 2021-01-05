@@ -12,6 +12,7 @@
     <SolidColorBrush x:Key="HeaderFontColor">#1D2140</SolidColorBrush>
     <SolidColorBrush x:Key="DefaultBackgroundColor">#929dd1</SolidColorBrush>
     <SolidColorBrush x:Key="TextBoxColor">#565b73</SolidColorBrush>
+    <SolidColorBrush x:Key="ErrorColor">#C23A5F</SolidColorBrush>
     
 
     <FontFamily x:Key="Poppins">pack://application:,,,/src/assets/Fonts/Poppins/#Poppins</FontFamily>
@@ -32,7 +33,6 @@
         <Setter Property="FontFamily" Value="{StaticResource Comfortaa}"/>
         <Setter Property="FontSize" Value="30"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="TextBoxForeground" Value="{StaticResource TextBoxColor}"/>
         <Setter Property="LabelForeground" Value="Black"/>
         <Setter Property="ErrorMessageForeground" Value="PaleVioletRed"/>
     </Style>
@@ -40,6 +40,10 @@
     <Style TargetType="TextBox">
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBoxColor}"/>
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="{StaticResource Comfortaa}"/>
     </Style>
     
     <Style TargetType="Button" x:Key="MenuButtonStyle">
@@ -205,5 +209,19 @@
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
+
+    <Style TargetType="Grid" x:Key="FillOutFormStyle">
+        <Style.Resources>
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="25"/>
+                <Setter Property="FontFamily" Value="{StaticResource Comfortaa}"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontSize" Value="25"/>
+                <Setter Property="Foreground" Value="{StaticResource ErrorColor}"/>
+            </Style>
+        </Style.Resources>
+    </Style>
 
 </ResourceDictionary>
