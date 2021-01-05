@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Postalservice.src;
+using Postalservice.src.admin;
+using Postalservice.src.customer;
 
 namespace Postalservice
 {
@@ -23,10 +25,14 @@ namespace Postalservice
     {
         private object content;
         private Page startPage;
+        private Page adminLogin;
+        private Page customerLogin;
 
         public MainWindow()
         {
             startPage = new StartPage(this);
+            adminLogin = new AdminLoginPage(this);
+            customerLogin = new CustomerLoginPage(this);
             InitializeComponent();
 
             content = Content;
@@ -47,6 +53,16 @@ namespace Postalservice
             switch (page)
             {
                 case "start":
+                    return startPage;
+                case "adminLogin":
+                    return adminLogin;
+                case "customerLogin":
+                    return customerLogin;
+                case "adminPage":
+                    return startPage;
+                case "userPage":
+                    return startPage;
+                case "createUser":
                     return startPage;
                 default:
                     return startPage;

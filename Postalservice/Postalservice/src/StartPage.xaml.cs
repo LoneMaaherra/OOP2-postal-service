@@ -31,13 +31,17 @@ namespace Postalservice.src
 
         private void BtnOpenCustomerPage(object sender, RoutedEventArgs e)
         {
-            CustomerLoginPage loginpage = new CustomerLoginPage(mainWindow);
-            mainWindow.Content = loginpage;
+            mainWindow.Content = mainWindow.GetPage("customerLogin");
         }
 
         public void GoToHomepage()
         {
             Content = this;
+        }
+
+        private void BtnOpenAdminLoginPage(object sender, RoutedEventArgs e)
+        {
+            mainWindow.Content = mainWindow.GetPage("adminLogin");
         }
     }
 }
