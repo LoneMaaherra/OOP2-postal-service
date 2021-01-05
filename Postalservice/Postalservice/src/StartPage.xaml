@@ -21,7 +21,7 @@
                     HorizontalAlignment="Center">
             <Button Style="{StaticResource MenuButtonStyle}" 
                     Margin="80"
-                    Content="Admin"/>
+                    Content="Admin" Click="BtnOpenAdminLoginPage"/>
             <Button Style="{StaticResource MenuButtonStyle}" 
                     Margin="80"
                     Content="Customer" 
