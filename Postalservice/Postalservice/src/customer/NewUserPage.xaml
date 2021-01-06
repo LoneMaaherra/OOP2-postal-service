@@ -67,10 +67,10 @@
                 <Label Content="Password" Grid.Row="6" Grid.Column="1" VerticalContentAlignment="Bottom"/>
                 <PasswordBox x:Name="PasswordBoxPassword" Grid.Row="7" Grid.Column="1" VerticalContentAlignment="Center"/>
 
-                <TextBlock x:Name="TextBlockErrorMessage" Text="Somthing wrong bla bla bla" Grid.Row="8" Grid.Column="1"  VerticalAlignment="Bottom" Grid.ColumnSpan="3" HorizontalAlignment="Center" TextWrapping="Wrap" />
+                <TextBlock x:Name="TextBlockErrorMessage" Text="Somthing wrong bla bla bla" Grid.Row="8" Grid.Column="1"  VerticalAlignment="Top" Grid.ColumnSpan="3" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="381,29,381,0" />
 
                 <Button Style="{StaticResource SmallButtonStyle}" Command="{x:Static cc:CustomCommands.Cancel}" Grid.Row="10" Grid.Column="1" Content="Cancel"/>
-                
+
                 <!--Right side-->
                 <Label Content="Street" Grid.Row="0" Grid.Column="3" VerticalContentAlignment="Bottom"/>
                 <TextBox x:Name="TextBoxStreet" Grid.Row="1" Grid.Column="3" VerticalContentAlignment="Center"/>
@@ -84,10 +84,10 @@
                 <Label Content="Country" Grid.Row="6" Grid.Column="3" VerticalContentAlignment="Bottom"/>
                 <TextBox x:Name="TextBoxCountry" Grid.Row="7" Grid.Column="3" VerticalContentAlignment="Center"/>
 
-                <Button Style="{StaticResource SmallButtonStyle}"  Grid.Row="10" Grid.Column="3" Content="Create Account"/>                
-                
+                <Button Style="{StaticResource SmallButtonStyle}"  Grid.Row="10" Grid.Column="3" Content="Create Account"/>
+
             </Grid>
         </Grid>
     </DockPanel>
-      
+
 </Page>
