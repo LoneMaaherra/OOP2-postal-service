@@ -10,7 +10,7 @@
         <ItemsControl ItemsSource="{Binding
                                         RelativeSource={RelativeSource FindAncestor,
                                         AncestorType={x:Type Page}},
-                                        Path=User.Parcels}">
+                                        Path=Parcels}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
