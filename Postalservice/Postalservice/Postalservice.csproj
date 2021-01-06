@@ -75,6 +75,9 @@
     <Compile Include="src\admin\AdminLoginPage.xaml.cs">
       <DependentUpon>AdminLoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\admin\OfficeAddParcelPage.xaml.cs">
+      <DependentUpon>OfficeAddParcelPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\CustomCommands.cs" />
     <Compile Include="src\customer\CustomerLoginPage.xaml.cs">
       <DependentUpon>CustomerLoginPage.xaml</DependentUpon>
@@ -105,6 +108,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="src\admin\AdminLoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\admin\OfficeAddParcelPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
