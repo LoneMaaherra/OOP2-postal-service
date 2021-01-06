@@ -28,6 +28,7 @@ namespace Postalservice
         private Page adminLogin;
         private Page customerLogin;
         private Page createUser;
+        private Page userRecievingParcel;
 
         public MainWindow()
         {
@@ -35,6 +36,7 @@ namespace Postalservice
             adminLogin = new AdminLoginPage(this);
             customerLogin = new CustomerLoginPage(this);
             createUser = new NewUserPage(this);
+            userRecievingParcel = new UserRecievingParcelPage(this);
 
             InitializeComponent();
 
@@ -67,6 +69,8 @@ namespace Postalservice
                     return startPage;
                 case "createUser":
                     return createUser;
+                case "userRecievingParcel":
+                    return userRecievingParcel;
                 default:
                     return startPage;
             }
