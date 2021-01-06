@@ -20,6 +20,20 @@ namespace Postalservice.src.userControl
     /// </summary>
     public partial class ParcelList : UserControl
     {
+        /// <summary>
+        /// Delegate handler for ParcelList item selected.
+        /// </summary>
+        public Delegate ItemClickedCommand
+        {
+            get { return (Delegate)this.GetValue(ItemClickedCommandProperty); }
+            set { this.SetValue(ItemClickedCommandProperty, value); }
+        }
+        /// <summary>
+        /// Dependency register for the ItemClickedCommand property.
+        /// </summary>
+        public static readonly DependencyProperty ItemClickedCommandProperty = DependencyProperty.Register(
+            "ItemClickedCommand", typeof(Delegate), typeof(LogIn), new PropertyMetadata());
+
         public ParcelList()
         {
             InitializeComponent();
