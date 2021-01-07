@@ -32,7 +32,7 @@ namespace Postalservice.src.userControl
         /// Dependency register for the ItemClickedCommand property.
         /// </summary>
         public static readonly DependencyProperty ItemClickedCommandProperty = DependencyProperty.Register(
-            "ItemClickedCommand", typeof(Delegate), typeof(LogIn), new PropertyMetadata());
+            "ItemClickedCommand", typeof(Delegate), typeof(ParcelList), new PropertyMetadata());
 
         public ParcelList()
         {

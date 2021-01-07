@@ -8,24 +8,24 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto" 
              ScrollViewer.HorizontalScrollBarVisibility="Auto"
-             ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
+        ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
                                    AncestorType={x:Type Page}},
                                    Path=Parcels}">
         <ListBox.ItemContainerStyle>
             <Style TargetType="ListBoxItem"
                    BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                <EventSetter Event="Selected" 
-                             Handler="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelList}}, Path=ItemClickedCommand}" />
+                <!--<EventSetter Event="Selected" 
+                             Handler="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelList}}, Path=ItemClickedCommand}" />-->
             </Style>
         </ListBox.ItemContainerStyle>
 
         <ListBox.ItemTemplate>
             <DataTemplate>
                 <StackPanel Orientation="Vertical">
-                    <Label Content="{Binding ShippmentId}"/>
-                    <TextBlock>To: <Run Text="{Binding To}"></Run></TextBlock>
-                    <TextBlock>From: <Run Text="{Binding From}"/></TextBlock>
-                    <TextBlock>Date sent: <Run Text="{Binding DateSent}"/></TextBlock>
+                    <Label Content="{Binding ShipmentId}"/>
+                    <TextBlock>To: <Run Text="{Binding ToPO.Name}"></Run></TextBlock>
+                    <TextBlock>From: <Run Text="{Binding FromPO.Name}"/></TextBlock>
+                    <TextBlock>Date sent: <Run Text="{Binding Departure}"/></TextBlock>
                 </StackPanel>
             </DataTemplate>
         </ListBox.ItemTemplate>

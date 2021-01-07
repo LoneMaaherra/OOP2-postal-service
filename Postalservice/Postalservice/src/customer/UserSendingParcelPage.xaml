@@ -46,7 +46,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
-                    <uc:ParcelList Grid.Column="0"></uc:ParcelList>
+                    <uc:ParcelList Grid.Column="0" ItemClickedCommand="{Binding ParcelClicked_eventHandler}"></uc:ParcelList>
                     <uc:ParcelInfo Grid.Column="2"></uc:ParcelInfo>
                 </Grid>
                 
