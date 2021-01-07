@@ -8,37 +8,51 @@ namespace Postalservice.src.api
 {
     class Customer
     {
-        private int Id;
+        private string Id;
         private string Name;
         private string Street;
-        private int ZipCode;
+        private string ZipCode;
         private string City;
         private string Country;
+        private string MobileNumber;
+        
 
-        public Customer(int id)
+        public Customer(string id)
         {
-            //something
+            Dictionary<string, string> values = DBConnectionManger.GetCustomer(id);
+
+            Id = values["Id"];
+            Name = values["Name"];
+            Street = values["Street"];
+            ZipCode = values["ZipCode"];
+            City = values["City"];
+            Country = values["Country"];
+            MobileNumber = values["MobileNumber"];
         }
 
         public Customer(Dictionary<string, string> values)
         {
-            Id = Int32.Parse(values["Id"]);
+            Id = values["Id"];
             Name = values["Name"];
             Street = values["Street"];
-            ZipCode = Int32.Parse(values["ZipCode"]);
+            ZipCode = values["ZipCode"];
             City = values["City"];
             Country = values["Country"];
+            MobileNumber = values["MobileNumber"];
             AddCustomerToDatabase();
         }
 
-        public static bool CustomerExist(int id)
+        public static bool CustomerExist(string id)
         {
-            return false;
+            return DBConnectionManger.GetCustomerAddressID(id) != -1;
         }
 
         private void AddCustomerToDatabase()
         {
-           DBConnectionManger.InsertToAddress(Name, Street, ZipCode, City, Country);
+            DBConnectionManger.InsertToAddress(Name, Street, ZipCode, City, Country);
+            int AddressID = DBConnectionManger.FindAddressID(Name, Street, ZipCode, City, Country);
+            if(AddressID == -1) { throw new Exception(); }
+            DBConnectionManger.InsertToCustomer(Id, AddressID, MobileNumber);
         }
 
         public void GetParcelFrom()

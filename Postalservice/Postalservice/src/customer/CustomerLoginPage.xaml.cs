@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Postalservice.src;
+using Postalservice.src.api;
 
 namespace Postalservice.src.customer
 {
@@ -43,6 +44,9 @@ namespace Postalservice.src.customer
 
         private void LogInCommand_Execute(object value, ExecutedRoutedEventArgs e)
         {
+            string UserId = LogInControl.TopTextBoxContent;
+            if (!Customer.CustomerExist(UserId)) { LogInControl.ErrorMessageVisibility = Visibility.Visible; return; }
+            DBConnectionManger.GetCustomer(LogInControl.TopTextBoxContent);
             mainWindow.Content = mainWindow.GetPage("userPage");
             // @TODO: handle user specific data?
         }

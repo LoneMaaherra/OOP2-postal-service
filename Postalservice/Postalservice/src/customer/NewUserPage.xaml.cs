@@ -50,20 +50,8 @@ namespace Postalservice.src.customer
                 }
             }
 
-            int id = 0;
 
-            try
-            {
-                id = Int32.Parse(CustomerDict["Id"]);
-            }
-            catch(Exception exp)
-            {
-                TextBlockErrorMessage.Visibility = Visibility.Visible;
-                TextBlockErrorMessage.Text = exp.ToString();
-                return;
-
-            }
-            if (Customer.CustomerExist(id))
+            if (Customer.CustomerExist(CustomerDict["Id"]))
             {
                 TextBlockErrorMessage.Visibility = Visibility.Visible;
                 return;
