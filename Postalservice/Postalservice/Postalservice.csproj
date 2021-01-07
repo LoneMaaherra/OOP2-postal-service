@@ -83,11 +83,14 @@
     </Compile>
     <Compile Include="src\customer\NewUserPage.xaml.cs">
       <DependentUpon>NewUserPage.xaml</DependentUpon>
-    </Compile>
+    </Compile>  
     <Compile Include="src\customer\UserHomePage.xaml.cs">
       <DependentUpon>UserHomePage.xaml</DependentUpon>
     <Compile Include="src\customer\UserSendingParcelPage.xaml.cs">
       <DependentUpon>UserSendingParcelPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\customer\UserRecievingParcelPage.xaml.cs">
+      <DependentUpon>UserRecievingParcelPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
@@ -131,12 +134,16 @@
     <Page Include="src\customer\NewUserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </Page>   
     <Page Include="src\customer\UserHomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="src\customer\UserSendingParcelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\customer\UserRecievingParcelPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
