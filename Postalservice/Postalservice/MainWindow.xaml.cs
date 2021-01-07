@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +29,8 @@ namespace Postalservice
         private Page customerLogin;
         private Page createUser;
         private Page userHomePage;
+        private Page userSendingParcel;
+
 
         public MainWindow()
         {
@@ -37,6 +39,8 @@ namespace Postalservice
             customerLogin = new CustomerLoginPage(this);
             createUser = new NewUserPage(this);
             userHomePage = new UserHomePage(this);
+            userSendingParcel = new UserSendingParcelPage(this);
+
 
             InitializeComponent();
 
@@ -71,6 +75,8 @@ namespace Postalservice
                     return createUser;
                 case "userHomePage":
                     return userHomePage;
+                case "userSendingParcel":
+                    return userSendingParcel;
                 default:
                     return startPage;
             }
