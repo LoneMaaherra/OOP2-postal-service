@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Postalservice.src.api;
 
 namespace Postalservice.src.customer
 {
@@ -29,6 +30,35 @@ namespace Postalservice.src.customer
 
         private void Ok_Execute(object sender, ExecutedRoutedEventArgs e)
         {
+            Dictionary<string, string> CustomerDict = new Dictionary<string, string>()
+            {
+                {"Id",TextBoxSsn.Text },
+                {"Name",TextBoxName.Text },
+                {"MobileNumber",TextBoxMobileNumber.Text },
+                {"Street", TextBoxStreet.Text },
+                {"ZipCode", TextBoxZipCode.Text },
+                {"City", TextBoxCity.Text },
+                {"Country", TextBoxCountry.Text }
+            };
+
+            foreach(string entry in CustomerDict.Values)
+            {
+                if (string.IsNullOrEmpty(entry))
+                {
+                    TextBlockErrorMessage.Visibility = Visibility.Visible;
+                    return;
+                }
+            }
+
+
+            if (Customer.CustomerExist(CustomerDict["Id"]))
+            {
+                TextBlockErrorMessage.Visibility = Visibility.Visible;
+                return;
+            }
+
+            Customer newCustomer = new Customer(CustomerDict);
+
             mainWindow.Content = mainWindow.GetPage("customerLogin");
         }
 
@@ -58,6 +88,7 @@ namespace Postalservice.src.customer
         private void ReturnToLastPage_Execute(object sender, ExecutedRoutedEventArgs e)
         {
             mainWindow.Content = mainWindow.GetPage("customerLogin");
+            Console.WriteLine(DBConnectionManger.CONNECTION_STRING);
         }
 
         private void ReturnToHomePage_Execute(object sender, ExecutedRoutedEventArgs e)

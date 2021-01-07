@@ -59,7 +59,7 @@
                 <TextBox x:Name="TextBoxName" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center"/>
 
                 <Label Content="Social Security Number" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Bottom"/>
-                <TextBox x:Name="TextBoxSsn" Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="TextBoxSsn" Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" />
 
                 <Label Content="Mobile Number" Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Bottom"/>
                 <TextBox x:Name="TextBoxMobileNumber" Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center"/>
@@ -67,7 +67,7 @@
                 <Label Content="Password" Grid.Row="6" Grid.Column="1" VerticalContentAlignment="Bottom"/>
                 <PasswordBox x:Name="PasswordBoxPassword" Grid.Row="7" Grid.Column="1" VerticalContentAlignment="Center"/>
 
-                <TextBlock x:Name="TextBlockErrorMessage" Text="Somthing wrong bla bla bla" Grid.Row="8" Grid.Column="1"  VerticalAlignment="Bottom" Grid.ColumnSpan="3" HorizontalAlignment="Center" TextWrapping="Wrap" />
+                <TextBlock x:Name="TextBlockErrorMessage" Text="Somthing wrong bla bla bla" Grid.Row="8" Grid.Column="1"  VerticalAlignment="Bottom" Grid.ColumnSpan="3" HorizontalAlignment="Center" TextWrapping="Wrap" Visibility="Hidden" />
 
                 <Button Style="{StaticResource SmallButtonStyle}" Command="{x:Static cc:CustomCommands.Cancel}" Grid.Row="10" Grid.Column="1" Content="Cancel"/>
                 
@@ -84,7 +84,7 @@
                 <Label Content="Country" Grid.Row="6" Grid.Column="3" VerticalContentAlignment="Bottom"/>
                 <TextBox x:Name="TextBoxCountry" Grid.Row="7" Grid.Column="3" VerticalContentAlignment="Center"/>
 
-                <Button Style="{StaticResource SmallButtonStyle}"  Grid.Row="10" Grid.Column="3" Content="Create Account"/>                
+                <Button Style="{StaticResource SmallButtonStyle}" Command="{x:Static cc:CustomCommands.Ok}" Grid.Row="10" Grid.Column="3" Content="Create Account"/>                
                 
             </Grid>
         </Grid>
