@@ -91,6 +91,8 @@
     <Compile Include="src\userControl\LogIn.xaml.cs">
       <DependentUpon>LogIn.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\userControl\ParcelInfo.xaml.cs">
+      <DependentUpon>ParcelInfo.xaml</DependentUpon>
     <Compile Include="src\userControl\ParcelList.xaml.cs">
       <DependentUpon>ParcelList.xaml</DependentUpon>
     </Compile>
@@ -135,6 +137,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="src\userControl\ParcelInfo.xaml">
     <Page Include="src\userControl\ParcelList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
