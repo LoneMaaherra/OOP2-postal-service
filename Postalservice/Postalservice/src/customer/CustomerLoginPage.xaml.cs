@@ -46,8 +46,9 @@ namespace Postalservice.src.customer
         {
             string UserId = LogInControl.TopTextBoxContent;
             if (!Customer.CustomerExist(UserId)) { LogInControl.ErrorMessageVisibility = Visibility.Visible; return; }
-            DBConnectionManger.GetCustomer(LogInControl.TopTextBoxContent);
-            mainWindow.Content = mainWindow.GetPage("userPage");
+
+            mainWindow.currentCustomer = new Customer(UserId);
+            mainWindow.Content = mainWindow.GetPage("userHomePage");
             // @TODO: handle user specific data?
         }
 

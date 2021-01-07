@@ -6,17 +6,27 @@
       xmlns:local="clr-namespace:Postalservice.src.customer"
       xmlns:uc="clr-namespace:Postalservice.src.userControl"
       xmlns:cc="clr-namespace:Postalservice.src"
+      xmlns:root="clr-namespace:Postalservice"
+      
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="UserHomePage"
       Style="{StaticResource PageBackground}">
 
     <DockPanel>
+        <DockPanel.CommandBindings>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Exit}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToStartPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.From}" CanExecute="ReturnTrue_CanExecute" Executed="GoToParcelSendingPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.To}" CanExecute="ReturnTrue_CanExecute" Executed="GoToParcelRecievingPage_Execute"/>
+            
+        </DockPanel.CommandBindings>
         <uc:Header
             DockPanel.Dock="Top"
-            ExitButtonVisibility="Hidden"
-            BackCommand="{x:Static cc:CustomCommands.Return}"
-            HomeCommand="{x:Static cc:CustomCommands.Home}"/>
+            HomeButtonVisibility="Hidden"
+            BackButtonVisibility="Hidden"
+            ExitCommand="{x:Static cc:CustomCommands.Exit}"
+            
+            />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -43,20 +53,22 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="WelcomeUserMessage" Text="Welcome User Name!"
+                <TextBlock x:Name="WelcomeUserMessage"
                            Grid.Row="1"
                            Grid.Column="1" Grid.ColumnSpan="3" 
                            VerticalAlignment="Center" HorizontalAlignment="Center" 
                            TextWrapping="Wrap" 
                            FontSize="45" FontFamily="{StaticResource Comfortaa}" 
                            FontWeight="SemiBold" 
-                           Foreground="{StaticResource PageMessageColor}"></TextBlock>
+                           Foreground="{StaticResource PageMessageColor}">Welcome <Run Text="{Binding currentCustomer.Name }"/>!</TextBlock>
                 <Button Style="{StaticResource MenuButtonStyle}" 
                         Grid.Row="2" Grid.Column="1" 
-                        Content="From Me"></Button>
+                        Content="From Me"
+                        Command="{x:Static cc:CustomCommands.From}"/>
                 <Button Style="{StaticResource MenuButtonStyle}" 
                         Grid.Row="2" Grid.Column="3" 
-                        Content="For Me"></Button>
+                        Content="For Me"
+                        Command="{x:Static cc:CustomCommands.To}"></Button>
             </Grid>
         </Grid>
     </DockPanel>

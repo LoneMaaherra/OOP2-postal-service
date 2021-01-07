@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Postalservice.src;
 using Postalservice.src.admin;
 using Postalservice.src.customer;
+using Postalservice.src.api;
 
 namespace Postalservice
 {
@@ -33,8 +34,20 @@ namespace Postalservice
         private Page userRecievingParcel;
         
 
+        public Customer currentCustomer
+        {
+            get { return (Customer)this.GetValue(currentCustomerProperty); }
+            set { this.SetValue(currentCustomerProperty, value); }
+        }
+        /// <summary>
+        /// Dependency register for the currentCustomer property.
+        /// </summary>
+        public static readonly DependencyProperty currentCustomerProperty = DependencyProperty.Register(
+            "currentCustomer", typeof(Customer), typeof(Window), new PropertyMetadata());
+
         public MainWindow()
         {
+            currentCustomer = new Customer("891031");
             startPage = new StartPage(this);
             adminLogin = new AdminLoginPage(this);
             customerLogin = new CustomerLoginPage(this);
@@ -69,8 +82,6 @@ namespace Postalservice
                 case "customerLogin":
                     return customerLogin;
                 case "adminPage":
-                    return startPage;
-                case "userPage":
                     return startPage;
                 case "createUser":
                     return createUser;

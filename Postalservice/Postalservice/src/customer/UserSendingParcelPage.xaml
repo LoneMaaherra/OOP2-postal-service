@@ -40,6 +40,16 @@
                     <RowDefinition Height="5*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <uc:ParcelList Grid.Column="0"></uc:ParcelList>
+                    <uc:ParcelInfo Grid.Column="2"></uc:ParcelInfo>
+                </Grid>
+                
             </Grid>
         </Grid>
     </DockPanel>

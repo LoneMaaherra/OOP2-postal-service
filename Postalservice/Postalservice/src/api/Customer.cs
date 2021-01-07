@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Postalservice.src.api
 {
-    class Customer
+    public class Customer
     {
         private string Id;
-        private string Name;
-        private string Street;
-        private string ZipCode;
-        private string City;
-        private string Country;
-        private string MobileNumber;
-        
+        public string Name { get; set; }
+        public string Street { get; set; }
+        public string ZipCode { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string MobileNumber { get; set; }
+
 
         public Customer(string id)
         {

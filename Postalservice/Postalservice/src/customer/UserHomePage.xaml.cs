@@ -21,10 +21,32 @@ namespace Postalservice.src.customer
     public partial class UserHomePage : Page
     {
         private MainWindow mainWindow;
+
+
         public UserHomePage(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
+            this.DataContext = mainWindow;
             InitializeComponent();
+        }
+        private void ReturnTrue_CanExecute(object value, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void ReturnToStartPage_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            mainWindow.currentCustomer = null;
+            mainWindow.Content = mainWindow.GetPage("start");
+        }
+
+        private void GoToParcelSendingPage_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            mainWindow.Content = mainWindow.GetPage("userSendingParcel");
+        }
+        private void GoToParcelRecievingPage_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            mainWindow.Content = mainWindow.GetPage("userRecievingParcel");
         }
     }
 }

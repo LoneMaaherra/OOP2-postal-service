@@ -115,7 +115,7 @@ namespace Postalservice.src.api
                 conn.ConnectionString = CONNECTION_STRING;
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT Address FROM Customer WHERE Id=@0", conn);
+                SqlCommand command = new SqlCommand("SELECT Address FROM Customer WHERE CustomerId=@0", conn);
                 command.Parameters.Add(new SqlParameter("0", customerId));
 
                 using (SqlDataReader reader = command.ExecuteReader())

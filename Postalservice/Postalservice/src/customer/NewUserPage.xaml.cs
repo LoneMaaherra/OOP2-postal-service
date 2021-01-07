@@ -88,7 +88,6 @@ namespace Postalservice.src.customer
         private void ReturnToLastPage_Execute(object sender, ExecutedRoutedEventArgs e)
         {
             mainWindow.Content = mainWindow.GetPage("customerLogin");
-            Console.WriteLine(DBConnectionManger.CONNECTION_STRING);
         }
 
         private void ReturnToHomePage_Execute(object sender, ExecutedRoutedEventArgs e)

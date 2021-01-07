@@ -21,6 +21,17 @@ namespace Postalservice.src.customer
     public partial class UserSendingParcelPage : Page
     {
         private MainWindow mainWindow;
+
+        public List Parcels
+        {
+            get { return (List)this.GetValue(ParcelsProperty); }
+            set { this.SetValue(ParcelsProperty, value); }
+        }
+        /// <summary>
+        /// Dependency register for the Parcels property.
+        /// </summary>
+        public static readonly DependencyProperty ParcelsProperty = DependencyProperty.Register(
+            "Parcels", typeof(List), typeof(UserSendingParcelPage), new PropertyMetadata());
         public UserSendingParcelPage(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
