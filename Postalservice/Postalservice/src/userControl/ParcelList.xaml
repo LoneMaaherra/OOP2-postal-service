@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="Postalservice.src.userControl.ParcelList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Postalservice.src.userControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto" 
+             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+             ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
+                                   AncestorType={x:Type Page}},
+                                   Path=Parcels}">
+        <ListBox.ItemContainerStyle>
+            <Style TargetType="ListBoxItem"
+                   BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                <EventSetter Event="Selected" 
+                             Handler="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelList}}, Path=ItemClickedCommand}" />
+            </Style>
+        </ListBox.ItemContainerStyle>
+
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Vertical">
+                    <Label Content="{Binding ShippmentId}"/>
+                    <TextBlock>To: <Run Text="{Binding To}"></Run></TextBlock>
+                    <TextBlock>From: <Run Text="{Binding From}"/></TextBlock>
+                    <TextBlock>Date sent: <Run Text="{Binding DateSent}"/></TextBlock>
+                </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+</UserControl>
