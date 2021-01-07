@@ -93,8 +93,12 @@
     </Compile>
     <Compile Include="src\userControl\ParcelInfo.xaml.cs">
       <DependentUpon>ParcelInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\userControl\ParcelList.xaml.cs">
       <DependentUpon>ParcelList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\userControl\FilterBar.xaml.cs">
+      <DependentUpon>FilterBar.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -138,7 +142,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="src\userControl\ParcelInfo.xaml">
+        <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="src\userControl\ParcelList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\userControl\FilterBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
