@@ -26,7 +26,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="5*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/> 
             </Grid.RowDefinitions>
             <Rectangle Style="{StaticResource PanelBackground}" Grid.Row="1" Grid.Column="1" />
             <Grid Grid.Row="1" Grid.Column="1">
@@ -46,8 +46,8 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
-                    <uc:ParcelList Grid.Column="0" ItemClickedCommand="{Binding ParcelClicked_eventHandler}"></uc:ParcelList>
-                    <uc:ParcelInfo Grid.Column="2"></uc:ParcelInfo>
+                    <uc:ParcelList Grid.Column="0" PropertyChanged="ParcelList_PropertyChanged"/>
+                    <uc:ParcelInfo Grid.Column="2" x:Name="MyParcelInfo"/>
                 </Grid>
                 
             </Grid>

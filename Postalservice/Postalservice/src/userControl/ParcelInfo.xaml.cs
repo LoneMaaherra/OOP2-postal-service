@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Postalservice.src.api;
 
 namespace Postalservice.src.userControl
 {
@@ -20,6 +21,24 @@ namespace Postalservice.src.userControl
     /// </summary>
     public partial class ParcelInfo : UserControl
     {
+        /// <summary>
+        /// Delegate handler for ParcelList item selected.
+        /// </summary>
+        public Parcel Parcel
+        {
+            get { return (Parcel)this.GetValue(ParcelProperty); }
+            set { this.SetValue(ParcelProperty, value); }
+        }
+
+        /// <summary>
+        /// Dependency register for the Parcel property.
+        /// </summary>
+        public static readonly DependencyProperty ParcelProperty = DependencyProperty.Register(
+            "Parcel", 
+            typeof(Parcel), 
+            typeof(ParcelList), 
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
         public ParcelInfo()
         {
             InitializeComponent();

@@ -66,7 +66,6 @@ namespace Postalservice.src.api
 
                 using (SqlDataReader reader = getCommand.ExecuteReader())
                 {
-                    
                     while (reader.Read())
                     {
                         if (Id == -1) { Id = (int)reader[0]; }
@@ -102,7 +101,6 @@ namespace Postalservice.src.api
                         CustomerDict["Country"] = reader[8].ToString();
                     }
                 }
-
             }
             return CustomerDict;
         }

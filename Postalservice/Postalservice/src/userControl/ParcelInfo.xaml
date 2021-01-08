@@ -8,32 +8,32 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
         <Label DockPanel.Dock="Top"
-               Content="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=Parcel.ShipmentId}"/>
+               Content="{Binding ShipmentId}"/>
         <TextBlock DockPanel.Dock="Top"
                    Text="To:"/>
         <TextBlock DockPanel.Dock="Top">
-            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=Parcel.To.Name}"/>
+            <Run Text="{Binding AddressTo.Name}"/>
             <LineBreak/>
-            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=Parcel.To.Street}"/>
+            <Run Text="{Binding AddressTo.Street}"/>
             <LineBreak/>
-            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=Parcel.To.ZipCode}"/>
+            <Run Text="{Binding AddressTo.ZipCode}"/>
             <LineBreak/>
-            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=Parcel.To.City}"/>
+            <Run Text="{Binding AddressTo.City}"/>
             <LineBreak/>
-            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=Parcel.To.Country}"/>
+            <Run Text="{Binding AddressTo.Country}"/>
         </TextBlock>
         <TextBlock DockPanel.Dock="Top"
                    Text="From:"/>
         <TextBlock DockPanel.Dock="Top">
-            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=Parcel.From.Name}"/>
+            <Run Text="{Binding AddressFrom.Name}"/>
             <LineBreak/>
-            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=Parcel.From.Street}"/>
+            <Run Text="{Binding AddressFrom.Street}"/>
             <LineBreak/>
-            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=Parcel.From.ZipCode}"/>
+            <Run Text="{Binding AddressFrom.ZipCode}"/>
             <LineBreak/>
-            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=Parcel.From.City}"/>
+            <Run Text="{Binding AddressFrom.City}"/>
             <LineBreak/>
-            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=Parcel.From.Country}"/>
+            <Run Text="{Binding AddressFrom.Country}"/>
         </TextBlock>
         <TextBlock DockPanel.Dock="Top"
                    Text="Transfer history:"/>

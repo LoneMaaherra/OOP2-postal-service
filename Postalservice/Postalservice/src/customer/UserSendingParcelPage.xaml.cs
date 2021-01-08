@@ -45,13 +45,27 @@ namespace Postalservice.src.customer
                 TransferHistory = new List<Transport>() { new Transport() { Arrival = DateTime.Now, Departure = DateTime.Now,
                 FromPO = new PostalOffice() { Name = "Ica", ZipCode= "121212" }, ToPO = new PostalOffice(){Name = "Coop", ZipCode = "212121" } } }
             });
+            Parcels.Add(new Parcel()
+            {
+                ShipmentId = "32",
+                AddressFrom = new Address() { Street = "Gatan", City = "Linköping", Country = "Swe", Name = "Test", ZipCode = "121212" },
+                AddressTo = new Address() { Street = "Siffergatan", City = "Nummerköping", Country = "Tolvan", Name = "Tolvan Tolvansson", ZipCode = "212121" },
+                TransferHistory = new List<Transport>() { new Transport() { Arrival = DateTime.Now, Departure = DateTime.Now,
+                FromPO = new PostalOffice() { Name = "Ica", ZipCode= "121212" }, ToPO = new PostalOffice(){Name = "Coop", ZipCode = "212121" } } }
+            });
             this.mainWindow = mainWindow;
             InitializeComponent();
         }
 
-        public void ParcelClicked_eventHandler(object sender, SelectionChangedEventArgs e)
+        private void ParcelList_PropertyChanged(object sender)
         {
-
+            Console.WriteLine(" PROPERTY CHANGED");
+            ListBox lBox = (ListBox)sender;
+            
+            Parcel p = (Parcel)lBox.SelectedItem;
+            MyParcelInfo.Parcel = p;
+            MyParcelInfo.DataContext = p;
+            //MyParcelInfo.GetBindingExpression(Label.ContentProperty).UpdateSource();
         }
     }
 }
