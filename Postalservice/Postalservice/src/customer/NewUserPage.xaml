@@ -1,0 +1,93 @@
+<Page x:Class="Postalservice.src.customer.NewUserPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Postalservice.src.customer"
+      xmlns:uc="clr-namespace:Postalservice.src.userControl"
+      xmlns:cc="clr-namespace:Postalservice.src"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="NewUserPage"
+      Style="{StaticResource PageBackground}">
+
+    <DockPanel>
+        <DockPanel.CommandBindings>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Return}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToLastPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Home}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToHomePage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Ok}" CanExecute="ReturnTrue_CanExecute" Executed="Ok_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Cancel}" CanExecute="ReturnTrue_CanExecute" Executed="Cancel_Execute"/>
+        </DockPanel.CommandBindings>
+        <uc:Header 
+            DockPanel.Dock="Top"
+            ExitButtonVisibility="Hidden"
+            BackCommand="{x:Static cc:CustomCommands.Return}"
+            HomeCommand="{x:Static cc:CustomCommands.Home}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Rectangle Style="{StaticResource PanelBackground}" Grid.Row="1" Grid.Column="1" />
+            <Grid x:Name="GridForm" Grid.Row="1" Grid.Column="1" Style="{StaticResource FillOutFormStyle}" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Label Content="Name" Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Bottom" />
+                <TextBox x:Name="TextBoxName" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center"/>
+
+                <Label Content="Social Security Number" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Bottom"/>
+                <TextBox x:Name="TextBoxSsn" Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" />
+
+                <Label Content="Mobile Number" Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Bottom"/>
+                <TextBox x:Name="TextBoxMobileNumber" Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center"/>
+
+                <Label Content="Password" Grid.Row="6" Grid.Column="1" VerticalContentAlignment="Bottom"/>
+                <PasswordBox x:Name="PasswordBoxPassword" Grid.Row="7" Grid.Column="1" VerticalContentAlignment="Center"/>
+              
+                <TextBlock x:Name="TextBlockErrorMessage" Text="Somthing wrong bla bla bla" Grid.Row="8" Grid.Column="1"  VerticalAlignment="Bottom" Grid.ColumnSpan="3" HorizontalAlignment="Center" TextWrapping="Wrap" Visibility="Hidden" />
+
+                <Button Style="{StaticResource SmallButtonStyle}" Command="{x:Static cc:CustomCommands.Cancel}" Grid.Row="10" Grid.Column="1" Content="Cancel"/>
+
+                <!--Right side-->
+                <Label Content="Street" Grid.Row="0" Grid.Column="3" VerticalContentAlignment="Bottom"/>
+                <TextBox x:Name="TextBoxStreet" Grid.Row="1" Grid.Column="3" VerticalContentAlignment="Center"/>
+
+                <Label Content="Zip Code" Grid.Row="2" Grid.Column="3" VerticalContentAlignment="Bottom" />
+                <TextBox x:Name="TextBoxZipCode" Grid.Row="3" Grid.Column="3" VerticalContentAlignment="Center"/>
+
+                <Label Content="City" Grid.Row="4" Grid.Column="3" VerticalContentAlignment="Bottom"/>
+                <TextBox x:Name="TextBoxCity" Grid.Row="5" Grid.Column="3" VerticalContentAlignment="Center"/>
+
+                <Label Content="Country" Grid.Row="6" Grid.Column="3" VerticalContentAlignment="Bottom"/>
+                <TextBox x:Name="TextBoxCountry" Grid.Row="7" Grid.Column="3" VerticalContentAlignment="Center"/>
+
+                <Button Style="{StaticResource SmallButtonStyle}" Command="{x:Static cc:CustomCommands.Ok}" Grid.Row="10" Grid.Column="3" Content="Create Account"/>                
+                
+            </Grid>
+        </Grid>
+    </DockPanel>
+
+</Page>

@@ -1,0 +1,31 @@
+﻿<Page x:Class="Postalservice.src.StartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Postalservice.src"
+      xmlns:uc="clr-namespace:Postalservice.src.userControl"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="StartPage"
+      Style="{StaticResource PageBackground}">
+    
+    <DockPanel>
+        
+        <uc:Header DockPanel.Dock="Top"
+                   BackButtonVisibility="Hidden"
+                   HomeButtonVisibility="Hidden"
+                   ExitButtonVisibility="Hidden"/>
+        <StackPanel DockPanel.Dock="Top" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Center">
+            <Button Style="{StaticResource MenuButtonStyle}" 
+                    Margin="80"
+                    Content="Admin" Click="BtnOpenAdminLoginPage"/>
+            <Button Style="{StaticResource MenuButtonStyle}" 
+                    Margin="80"
+                    Content="Customer" 
+                    Click="BtnOpenCustomerPage"/>
+        </StackPanel>
+    </DockPanel>
+</Page>

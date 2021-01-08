@@ -1,0 +1,56 @@
+﻿<Page x:Class="Postalservice.src.customer.UserSendingParcelPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Postalservice.src.customer"
+      xmlns:uc="clr-namespace:Postalservice.src.userControl"
+      xmlns:cc="clr-namespace:Postalservice.src"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="UserSendingParcelPage"
+      Style="{StaticResource PageBackground}">
+
+    <DockPanel>
+        <uc:Header
+            DockPanel.Dock="Top"
+            ExitButtonVisibility="Hidden"
+            BackCommand="{x:Static cc:CustomCommands.Return}"
+            HomeCommand="{x:Static cc:CustomCommands.Home}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="*"/> 
+            </Grid.RowDefinitions>
+            <Rectangle Style="{StaticResource PanelBackground}" Grid.Row="1" Grid.Column="1" />
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <uc:ParcelList Grid.Column="0" PropertyChanged="ParcelList_PropertyChanged"/>
+                    <uc:ParcelInfo Grid.Column="2" x:Name="MyParcelInfo"/>
+                </Grid>
+                
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Page>
