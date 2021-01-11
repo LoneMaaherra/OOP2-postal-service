@@ -34,6 +34,7 @@ namespace Postalservice
         private Page userRecievingParcel;
         private Page officeHome;
         private Page managePackages;
+        private Page addParcel;
         
 
         public Customer currentCustomer
@@ -49,6 +50,7 @@ namespace Postalservice
 
 
 
+
         public MainWindow()
         {
             currentCustomer = new Customer("891031");
@@ -61,6 +63,7 @@ namespace Postalservice
             userRecievingParcel = new UserRecievingParcelPage(this);    
             officeHome = new OfficeHomePage(this);
             managePackages = new ManagePackagesPage(this);
+            addParcel = new OfficeAddParcelPage(this);
 
             InitializeComponent();
 
@@ -101,6 +104,8 @@ namespace Postalservice
                     return officeHome;
                 case "managePackages":
                     return managePackages;
+                case "addParcel":
+                    return addParcel;
                 default:
                     return startPage;
             }
