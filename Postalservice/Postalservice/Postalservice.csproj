@@ -269,7 +269,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="src\assets\glas.png" />
+    <Resource Include="src\assets\glass.png" />
     <Resource Include="src\assets\home.png" />
     <Resource Include="src\assets\arrow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

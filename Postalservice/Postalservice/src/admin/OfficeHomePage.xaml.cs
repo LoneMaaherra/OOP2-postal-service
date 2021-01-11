@@ -24,7 +24,32 @@ namespace Postalservice.src.admin
         public OfficeHomePage(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
+            this.DataContext = mainWindow;
             InitializeComponent();
+        }
+
+        private void ReturnTrue_CanExecute(object value, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void ReturnToStartPage_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            mainWindow.currentOffice = null;
+            mainWindow.Content = mainWindow.GetPage("start");
+        }
+        private void GoToManagePackagesPage_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            mainWindow.Content = mainWindow.GetPage("managePackages");
+        }
+        private void GoToManageTransportsPage_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            mainWindow.Content = mainWindow.GetPage("officeHome");
+        }
+
+        private void GoToManageVehiclesPage_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            mainWindow.Content = mainWindow.GetPage("officeHome");
         }
     }
 }

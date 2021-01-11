@@ -12,11 +12,18 @@
       Style="{StaticResource PageBackground}">
 
     <DockPanel>
+        <DockPanel.CommandBindings>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Exit}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToStartPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.ManagePackages}" CanExecute="ReturnTrue_CanExecute" Executed="GoToManagePackagesPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.ManageTransports}" CanExecute="ReturnTrue_CanExecute" Executed="GoToManageTransportsPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.ManageVehicles}" CanExecute="ReturnTrue_CanExecute" Executed="GoToManageVehiclesPage_Execute"/>
+            
+        </DockPanel.CommandBindings>
         <uc:Header
             DockPanel.Dock="Top"
-            ExitButtonVisibility="Hidden"
-            BackCommand="{x:Static cc:CustomCommands.Return}"
-            HomeCommand="{x:Static cc:CustomCommands.Home}"/>
+            ExitCommand="{x:Static cc:CustomCommands.Exit}"
+            BackButtonVisibility="Hidden"
+            HomeButtonVisibility="Hidden"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -45,23 +52,26 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="WelcomeUserMessage" Text="Welcome To Office Name!"
+                <TextBlock x:Name="OfficeMessage"
                            Grid.Row="1"
                            Grid.Column="1" Grid.ColumnSpan="5" 
                            VerticalAlignment="Center" HorizontalAlignment="Center" 
                            TextWrapping="Wrap" 
                            FontSize="45" FontFamily="{StaticResource Comfortaa}" 
                            FontWeight="SemiBold" 
-                           Foreground="{StaticResource PageMessageColor}"></TextBlock>
-                <Button Style="{StaticResource MenuButtonStyle}" 
+                           Foreground="{StaticResource PageMessageColor}"><Run Text="{Binding currentOffice.Name }"/></TextBlock>
+                <Button Style="{StaticResource MenuButtonStyle}"
+                        Command="{x:Static cc:CustomCommands.ManagePackages}"
                         Grid.Row="2" Grid.Column="1">
                     <TextBlock TextAlignment="Center">Manage<LineBreak></LineBreak>Packages</TextBlock>
                 </Button>
                 <Button Style="{StaticResource MenuButtonStyle}" 
+                        Command="{x:Static cc:CustomCommands.ManageTransports}"
                         Grid.Row="2" Grid.Column="3">
                     <TextBlock TextAlignment="Center">Manage<LineBreak></LineBreak>Transports</TextBlock>
                 </Button>
                 <Button Style="{StaticResource MenuButtonStyle}" 
+                        Command="{x:Static cc:CustomCommands.ManageVehicles}"
                         Grid.Row="2" Grid.Column="5">
                     <TextBlock TextAlignment="Center">Manage<LineBreak></LineBreak>Vehicles</TextBlock>
                 </Button>

@@ -92,6 +92,51 @@ namespace Postalservice.src
                 new KeyGesture(Key.T, ModifierKeys.Alt)
            });
 
+        public static readonly RoutedUICommand ManagePackages = new RoutedUICommand(
+           "ManagePackages",
+           "ManagePackages",
+           typeof(CustomCommands),
+           new InputGestureCollection()
+           {
+                new KeyGesture(Key.P, ModifierKeys.Alt)
+           });
+
+        public static readonly RoutedUICommand ManageVehicles = new RoutedUICommand(
+           "ManageVehicles",
+           "ManageVehicles",
+           typeof(CustomCommands),
+           new InputGestureCollection()
+           {
+                new KeyGesture(Key.V, ModifierKeys.Alt)
+           });
+
+        public static readonly RoutedUICommand ManageTransports = new RoutedUICommand(
+           "ManageTransports",
+           "ManageTransports",
+           typeof(CustomCommands),
+           new InputGestureCollection()
+           {
+                new KeyGesture(Key.T, ModifierKeys.Alt)
+           });
+
+        public static readonly RoutedUICommand CheckOut = new RoutedUICommand(
+           "CheckOut",
+           "CheckOut",
+           typeof(CustomCommands),
+           new InputGestureCollection()
+           {
+                new KeyGesture(Key.C, ModifierKeys.Alt)
+           });
+
+        public static readonly RoutedUICommand AddParcel = new RoutedUICommand(
+           "AddParcel",
+           "AddParcel",
+           typeof(CustomCommands),
+           new InputGestureCollection()
+           {
+                new KeyGesture(Key.A, ModifierKeys.Alt)
+           });
+
         public static String SecureStringToString(SecureString value)
         {
             IntPtr valuePtr = IntPtr.Zero;

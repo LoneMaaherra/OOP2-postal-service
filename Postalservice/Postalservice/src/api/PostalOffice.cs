@@ -10,5 +10,16 @@ namespace Postalservice.src.api
     {
         public string Name { get; set; }
         public string ZipCode { get; set; }
+
+        public PostalOffice(string name, string zipCode)
+        {
+            Name = name;
+            ZipCode = zipCode;
+        }
+
+        public static bool OfficeExist(string name, string zipCode)
+        {
+            return DBConnectionManger.GetOfficeId(name, zipCode) != -1;
+        }
     }
 }

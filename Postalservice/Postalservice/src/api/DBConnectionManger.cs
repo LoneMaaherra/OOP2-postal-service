@@ -127,5 +127,29 @@ namespace Postalservice.src.api
             }
             return Id;
         }
+
+        public static int GetOfficeId(string name, string zipCode)
+        {
+            int Id = -1;
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT Id FROM PostalOffice WHERE Name=@0 AND ZipCode=@1", conn);
+                command.Parameters.Add(new SqlParameter("0", name));
+                command.Parameters.Add(new SqlParameter("1", zipCode));
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (Id == -1) { Id = (int)reader[0]; }
+                        else break;
+                    }
+                }
+            }
+            return Id;
+        }
     }
 }
