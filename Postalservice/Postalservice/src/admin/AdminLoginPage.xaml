@@ -40,7 +40,8 @@
                   RightButtonContent="Log In"
                   ErrorMessageContent="*Postal office with specified zip code was not found."
                   LeftButtonVisibility="Collapsed"
-                  RightButtonCommand="{x:Static cc:CustomCommands.LogIn}">
+                  RightButtonCommand="{x:Static cc:CustomCommands.LogIn}"
+                  ErrorMessageVisibility="Hidden">
                 <uc:LogIn.Resources>
                     <Style TargetType="TextBlock">
                         <Setter Property="FontSize" Value="25"/>
