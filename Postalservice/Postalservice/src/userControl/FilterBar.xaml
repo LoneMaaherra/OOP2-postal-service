@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <Image Grid.Column="1"
                Source="pack://application:,,,/src/assets/glass.png"/>
-        <TextBox x:Name="TextField"
+        <TextBox x:Name="TextField"             
                  Grid.Column="0" 
                  Grid.ColumnSpan="2"
                  Background="Transparent"/>

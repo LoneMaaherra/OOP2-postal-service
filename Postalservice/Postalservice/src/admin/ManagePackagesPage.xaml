@@ -52,8 +52,8 @@
                     <RowDefinition Height="0.5*"/>
                 </Grid.RowDefinitions>
                 <uc:ParcelList Grid.Row="1" Grid.Column="1"></uc:ParcelList>
-                <uc:ParcelInfo Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2"></uc:ParcelInfo>
-                <uc:FilterBar x:Name="SearchPackage" Grid.Row="2" Grid.Column="1"></uc:FilterBar>
+                <uc:ParcelInfo x:Name="MyParcelInfo" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2"></uc:ParcelInfo>
+                <uc:FilterBar x:Name="SearchPackage" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" MaxHeight="70"></uc:FilterBar>
                 <Button Grid.Row="2" Grid.Column="3" 
                         Style="{StaticResource SmallButtonStyle}"
                         Command="{x:Static cc:CustomCommands.CheckOut}"

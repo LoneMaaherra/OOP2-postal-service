@@ -32,6 +32,9 @@ namespace Postalservice.src.api
                 insertCommand.ExecuteNonQuery();
             }
         }
+
+
+
         public static void InsertToCustomer(string id, int addressId, string mobileNumber)
         {
             using (SqlConnection conn = new SqlConnection())
@@ -49,7 +52,7 @@ namespace Postalservice.src.api
             }
         }
 
-        public static int FindAddressID(string name, string street, string zipCode, string city, string country)
+        public static int GetAddressId(string name, string street, string zipCode, string city, string country)
         {
             int Id = -1;
             using (SqlConnection conn = new SqlConnection())
@@ -74,6 +77,34 @@ namespace Postalservice.src.api
                 }
             }
             return Id;
+        }
+
+        public static Dictionary<string, string> GetAddress(string Id)
+        {
+            Dictionary<string, string> AddressDict = new Dictionary<string, string>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand join = new SqlCommand("SELECT * FROM Address WHERE Id =@0", conn);
+                join.Parameters.Add(new SqlParameter("0", Id));
+
+                using (SqlDataReader reader = join.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        AddressDict["Id"] = reader[0].ToString();
+                        AddressDict["Name"] = reader[4].ToString();
+                        AddressDict["Street"] = reader[5].ToString();
+                        AddressDict["ZipCode"] = reader[6].ToString();
+                        AddressDict["City"] = reader[7].ToString();
+                        AddressDict["Country"] = reader[8].ToString();
+                    }
+                }
+            }
+            return AddressDict;
         }
 
         public static Dictionary<string, string> GetCustomer(string Id)
