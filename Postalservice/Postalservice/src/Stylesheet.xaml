@@ -13,6 +13,7 @@
     <SolidColorBrush x:Key="DefaultBackgroundColor">#929dd1</SolidColorBrush>
     <SolidColorBrush x:Key="TextBoxColor">#565b73</SolidColorBrush>
     <SolidColorBrush x:Key="ErrorColor">#C23A5F</SolidColorBrush>
+    <SolidColorBrush x:Key="PageMessageColor">#07198E</SolidColorBrush>
     
 
     <FontFamily x:Key="Poppins">pack://application:,,,/src/assets/Fonts/Poppins/#Poppins</FontFamily>
@@ -34,6 +35,7 @@
         <Setter Property="FontSize" Value="30"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="LabelForeground" Value="Black"/>
+        <Setter Property="TextBoxForeground" Value="{StaticResource TextBoxColor}"/>
         <Setter Property="ErrorMessageForeground" Value="PaleVioletRed"/>
     </Style>
 
