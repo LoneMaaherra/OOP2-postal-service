@@ -24,7 +24,7 @@
                VerticalContentAlignment="Bottom"
                Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=TopInsertVisibility}"
                Content="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=TopLabelContent}"/>
-        <TextBox Grid.Row="1" Grid.ColumnSpan="2"
+        <TextBox x:Name="TextBoxTop" Grid.Row="1" Grid.ColumnSpan="2"
                  Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=TextBoxForeground}"
                  VerticalContentAlignment="Center"
                  Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=TopInsertVisibility}"
@@ -35,7 +35,7 @@
                VerticalContentAlignment="Bottom"
                Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=BottomInsertVisibility}"
                Content="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=BottomLabelContent}"/>
-        <TextBox Grid.Row="3" Grid.ColumnSpan="2"
+        <TextBox x:Name="TextBoxBottom" Grid.Row="3" Grid.ColumnSpan="2"
                  Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=TextBoxForeground}"
                  VerticalContentAlignment="Center"
                  Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=BottomInsertVisibility}"
@@ -52,7 +52,7 @@
                      Grid.Row="3" Grid.ColumnSpan="2"
                      Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=PasswordInsertVisibility}"/>
        
-        <TextBlock Grid.Row="4" Grid.ColumnSpan="2"
+        <TextBlock x:Name="TextBlockErrorMessage" Grid.Row="4" Grid.ColumnSpan="2"
                Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=ErrorMessageContent}"
                Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=ErrorMessageForeground}"
                Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LogIn}}, Path=ErrorMessageVisibility}" TextWrapping="Wrap"/>
