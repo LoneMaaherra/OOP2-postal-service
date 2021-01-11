@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Postalservice"
         xmlns:UC="clr-namespace:Postalservice.src.userControl"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1920">
+        Title="MainWindow" Height="1080" Width="1920"
+        x:Name="MyMainWindow">
 
     <Window.Background>
         <ImageBrush ImageSource="pack://application:,,,/src/assets/background.png" 
