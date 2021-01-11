@@ -59,13 +59,26 @@ namespace Postalservice.src.customer
 
         private void ParcelList_PropertyChanged(object sender)
         {
-            Console.WriteLine(" PROPERTY CHANGED");
             ListBox lBox = (ListBox)sender;
             
             Parcel p = (Parcel)lBox.SelectedItem;
             MyParcelInfo.Parcel = p;
             MyParcelInfo.DataContext = p;
-            //MyParcelInfo.GetBindingExpression(Label.ContentProperty).UpdateSource();
+        }
+
+        private void ReturnTrue_CanExecute(object value, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void ReturnToStartPage_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            mainWindow.currentCustomer = null;
+            mainWindow.Content = mainWindow.GetPage("start");
+        }
+        private void ReturnToUserHomePage_Execute(object sender, ExecutedRoutedEventArgs e)
+        {          
+            mainWindow.Content = mainWindow.GetPage("userHomePage");
         }
     }
 }

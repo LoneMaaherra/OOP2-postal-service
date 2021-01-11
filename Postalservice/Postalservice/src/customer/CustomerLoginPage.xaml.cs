@@ -47,13 +47,15 @@ namespace Postalservice.src.customer
             string UserId = LogInControl.TopTextBoxContent;
             if (!Customer.CustomerExist(UserId)) { LogInControl.ErrorMessageVisibility = Visibility.Visible; return; }
 
-            mainWindow.currentCustomer = new Customer(UserId);
+            mainWindow.currentCustomer = new Customer(UserId);        
+            LogInControl.Reset();
             mainWindow.Content = mainWindow.GetPage("userHomePage");
             // @TODO: handle user specific data?
         }
 
         private void BtnCreateNewUser_Execute(object value, ExecutedRoutedEventArgs e)
         {
+            LogInControl.Reset();
             mainWindow.Content = mainWindow.GetPage("createUser");
         }
 
@@ -64,8 +66,10 @@ namespace Postalservice.src.customer
 
         private void ReturnToLastPage_Execute(object sender, ExecutedRoutedEventArgs e)
         {
+            LogInControl.Reset();
             mainWindow.Content = mainWindow.GetPage("start");
         }
 
+        
     }
 }

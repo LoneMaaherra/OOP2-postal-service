@@ -12,9 +12,15 @@
       Style="{StaticResource PageBackground}">
 
     <DockPanel>
+        <DockPanel.CommandBindings>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Exit}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToStartPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Home}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToUserHomePage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Return}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToUserHomePage_Execute"/>
+
+        </DockPanel.CommandBindings>
         <uc:Header
             DockPanel.Dock="Top"
-            ExitButtonVisibility="Hidden"
+            ExitCommand="{x:Static cc:CustomCommands.Exit}"
             BackCommand="{x:Static cc:CustomCommands.Return}"
             HomeCommand="{x:Static cc:CustomCommands.Home}"/>
         <Grid>
