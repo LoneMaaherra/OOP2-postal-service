@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Postalservice.src;
 using Postalservice.src.admin;
 using Postalservice.src.customer;
+using Postalservice.src.api;
 
 namespace Postalservice
 {
@@ -28,14 +29,34 @@ namespace Postalservice
         private Page adminLogin;
         private Page customerLogin;
         private Page createUser;
+        private Page userHomePage;
+        private Page userSendingParcel;
+        private Page userRecievingParcel;
         private Page officeHome;
+        
+
+        public Customer currentCustomer
+        {
+            get { return (Customer)this.GetValue(currentCustomerProperty); }
+            set { this.SetValue(currentCustomerProperty, value); }
+        }
+        /// <summary>
+        /// Dependency register for the currentCustomer property.
+        /// </summary>
+        public static readonly DependencyProperty currentCustomerProperty = DependencyProperty.Register(
+            "currentCustomer", typeof(Customer), typeof(Window), new PropertyMetadata());
+
 
         public MainWindow()
         {
+            currentCustomer = new Customer("891031");
             startPage = new StartPage(this);
             adminLogin = new AdminLoginPage(this);
             customerLogin = new CustomerLoginPage(this);
             createUser = new NewUserPage(this);
+            userHomePage = new UserHomePage(this);
+            userSendingParcel = new UserSendingParcelPage(this);
+            userRecievingParcel = new UserRecievingParcelPage(this);    
             officeHome = new OfficeHomePage(this);
 
             InitializeComponent();
@@ -65,10 +86,14 @@ namespace Postalservice
                     return customerLogin;
                 case "adminPage":
                     return startPage;
-                case "userPage":
-                    return startPage;
                 case "createUser":
                     return createUser;
+                case "userHomePage":
+                    return userHomePage;
+                case "userSendingParcel":
+                    return userSendingParcel;
+                case "userRecievingParcel":
+                    return userRecievingParcel;
                 case "officeHome":
                     return officeHome;
                 default:

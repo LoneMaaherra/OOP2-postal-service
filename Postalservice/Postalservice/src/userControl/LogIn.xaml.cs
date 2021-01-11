@@ -301,5 +301,18 @@ namespace Postalservice.src.userControl
         {
             PwordBox.Clear();
         }
+
+        public void ClearAllFields()
+        {
+            TextBoxTop.Clear();
+            TextBoxBottom.Clear();
+            EmptyPasswordField();
+        }
+
+        public void Reset()
+        {
+            TextBlockErrorMessage.Visibility = Visibility.Hidden;
+            ClearAllFields();
+        }
     }
 }

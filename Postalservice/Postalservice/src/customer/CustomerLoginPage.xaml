@@ -40,6 +40,7 @@
                   BottomInsertVisibility="Collapsed"
                   LeftButtonContent="New User"
                   RightButtonContent="Log In"
+                  ErrorMessageVisibility="Hidden"    
                   ErrorMessageContent="*Wrong social number or password."
                   LeftButtonCommand="{x:Static cc:CustomCommands.NewUser}"
                   RightButtonCommand="{x:Static cc:CustomCommands.LogIn}">

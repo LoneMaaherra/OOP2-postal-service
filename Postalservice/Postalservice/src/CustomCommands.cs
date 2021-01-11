@@ -74,6 +74,24 @@ namespace Postalservice.src
                 new KeyGesture(Key.Escape, ModifierKeys.Alt)
             });
 
+        public static readonly RoutedUICommand From = new RoutedUICommand(
+           "From",
+           "From",
+           typeof(CustomCommands),
+           new InputGestureCollection()
+           {
+                new KeyGesture(Key.F, ModifierKeys.Alt)
+           });
+
+        public static readonly RoutedUICommand To = new RoutedUICommand(
+           "To",
+           "To",
+           typeof(CustomCommands),
+           new InputGestureCollection()
+           {
+                new KeyGesture(Key.T, ModifierKeys.Alt)
+           });
+
         public static String SecureStringToString(SecureString value)
         {
             IntPtr valuePtr = IntPtr.Zero;
