@@ -32,6 +32,7 @@ namespace Postalservice
         private Page userHomePage;
         private Page userSendingParcel;
         private Page userRecievingParcel;
+        private Page officeHome;
         
 
         public Customer currentCustomer
@@ -45,6 +46,7 @@ namespace Postalservice
         public static readonly DependencyProperty currentCustomerProperty = DependencyProperty.Register(
             "currentCustomer", typeof(Customer), typeof(Window), new PropertyMetadata());
 
+
         public MainWindow()
         {
             currentCustomer = new Customer("891031");
@@ -54,7 +56,8 @@ namespace Postalservice
             createUser = new NewUserPage(this);
             userHomePage = new UserHomePage(this);
             userSendingParcel = new UserSendingParcelPage(this);
-            userRecievingParcel = new UserRecievingParcelPage(this);            
+            userRecievingParcel = new UserRecievingParcelPage(this);    
+            officeHome = new OfficeHomePage(this);
 
             InitializeComponent();
 
@@ -91,6 +94,8 @@ namespace Postalservice
                     return userSendingParcel;
                 case "userRecievingParcel":
                     return userRecievingParcel;
+                case "officeHome":
+                    return officeHome;
                 default:
                     return startPage;
             }
