@@ -36,6 +36,7 @@ namespace Postalservice
         private Page managePackages;
         private Page addParcel;
         private Page manageTransports;
+        private Page manageVehicles;
         
 
         public Customer currentCustomer
@@ -75,6 +76,7 @@ namespace Postalservice
             managePackages = new ManagePackagesPage(this);
             addParcel = new OfficeAddParcelPage(this);
             manageTransports = new OfficeTransportPage(this);
+            manageVehicles = new OfficeVehiclePage(this);
 
             InitializeComponent();
 
@@ -119,6 +121,8 @@ namespace Postalservice
                     return addParcel;
                 case "manageTransports":
                     return manageTransports;
+                case "manageVehicles":
+                    return manageVehicles;
                 default:
                     return startPage;
             }

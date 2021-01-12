@@ -82,11 +82,11 @@ namespace Postalservice.src.admin
         #endregion
 
         #region Add buttons
-        private void AddTransport_Execute(object sender, ExecutedRoutedEventArgs e)
+        private void Ok_Execute(object sender, ExecutedRoutedEventArgs e)
         {
             mainWindow.Content = mainWindow.GetPage("manageTransports");
         }
-        private void CancelTransport_Execute(object sender, ExecutedRoutedEventArgs e)
+        private void Cancel_Execute(object sender, ExecutedRoutedEventArgs e)
         {
             mainWindow.Content = mainWindow.GetPage("manageTransports");
         }
