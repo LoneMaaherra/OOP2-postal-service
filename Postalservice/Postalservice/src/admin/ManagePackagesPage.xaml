@@ -12,9 +12,16 @@
       Style="{StaticResource PageBackground}">
 
     <DockPanel>
+        <DockPanel.CommandBindings>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Exit}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToStartPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Return}" CanExecute="ReturnTrue_CanExecute" Executed="GoToHomePage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Home}" CanExecute="ReturnTrue_CanExecute" Executed="GoToHomePage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.AddParcel}" CanExecute="ReturnTrue_CanExecute" Executed="AddPackage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.CheckOut}" CanExecute="ReturnTrue_CanExecute" Executed="CheckOutPackage_Execute"/>
+        </DockPanel.CommandBindings>
         <uc:Header
             DockPanel.Dock="Top"
-            ExitButtonVisibility="Hidden"
+            ExitCommand="{x:Static cc:CustomCommands.Exit}"
             BackCommand="{x:Static cc:CustomCommands.Return}"
             HomeCommand="{x:Static cc:CustomCommands.Home}"/>
         <Grid>
@@ -33,6 +40,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="14*"/>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="7*"/>
                     <ColumnDefinition Width="7*"/>
                     <ColumnDefinition Width="*"/>
@@ -43,12 +51,17 @@
                     <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="0.5*"/>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="2" Grid.Column="2" 
-                        Style="{StaticResource SmallButtonStyle}"
-                        Content="Check Out">
-                </Button>
+                <uc:ParcelList Grid.Row="1" Grid.Column="1"></uc:ParcelList>
+                <uc:ParcelInfo x:Name="MyParcelInfo" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2"></uc:ParcelInfo>
+                <uc:FilterBar x:Name="SearchPackage" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" MaxHeight="70"></uc:FilterBar>
                 <Button Grid.Row="2" Grid.Column="3" 
                         Style="{StaticResource SmallButtonStyle}"
+                        Command="{x:Static cc:CustomCommands.CheckOut}"
+                        Content="Check Out">
+                </Button>
+                <Button Grid.Row="2" Grid.Column="4" 
+                        Style="{StaticResource SmallButtonStyle}"
+                        Command="{x:Static cc:CustomCommands.AddParcel}"
                         Content="Add">
                 </Button>
             </Grid>

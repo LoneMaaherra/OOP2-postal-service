@@ -48,7 +48,16 @@ namespace Postalservice
         public static readonly DependencyProperty currentCustomerProperty = DependencyProperty.Register(
             "currentCustomer", typeof(Customer), typeof(Window), new PropertyMetadata());
 
-
+        public PostalOffice currentOffice
+        {
+            get { return (PostalOffice)this.GetValue(currentOfficeProperty); }
+            set { this.SetValue(currentOfficeProperty, value); }
+        }
+        /// <summary>
+        /// Dependency register for the currentOffice property.
+        /// </summary>
+        public static readonly DependencyProperty currentOfficeProperty = DependencyProperty.Register(
+            "currentOffice", typeof(PostalOffice), typeof(Window), new PropertyMetadata());
 
 
         public MainWindow()

@@ -12,9 +12,16 @@
       Style="{StaticResource PageBackground}">
 
     <DockPanel>
+        <DockPanel.CommandBindings>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Exit}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToStartPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Return}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToLastPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Home}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToHomePage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.AddParcel}" CanExecute="ReturnTrue_CanExecute" Executed="Ok_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Cancel}" CanExecute="ReturnTrue_CanExecute" Executed="Cancel_Execute"/>
+        </DockPanel.CommandBindings>
         <uc:Header 
             DockPanel.Dock="Top"
-            ExitButtonVisibility="Hidden"
+            ExitCommand="{x:Static cc:CustomCommands.Exit}"
             BackCommand="{x:Static cc:CustomCommands.Return}"
             HomeCommand="{x:Static cc:CustomCommands.Home}"/>
         <Grid>
@@ -56,33 +63,33 @@
                 
                 <!-- Left side -->
                 <Label Content="Package To" Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Bottom" />
-                <TextBox x:Name="TextBoxParcelToName" Style="{StaticResource placeHolder}" Text="Name" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="TextBoxParcelToName" Style="{StaticResource placeHolder}" Tag="Name" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center"/>
 
-                <TextBox x:Name="TextBoxParcelToStreet" Style="{StaticResource placeHolder}" Text="Street" Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="TextBoxParcelToStreet" Style="{StaticResource placeHolder}" Tag="Street" Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center"/>
 
-                <TextBox x:Name="TextBoxParcelToZipCode" Style="{StaticResource placeHolder}" Text="Zip code" Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="TextBoxParcelToZipCode" Style="{StaticResource placeHolder}" Tag="Zip code" Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center"/>
 
-                <TextBox x:Name="TextBoxParcelToCity" Style="{StaticResource placeHolder}" Text="City" Grid.Row="7" Grid.Column="1" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="TextBoxParcelToCity" Style="{StaticResource placeHolder}" Tag="City" Grid.Row="7" Grid.Column="1" VerticalContentAlignment="Center"/>
 
-                <TextBox x:Name="TextBoxParcelToCountry" Style="{StaticResource placeHolder}" Text="Country" Grid.Row="9" Grid.Column="1" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="TextBoxParcelToCountry" Style="{StaticResource placeHolder}" Tag="Country" Grid.Row="9" Grid.Column="1" VerticalContentAlignment="Center"/>
 
-                <TextBlock x:Name="TextBlockErrorMessage" Text="Something wrong bla bla bla" Grid.Row="10" Grid.Column="1"  VerticalAlignment="Bottom" Grid.ColumnSpan="3" HorizontalAlignment="Center" TextWrapping="Wrap" />
+                <TextBlock x:Name="TextBlockErrorMessage" Text="Please fill out all fields" Visibility="Hidden" Grid.Row="10" Grid.Column="1"  VerticalAlignment="Bottom" Grid.ColumnSpan="3" HorizontalAlignment="Center" TextWrapping="Wrap" />
 
                 <Button Style="{StaticResource SmallButtonStyle}" Command="{x:Static cc:CustomCommands.Cancel}" Grid.Row="12" Grid.Column="1" Content="Cancel"/>
 
                 <!--Right side-->
                 <Label Content="Package From" Grid.Row="0" Grid.Column="3" VerticalContentAlignment="Bottom" />
-                <TextBox x:Name="TextBoxParcelFromName" Style="{StaticResource placeHolder}" Text="Name" Grid.Row="1" Grid.Column="3" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="TextBoxParcelFromName" Style="{StaticResource placeHolder}" Tag="Name" Grid.Row="1" Grid.Column="3" VerticalContentAlignment="Center"/>
 
-                <TextBox x:Name="TextBoxParcelFromStreet" Style="{StaticResource placeHolder}" Text="Street" Grid.Row="3" Grid.Column="3" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="TextBoxParcelFromStreet" Style="{StaticResource placeHolder}" Tag="Street" Grid.Row="3" Grid.Column="3" VerticalContentAlignment="Center"/>
 
-                <TextBox x:Name="TextBoxParcelFromZipCode" Style="{StaticResource placeHolder}" Text="ZipCode" Grid.Row="5" Grid.Column="3" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="TextBoxParcelFromZipCode" Style="{StaticResource placeHolder}" Tag="ZipCode" Grid.Row="5" Grid.Column="3" VerticalContentAlignment="Center"/>
 
-                <TextBox x:Name="TextBoxParcelFromCity" Style="{StaticResource placeHolder}" Text="City" Grid.Row="7" Grid.Column="3" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="TextBoxParcelFromCity" Style="{StaticResource placeHolder}" Tag="City" Grid.Row="7" Grid.Column="3" VerticalContentAlignment="Center"/>
 
-                <TextBox x:Name="TextBoxParcelFromCountry" Style="{StaticResource placeHolder}" Text="Country" Grid.Row="9" Grid.Column="3" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="TextBoxParcelFromCountry" Style="{StaticResource placeHolder}" Tag="Country" Grid.Row="9" Grid.Column="3" VerticalContentAlignment="Center"/>
 
-                <Button Style="{StaticResource SmallButtonStyle}"  Grid.Row="12" Grid.Column="3" Content="Add Parcel"/>
+                <Button Style="{StaticResource SmallButtonStyle}"  Grid.Row="12" Grid.Column="3" Content="Add Parcel" Command="{x:Static cc:CustomCommands.AddParcel}"/>
 
             </Grid>
         </Grid>

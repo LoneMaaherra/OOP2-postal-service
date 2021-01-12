@@ -46,6 +46,25 @@
         <Setter Property="FontSize" Value="25"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontFamily" Value="{StaticResource Comfortaa}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style TargetType="UC:FilterBar">
+        <Setter Property="Background" Value="{StaticResource SmallButtonEnabledColor}"/>
+        <Setter Property="Opacity" Value="0.8"/>
+
+        <Style.Resources>
+            <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                <!--<Setter Property="Background" Value="{StaticResource SmallButtonEnabledColor}"/>-->
+                <Setter Property="Foreground" Value="{StaticResource ButtonTextColor}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource SmallButtonEnabledColor}"/>
+                        <Setter Property="Opacity" Value="1"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Style.Resources>
     </Style>
     
     <Style TargetType="Button" x:Key="MenuButtonStyle">
@@ -238,18 +257,17 @@
                                  x:Name="textSource" 
                                  Background="Transparent" 
                                  Panel.ZIndex="2" />
-
                         <TextBox Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" Panel.ZIndex="1">
-
                             <TextBox.Style>
                                 <Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
                                     <Setter Property="Foreground" Value="Transparent"/>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Path=Text, Source={x:Reference textSource}}" Value="">
-                                            <Setter Property="Foreground" Value="LightGray"/>
+                                            <Setter Property="Foreground" Value="#FFA6B7D8"/>
+                                            <Setter Property="FontFamily" Value="{StaticResource Comfortaa}"/>
                                         </DataTrigger>
                                     </Style.Triggers>
-
                                 </Style>
                             </TextBox.Style>
                         </TextBox>
@@ -258,5 +276,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>

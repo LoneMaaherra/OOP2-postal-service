@@ -50,7 +50,7 @@ namespace Postalservice.src.api
         private void AddCustomerToDatabase()
         {
             DBConnectionManger.InsertToAddress(Name, Street, ZipCode, City, Country);
-            int AddressID = DBConnectionManger.FindAddressID(Name, Street, ZipCode, City, Country);
+            int AddressID = DBConnectionManger.GetAddressId(Name, Street, ZipCode, City, Country);
             if(AddressID == -1) { throw new Exception(); }
             DBConnectionManger.InsertToCustomer(Id, AddressID, MobileNumber);
         }

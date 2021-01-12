@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Postalservice.src.api;
 
 namespace Postalservice.src.admin
 {
@@ -30,7 +31,14 @@ namespace Postalservice.src.admin
 
         private void LogInCommand_Execute(object value, ExecutedRoutedEventArgs e)
         {
-            mainWindow.Content = mainWindow.GetPage("adminPage");
+            string PostOfficeName = LogInControl.TopTextBoxContent;
+            string ZipCode = LogInControl.BottomTextBoxContent;
+
+            if (!PostalOffice.OfficeExist(PostOfficeName, ZipCode)) { LogInControl.ErrorMessageVisibility = Visibility.Visible; return; }
+
+            mainWindow.currentOffice = new PostalOffice(PostOfficeName, ZipCode);
+            LogInControl.Reset();
+            mainWindow.Content = mainWindow.GetPage("officeHome");
             // @TODO: handle user specific data?
         }
 
@@ -41,6 +49,7 @@ namespace Postalservice.src.admin
 
         private void ReturnToLastPage_Execute(object sender, ExecutedRoutedEventArgs e)
         {
+            LogInControl.Reset();
             mainWindow.Content = mainWindow.GetPage("start");
         }
     }

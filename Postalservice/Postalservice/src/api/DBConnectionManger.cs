@@ -32,6 +32,9 @@ namespace Postalservice.src.api
                 insertCommand.ExecuteNonQuery();
             }
         }
+
+
+
         public static void InsertToCustomer(string id, int addressId, string mobileNumber)
         {
             using (SqlConnection conn = new SqlConnection())
@@ -49,7 +52,7 @@ namespace Postalservice.src.api
             }
         }
 
-        public static int FindAddressID(string name, string street, string zipCode, string city, string country)
+        public static int GetAddressId(string name, string street, string zipCode, string city, string country)
         {
             int Id = -1;
             using (SqlConnection conn = new SqlConnection())
@@ -74,6 +77,34 @@ namespace Postalservice.src.api
                 }
             }
             return Id;
+        }
+
+        public static Dictionary<string, string> GetAddress(string Id)
+        {
+            Dictionary<string, string> AddressDict = new Dictionary<string, string>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand join = new SqlCommand("SELECT * FROM Address WHERE Id =@0", conn);
+                join.Parameters.Add(new SqlParameter("0", Id));
+
+                using (SqlDataReader reader = join.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        AddressDict["Id"] = reader[0].ToString();
+                        AddressDict["Name"] = reader[1].ToString();
+                        AddressDict["Street"] = reader[2].ToString();
+                        AddressDict["ZipCode"] = reader[3].ToString();
+                        AddressDict["City"] = reader[4].ToString();
+                        AddressDict["Country"] = reader[5].ToString();
+                    }
+                }
+            }
+            return AddressDict;
         }
 
         public static Dictionary<string, string> GetCustomer(string Id)
@@ -126,6 +157,49 @@ namespace Postalservice.src.api
                 }
             }
             return Id;
+        }
+
+        public static int GetOfficeId(string name, string zipCode)
+        {
+            int Id = -1;
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT Id FROM PostalOffice WHERE Name=@0 AND ZipCode=@1", conn);
+                command.Parameters.Add(new SqlParameter("0", name));
+                command.Parameters.Add(new SqlParameter("1", zipCode));
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (Id == -1) { Id = (int)reader[0]; }
+                        else break;
+                    }
+                }
+            }
+            return Id;
+        }
+
+        public static void InsertToPackage(Guid shipmentId, int addressTo, int addressFrom, int status)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand insertCommand = new SqlCommand("INSERT INTO Package (ShipmentId, AddressTo, AddressFrom, Status) VALUES (@0, @1, @2, @3)", conn);
+                insertCommand.Parameters.Add(new SqlParameter("0", shipmentId));
+                insertCommand.Parameters.Add(new SqlParameter("1", addressTo));
+                insertCommand.Parameters.Add(new SqlParameter("2", addressFrom));
+                insertCommand.Parameters.Add(new SqlParameter("3", status));
+
+
+                insertCommand.ExecuteNonQuery();
+            }
+
         }
     }
 }

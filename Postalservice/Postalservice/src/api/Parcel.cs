@@ -9,14 +9,45 @@ namespace Postalservice.src.api
     public class Parcel
     {
         public string ShipmentId { get; set; }
+        public Status Status { get; set; }
         public Address AddressFrom { get; set; }
         public Address AddressTo { get; set; }
-        public List<Transport> TransferHistory { get; set; } 
+        public List<Transport> TransferHistory { get; set; }
 
 
-        public Parcel()
+        //public Parcel(string id)
+        //{
+        //    Dictionary<string, string> values = DBConnectionManger.GetCustomer(id);
+
+        //    Id = values["Id"];
+        //    Name = values["Name"];
+        //    Street = values["Street"];
+        //    ZipCode = values["ZipCode"];
+        //    City = values["City"];
+        //    Country = values["Country"];         
+        //}
+
+        public Parcel(Dictionary<string, string> parcelToValues, Dictionary<string, string> parcelFromValues)
         {
-            
+            AddressFrom = GetAddress(parcelFromValues);
+            AddressTo = GetAddress(parcelToValues);
+            Status = Status.Processing;
+            DBConnectionManger.InsertToPackage(Guid.NewGuid(), Int32.Parse(AddressTo.Id) , Int32.Parse(AddressFrom.Id), (int)Status);
+
+        }
+
+        private Address GetAddress(Dictionary<string, string> addressDict)
+        {
+            bool exist = Address.AddressExist(addressDict["Name"], addressDict["Street"], addressDict["ZipCode"], addressDict["City"], addressDict["Country"]);
+
+            if (exist)
+            {
+                return new Address(DBConnectionManger.GetAddressId(addressDict["Name"], addressDict["Street"], addressDict["ZipCode"], addressDict["City"], addressDict["Country"]).ToString()); 
+            }
+            else
+            {
+                return new Address(addressDict);
+            }
         }
     }
 }
