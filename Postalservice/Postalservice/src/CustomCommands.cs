@@ -137,6 +137,105 @@ namespace Postalservice.src
                 new KeyGesture(Key.A, ModifierKeys.Alt)
            });
 
+        public static readonly RoutedUICommand ManageTab = new RoutedUICommand(
+           "ManageTab",
+           "ManageTab",
+           typeof(CustomCommands),
+           new InputGestureCollection()
+           {
+                new KeyGesture(Key.M, ModifierKeys.Alt)
+           });
+
+        public static readonly RoutedUICommand AddTab = new RoutedUICommand(
+           "AddTab",
+           "AddTab",
+           typeof(CustomCommands),
+           new InputGestureCollection()
+           {
+                new KeyGesture(Key.A, ModifierKeys.Alt)
+           });
+
+        public static readonly RoutedUICommand PackTab = new RoutedUICommand(
+           "PackTab",
+           "PackTab",
+           typeof(CustomCommands),
+           new InputGestureCollection()
+           {
+                new KeyGesture(Key.A, ModifierKeys.Alt)
+           });
+
+        public static readonly RoutedUICommand Arrival = new RoutedUICommand(
+          "Arrival",
+          "Arrival",
+          typeof(CustomCommands),
+          new InputGestureCollection()
+          {
+                new KeyGesture(Key.A, ModifierKeys.Alt)
+          });
+
+        public static readonly RoutedUICommand Depart = new RoutedUICommand(
+          "Depart",
+          "Depart",
+          typeof(CustomCommands),
+          new InputGestureCollection()
+          {
+                new KeyGesture(Key.D, ModifierKeys.Alt)
+          });
+
+        public static readonly RoutedUICommand AddTransport = new RoutedUICommand(
+          "AddTransport",
+          "AddTransport",
+          typeof(CustomCommands),
+          new InputGestureCollection()
+          {
+                new KeyGesture(Key.A, ModifierKeys.Alt)
+          });
+
+        public static readonly RoutedUICommand CancelTransport = new RoutedUICommand(
+          "CancelTransport",
+          "CancelTransport",
+          typeof(CustomCommands),
+          new InputGestureCollection()
+          {
+                new KeyGesture(Key.C, ModifierKeys.Alt)
+          });
+
+        public static readonly RoutedUICommand ClearStorageFilter = new RoutedUICommand(
+          "ClearStorageFilter",
+          "ClearStorageFilter",
+          typeof(CustomCommands),
+          new InputGestureCollection()
+          {
+                new KeyGesture(Key.S, ModifierKeys.Alt)
+          });
+
+        public static readonly RoutedUICommand PackAll = new RoutedUICommand(
+          "PackAll",
+          "PackAll",
+          typeof(CustomCommands),
+          new InputGestureCollection()
+          {
+                new KeyGesture(Key.K, ModifierKeys.Alt)
+          });
+
+        public static readonly RoutedUICommand ClearFilter = new RoutedUICommand(
+          "ClearFilter",
+          "ClearFilter",
+          typeof(CustomCommands),
+          new InputGestureCollection()
+          {
+                new KeyGesture(Key.C, ModifierKeys.Alt)
+          });
+
+        public static readonly RoutedUICommand UnpackAll = new RoutedUICommand(
+          "UnpackAll",
+          "UnpackAll",
+          typeof(CustomCommands),
+          new InputGestureCollection()
+          {
+                new KeyGesture(Key.U, ModifierKeys.Alt)
+          });
+
         public static String SecureStringToString(SecureString value)
         {
             IntPtr valuePtr = IntPtr.Zero;
