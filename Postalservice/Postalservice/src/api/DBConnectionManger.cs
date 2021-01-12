@@ -201,5 +201,77 @@ namespace Postalservice.src.api
             }
 
         }
+
+        public static Dictionary<string,string> GetPackage(string id)
+        {
+            Dictionary<string, string> PackageDict = new Dictionary<string, string>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM Package WHERE ShipmentId =@0", conn);
+                command.Parameters.Add(new SqlParameter("0", id));
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        PackageDict["ShipmentId"] = reader[0].ToString();
+                        PackageDict["AddressTo"] = reader[1].ToString();
+                        PackageDict["AddressFrom"] = reader[2].ToString();
+                        PackageDict["Status"] = reader[3].ToString();
+                    }
+                }
+            }
+            return PackageDict;
+        }
+
+        public static List<string> GetPackagesToAddress(string addressId) 
+        {
+            List<string> PackagesList = new List<string>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT ShipmentId FROM Package WHERE AddressTo =@0", conn);
+                command.Parameters.Add(new SqlParameter("0", addressId));
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        PackagesList.Add(reader[0].ToString());
+                    }
+                }
+            }
+            return PackagesList;
+        }
+
+        public static List<string> GetPackagesFromAddress(string addressId) 
+        {
+            List<string> PackagesList = new List<string>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT ShipmentId FROM Package WHERE AddressFrom =@0", conn);
+                command.Parameters.Add(new SqlParameter("0", addressId));
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        PackagesList.Add(reader[0].ToString());
+                    }
+                }
+            }
+            return PackagesList;
+        }
     }
 }

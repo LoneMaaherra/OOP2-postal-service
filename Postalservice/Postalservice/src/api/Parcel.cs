@@ -15,26 +15,25 @@ namespace Postalservice.src.api
         public List<Transport> TransferHistory { get; set; }
 
 
-        //public Parcel(string id)
-        //{
-        //    Dictionary<string, string> values = DBConnectionManger.GetCustomer(id);
+        public Parcel(string id)
+        {
+            Dictionary<string, string> values = DBConnectionManger.GetPackage(id);
 
-        //    Id = values["Id"];
-        //    Name = values["Name"];
-        //    Street = values["Street"];
-        //    ZipCode = values["ZipCode"];
-        //    City = values["City"];
-        //    Country = values["Country"];         
-        //}
+            ShipmentId = values["ShipmentId"];
+            Status = (Status)Int32.Parse(values["Status"]);
+            AddressFrom = GetAddress(DBConnectionManger.GetAddress(values["AddressFrom"]));
+            AddressTo = GetAddress(DBConnectionManger.GetAddress(values["AddressTo"]));
+        }
 
         public Parcel(Dictionary<string, string> parcelToValues, Dictionary<string, string> parcelFromValues)
         {
             AddressFrom = GetAddress(parcelFromValues);
             AddressTo = GetAddress(parcelToValues);
             Status = Status.Processing;
-            DBConnectionManger.InsertToPackage(Guid.NewGuid(), Int32.Parse(AddressTo.Id) , Int32.Parse(AddressFrom.Id), (int)Status);
-
+            DBConnectionManger.InsertToPackage(Guid.NewGuid(), Int32.Parse(AddressTo.Id), Int32.Parse(AddressFrom.Id), (int)Status);
         }
+
+
 
         private Address GetAddress(Dictionary<string, string> addressDict)
         {
