@@ -12,9 +12,16 @@
       Style="{StaticResource PageBackground}">
 
     <DockPanel>
+        <DockPanel.CommandBindings>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Exit}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToStartPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Return}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToLastPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Home}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToHomePage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.AddParcel}" CanExecute="ReturnTrue_CanExecute" Executed="Ok_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Cancel}" CanExecute="ReturnTrue_CanExecute" Executed="Cancel_Execute"/>
+        </DockPanel.CommandBindings>
         <uc:Header 
             DockPanel.Dock="Top"
-            ExitButtonVisibility="Hidden"
+            ExitCommand="{x:Static cc:CustomCommands.Exit}"
             BackCommand="{x:Static cc:CustomCommands.Return}"
             HomeCommand="{x:Static cc:CustomCommands.Home}"/>
         <Grid>
@@ -82,7 +89,7 @@
 
                 <TextBox x:Name="TextBoxParcelFromCountry" Style="{StaticResource placeHolder}" Tag="Country" Grid.Row="9" Grid.Column="3" VerticalContentAlignment="Center"/>
 
-                <Button Style="{StaticResource SmallButtonStyle}"  Grid.Row="12" Grid.Column="3" Content="Add Parcel"/>
+                <Button Style="{StaticResource SmallButtonStyle}"  Grid.Row="12" Grid.Column="3" Content="Add Parcel" Command="{x:Static cc:CustomCommands.AddParcel}"/>
 
             </Grid>
         </Grid>

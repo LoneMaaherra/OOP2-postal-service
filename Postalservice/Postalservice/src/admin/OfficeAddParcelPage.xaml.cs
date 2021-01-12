@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Postalservice.src.api;
 
 namespace Postalservice.src.admin
 {
@@ -65,12 +66,41 @@ namespace Postalservice.src.admin
                 }
             }
 
-            Package newCustomer = new Customer(CustomerDict);
+            Parcel newParcel = new Parcel(ParcelToDict, ParcelFromDict);
+            ClearAllFields();
+            mainWindow.Content = mainWindow.GetPage("managePackages");
 
-            mainWindow.Content = mainWindow.GetPage("customerLogin");
+
         }
 
         private void Cancel_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            ClearAllFields();
+            mainWindow.Content = mainWindow.GetPage("managePackages");
+        }
+
+        private void ReturnTrue_CanExecute(object value, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void ReturnToLastPage_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            mainWindow.Content = mainWindow.GetPage("managePackages");
+        }
+
+        private void ReturnToHomePage_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            mainWindow.Content = mainWindow.GetPage("officeHome");
+        }
+
+        private void ReturnToStartPage_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            ClearAllFields();
+            mainWindow.Content = mainWindow.GetPage("start");
+        }
+
+        private void ClearAllFields()
         {
             foreach (object c in GridForm.Children)
             {
@@ -85,22 +115,6 @@ namespace Postalservice.src.admin
                     t.Password = null;
                 }
             }
-            mainWindow.Content = mainWindow.GetPage("customerLogin");
-        }
-
-        private void ReturnTrue_CanExecute(object value, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void ReturnToLastPage_Execute(object sender, ExecutedRoutedEventArgs e)
-        {
-            mainWindow.Content = mainWindow.GetPage("customerLogin");
-        }
-
-        private void ReturnToHomePage_Execute(object sender, ExecutedRoutedEventArgs e)
-        {
-            mainWindow.Content = mainWindow.GetPage("start");
         }
     }
 }

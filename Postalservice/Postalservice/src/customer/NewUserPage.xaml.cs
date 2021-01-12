@@ -58,25 +58,13 @@ namespace Postalservice.src.customer
             }
 
             Customer newCustomer = new Customer(CustomerDict);
-
+            ClearAllFields();
             mainWindow.Content = mainWindow.GetPage("customerLogin");
         }
 
         private void Cancel_Execute(object sender, ExecutedRoutedEventArgs e)
         {
-            foreach (object c in GridForm.Children)
-            {
-                if (c.GetType().Equals(typeof(TextBox)))
-                {
-                    TextBox t = (TextBox)c;
-                    t.Text = null;
-                }
-                else if (c.GetType().Equals(typeof(PasswordBox)))
-                {
-                    PasswordBox t = (PasswordBox)c;
-                    t.Password = null;
-                }
-            }
+            ClearAllFields();
             mainWindow.Content = mainWindow.GetPage("customerLogin");
         }
 
@@ -93,6 +81,23 @@ namespace Postalservice.src.customer
         private void ReturnToHomePage_Execute(object sender, ExecutedRoutedEventArgs e)
         {
             mainWindow.Content = mainWindow.GetPage("start");
+        }
+
+        private void ClearAllFields()
+        {
+            foreach (object c in GridForm.Children)
+            {
+                if (c.GetType().Equals(typeof(TextBox)))
+                {
+                    TextBox t = (TextBox)c;
+                    t.Text = null;
+                }
+                else if (c.GetType().Equals(typeof(PasswordBox)))
+                {
+                    PasswordBox t = (PasswordBox)c;
+                    t.Password = null;
+                }
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Postalservice.src.api
 {
     public class Address
     {
-        private string Id;
+        public string Id;
         public string Name { get; set; }
         public string Street { get; set; }
         public string ZipCode { get; set; }

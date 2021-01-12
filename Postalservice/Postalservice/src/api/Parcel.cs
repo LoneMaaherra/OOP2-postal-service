@@ -9,6 +9,7 @@ namespace Postalservice.src.api
     public class Parcel
     {
         public string ShipmentId { get; set; }
+        public Status Status { get; set; }
         public Address AddressFrom { get; set; }
         public Address AddressTo { get; set; }
         public List<Transport> TransferHistory { get; set; }
@@ -28,11 +29,11 @@ namespace Postalservice.src.api
 
         public Parcel(Dictionary<string, string> parcelToValues, Dictionary<string, string> parcelFromValues)
         {
-            Address.AddressExist(parcelToValues["Name"], parcelToValues["Street"], parcelToValues["ZipCode"], parcelToValues["City"], parcelToValues["Country"]);
+            AddressFrom = GetAddress(parcelFromValues);
+            AddressTo = GetAddress(parcelToValues);
+            Status = Status.Processing;
+            DBConnectionManger.InsertToPackage(Guid.NewGuid(), Int32.Parse(AddressTo.Id) , Int32.Parse(AddressFrom.Id), (int)Status);
 
-            Address.AddressExist(parcelFromValues["Name"], parcelFromValues["Street"], parcelFromValues["ZipCode"], parcelFromValues["City"], parcelFromValues["Country"]);
-
-            AddCustomerToDatabase();
         }
 
         private Address GetAddress(Dictionary<string, string> addressDict)

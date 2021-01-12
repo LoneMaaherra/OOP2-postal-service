@@ -96,11 +96,11 @@ namespace Postalservice.src.api
                     while (reader.Read())
                     {
                         AddressDict["Id"] = reader[0].ToString();
-                        AddressDict["Name"] = reader[4].ToString();
-                        AddressDict["Street"] = reader[5].ToString();
-                        AddressDict["ZipCode"] = reader[6].ToString();
-                        AddressDict["City"] = reader[7].ToString();
-                        AddressDict["Country"] = reader[8].ToString();
+                        AddressDict["Name"] = reader[1].ToString();
+                        AddressDict["Street"] = reader[2].ToString();
+                        AddressDict["ZipCode"] = reader[3].ToString();
+                        AddressDict["City"] = reader[4].ToString();
+                        AddressDict["Country"] = reader[5].ToString();
                     }
                 }
             }
@@ -181,6 +181,25 @@ namespace Postalservice.src.api
                 }
             }
             return Id;
+        }
+
+        public static void InsertToPackage(Guid shipmentId, int addressTo, int addressFrom, int status)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand insertCommand = new SqlCommand("INSERT INTO Package (ShipmentId, AddressTo, AddressFrom, Status) VALUES (@0, @1, @2, @3)", conn);
+                insertCommand.Parameters.Add(new SqlParameter("0", shipmentId));
+                insertCommand.Parameters.Add(new SqlParameter("1", addressTo));
+                insertCommand.Parameters.Add(new SqlParameter("2", addressFrom));
+                insertCommand.Parameters.Add(new SqlParameter("3", status));
+
+
+                insertCommand.ExecuteNonQuery();
+            }
+
         }
     }
 }
