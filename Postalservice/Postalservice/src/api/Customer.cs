@@ -15,6 +15,8 @@ namespace Postalservice.src.api
         public string City { get; set; }
         public string Country { get; set; }
         public string MobileNumber { get; set; }
+        public List<Parcel> ParcelFrom { get; set; }
+        public List<Parcel> ParcelTo { get; set; }
 
 
         public Customer(string id)
@@ -28,6 +30,10 @@ namespace Postalservice.src.api
             City = values["City"];
             Country = values["Country"];
             MobileNumber = values["MobileNumber"];
+            ParcelTo = new List<Parcel>();
+            ParcelFrom = new List<Parcel>();
+            LoadParcelFrom();
+            LoadParcelTo();
         }
 
         public Customer(Dictionary<string, string> values)
@@ -40,11 +46,15 @@ namespace Postalservice.src.api
             Country = values["Country"];
             MobileNumber = values["MobileNumber"];
             AddCustomerToDatabase();
+            ParcelTo = new List<Parcel>();
+            ParcelFrom = new List<Parcel>();
+            LoadParcelFrom();
+            LoadParcelTo();
         }
 
-        public static bool CustomerExist(string id)
+        public static bool CustomerExist(string customerid)
         {
-            return DBConnectionManger.GetCustomerAddressID(id) != -1;
+            return DBConnectionManger.GetCustomerAddressID(customerid) != -1;
         }
 
         private void AddCustomerToDatabase()
@@ -55,14 +65,25 @@ namespace Postalservice.src.api
             DBConnectionManger.InsertToCustomer(Id, AddressID, MobileNumber);
         }
 
-        public void GetParcelFrom()
+        public void LoadParcelFrom()
         {
+            List<string> parcels = DBConnectionManger.GetPackagesFromAddress(DBConnectionManger.GetCustomerAddressID(Id).ToString());
 
+            foreach(string p in parcels)
+            {
+                ParcelFrom.Add(new Parcel(p));
+            }
+            
         }
 
-        public void GetParcelTo()
+        public void LoadParcelTo()
         {
+            List<string> parcels = DBConnectionManger.GetPackagesToAddress(DBConnectionManger.GetCustomerAddressID(Id).ToString());
 
+            foreach (string p in parcels)
+            {
+                ParcelTo.Add(new Parcel(p));
+            }
         }
     }
 }

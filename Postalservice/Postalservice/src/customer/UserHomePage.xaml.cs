@@ -42,11 +42,15 @@ namespace Postalservice.src.customer
 
         private void GoToParcelSendingPage_Execute(object sender, ExecutedRoutedEventArgs e)
         {
-            mainWindow.Content = mainWindow.GetPage("userSendingParcel");
+            UserSendingParcelPage page = (UserSendingParcelPage)mainWindow.GetPage("userSendingParcel");
+            page.Parcels = mainWindow.currentCustomer.ParcelFrom;
+            mainWindow.Content = page;
         }
         private void GoToParcelRecievingPage_Execute(object sender, ExecutedRoutedEventArgs e)
         {
-            mainWindow.Content = mainWindow.GetPage("userRecievingParcel");
+            UserRecievingParcelPage page = (UserRecievingParcelPage)mainWindow.GetPage("userRecievingParcel");
+            page.Parcels = mainWindow.currentCustomer.ParcelTo;
+            mainWindow.Content = page;
         }
     }
 }
