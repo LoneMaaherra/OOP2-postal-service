@@ -182,24 +182,6 @@ namespace Postalservice.src
                 new KeyGesture(Key.D, ModifierKeys.Alt)
           });
 
-        public static readonly RoutedUICommand AddTransport = new RoutedUICommand(
-          "AddTransport",
-          "AddTransport",
-          typeof(CustomCommands),
-          new InputGestureCollection()
-          {
-                new KeyGesture(Key.A, ModifierKeys.Alt)
-          });
-
-        public static readonly RoutedUICommand CancelTransport = new RoutedUICommand(
-          "CancelTransport",
-          "CancelTransport",
-          typeof(CustomCommands),
-          new InputGestureCollection()
-          {
-                new KeyGesture(Key.C, ModifierKeys.Alt)
-          });
-
         public static readonly RoutedUICommand ClearStorageFilter = new RoutedUICommand(
           "ClearStorageFilter",
           "ClearStorageFilter",
@@ -234,6 +216,15 @@ namespace Postalservice.src
           new InputGestureCollection()
           {
                 new KeyGesture(Key.U, ModifierKeys.Alt)
+          });
+
+        public static readonly RoutedUICommand VehiclesTab = new RoutedUICommand(
+          "VehiclesTab",
+          "VehiclesTab",
+          typeof(CustomCommands),
+          new InputGestureCollection()
+          {
+                new KeyGesture(Key.V, ModifierKeys.Alt)
           });
 
         public static String SecureStringToString(SecureString value)

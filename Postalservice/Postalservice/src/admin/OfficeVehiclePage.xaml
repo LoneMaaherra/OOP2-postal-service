@@ -1,0 +1,133 @@
+﻿<Page x:Class="Postalservice.src.admin.OfficeVehiclePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Postalservice.src.admin"
+      xmlns:uc="clr-namespace:Postalservice.src.userControl"
+      xmlns:cc="clr-namespace:Postalservice.src"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="OfficeVehiclePage"
+      Style="{StaticResource PageBackground}">
+
+
+    <DockPanel>
+        <DockPanel.CommandBindings>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Exit}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToStartPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Return}" CanExecute="ReturnTrue_CanExecute" Executed="GoToHomePage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Home}" CanExecute="ReturnTrue_CanExecute" Executed="GoToHomePage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.VehiclesTab}" CanExecute="ReturnTrue_CanExecute" Executed="VehiclesTab_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.AddTab}" CanExecute="ReturnTrue_CanExecute" Executed="AddTab_Execute"/>
+
+            <CommandBinding Command="{x:Static cc:CustomCommands.Ok}" CanExecute="ReturnTrue_CanExecute" Executed="Ok_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Cancel}" CanExecute="ReturnTrue_CanExecute" Executed="Cancel_Execute"/>
+        </DockPanel.CommandBindings>
+        <uc:Header
+            DockPanel.Dock="Top"
+            ExitCommand="{x:Static cc:CustomCommands.Exit}"
+            BackCommand="{x:Static cc:CustomCommands.Return}"
+            HomeCommand="{x:Static cc:CustomCommands.Home}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Rectangle Style="{StaticResource PanelBackground}" Grid.Row="1" Grid.Column="1" />
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" 
+                        Style="{StaticResource TabButtonStyle}" 
+                        Command="{x:Static cc:CustomCommands.VehiclesTab}"
+                        VerticalAlignment="Bottom" 
+                        Content="Vehicles"></Button>
+                <Button Grid.Column="2" 
+                        Style="{StaticResource TabButtonStyle}" 
+                        Command="{x:Static cc:CustomCommands.AddTab}"
+                        VerticalAlignment="Bottom" 
+                        Content="Add Vehicle"></Button>
+            </Grid>
+            
+            <!--#region Vehicles Tab -->
+            <Grid x:Name="VehiclesTab" Visibility="Visible" Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="14*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="14*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <uc:FilterBar Grid.Row="2" Grid.Column="1" MaxHeight="75"></uc:FilterBar>
+            </Grid>
+            <!--#endregion-->
+
+            <!--#region Add Vehicle tab-->
+            <Grid x:Name="AddVehicleTab" Visibility="Hidden" Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="14*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1" Grid.Column="1" Style="{StaticResource FillOutFormStyle}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Register a vehicle into the system" VerticalAlignment="Center"></Label>
+                    <ComboBox Grid.Row="1" Text="Type:"></ComboBox>
+                    <TextBox Grid.Row="2" Style="{StaticResource placeHolder}" Tag="Max Weight"></TextBox>
+                    <TextBox Grid.Row="3" Style="{StaticResource placeHolder}" Tag="Max Volume"></TextBox>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.7*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="0.2*"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="1" VerticalAlignment="Top"
+                        Style="{StaticResource SmallButtonStyle}"
+                        Command="{x:Static cc:CustomCommands.Ok}"
+                        Content="Add">
+                    </Button>
+                    <Button Grid.Row="2" VerticalAlignment="Bottom"
+                        Style="{StaticResource SmallButtonStyle}"
+                        Command="{x:Static cc:CustomCommands.Cancel}"
+                        Content="Cancel">
+                    </Button>
+                </Grid>
+            </Grid>
+            <!--#endregion-->
+
+        </Grid>
+        
+    </DockPanel>
+</Page>
