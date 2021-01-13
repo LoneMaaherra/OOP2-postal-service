@@ -1,0 +1,210 @@
+﻿<Page x:Class="Postalservice.src.admin.OfficeTransportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Postalservice.src.admin"
+      xmlns:uc="clr-namespace:Postalservice.src.userControl"
+      xmlns:cc="clr-namespace:Postalservice.src"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="OfficeTransportPage"
+      Style="{StaticResource PageBackground}">
+
+
+    <DockPanel>
+        <DockPanel.CommandBindings>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Exit}" CanExecute="ReturnTrue_CanExecute" Executed="ReturnToStartPage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Return}" CanExecute="ReturnTrue_CanExecute" Executed="GoToHomePage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Home}" CanExecute="ReturnTrue_CanExecute" Executed="GoToHomePage_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.ManageTab}" CanExecute="ReturnTrue_CanExecute" Executed="ManageTab_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.AddTab}" CanExecute="ReturnTrue_CanExecute" Executed="AddTab_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.PackTab}" CanExecute="ReturnTrue_CanExecute" Executed="PackTab_Execute"/>
+            
+            <CommandBinding Command="{x:Static cc:CustomCommands.Arrival}" CanExecute="ReturnTrue_CanExecute" Executed="Arrival_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Depart}" CanExecute="ReturnTrue_CanExecute" Executed="Depart_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.AddTransport}" CanExecute="ReturnTrue_CanExecute" Executed="AddTransport_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.CancelTransport}" CanExecute="ReturnTrue_CanExecute" Executed="CancelTransport_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.ClearStorageFilter}" CanExecute="ReturnTrue_CanExecute" Executed="ClearStorageFilter_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.PackAll}" CanExecute="ReturnTrue_CanExecute" Executed="PackAll_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.ClearFilter}" CanExecute="ReturnTrue_CanExecute" Executed="ClearFilter_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.UnpackAll}" CanExecute="ReturnTrue_CanExecute" Executed="UnpackAll_Execute"/>
+            
+        </DockPanel.CommandBindings>
+        <uc:Header
+            DockPanel.Dock="Top"
+            ExitCommand="{x:Static cc:CustomCommands.Exit}"
+            BackCommand="{x:Static cc:CustomCommands.Return}"
+            HomeCommand="{x:Static cc:CustomCommands.Home}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Rectangle Style="{StaticResource PanelBackground}" Grid.Row="1" Grid.Column="1" />
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>      
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" 
+                        Style="{StaticResource TabButtonStyle}" 
+                        Command="{x:Static cc:CustomCommands.ManageTab}"
+                        VerticalAlignment="Bottom" 
+                        Content="Manage"></Button>
+                <Button Grid.Column="2" 
+                        Style="{StaticResource TabButtonStyle}" 
+                        Command="{x:Static cc:CustomCommands.AddTab}"
+                        VerticalAlignment="Bottom" 
+                        Content="Add"></Button>
+                <Button Grid.Column="3" 
+                        Style="{StaticResource TabButtonStyle}" 
+                        Command="{x:Static cc:CustomCommands.PackTab}"
+                        VerticalAlignment="Bottom" 
+                        Content="Pack"></Button>
+            </Grid>
+
+            <!-- Grid for the Manage Transport tab -->
+<!--#region Manage Transport Tab-->
+            <Grid x:Name="ManageTab" Visibility="Visible" Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="14*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                
+                <Button Grid.Row="2" Grid.Column="3" 
+                        Style="{StaticResource SmallButtonStyle}"
+                        Command="{x:Static cc:CustomCommands.Arrival}"
+                        Content="Arrival">
+                </Button>
+                <Button Grid.Row="2" Grid.Column="4" 
+                        Style="{StaticResource SmallButtonStyle}"
+                        Command="{x:Static cc:CustomCommands.Depart}"
+                        Content="Depart">
+                </Button>
+            </Grid>
+            <!--#endregion-->
+            
+                
+            <!-- Grid for the Add Transport tab --> 
+<!--#region Add Transport tab-->
+            <Grid x:Name="AddTab" Visibility="Hidden" Grid.Row="1" Grid.Column="1"> 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="14*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1" Grid.Column="1" Style="{StaticResource FillOutFormStyle}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Add transport" VerticalAlignment="Center"></Label>
+                    <ComboBox Grid.Row="1" Text="Transport To:"></ComboBox>
+                    <ComboBox Grid.Row="2" Text="Vehicle:"></ComboBox>
+                    <TextBox Grid.Row="3" Style="{StaticResource placeHolder}" Tag="Departure Date"></TextBox>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.7*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="0.2*"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="1" VerticalAlignment="Top"
+                        Style="{StaticResource SmallButtonStyle}"
+                        Command="{x:Static cc:CustomCommands.AddTransport}"
+                        Content="Add">
+                    </Button>
+                    <Button Grid.Row="2" VerticalAlignment="Bottom"
+                        Style="{StaticResource SmallButtonStyle}"
+                        Command="{x:Static cc:CustomCommands.CancelTransport}"
+                        Content="Cancel">
+                    </Button>
+                </Grid>
+            </Grid>
+            <!--#endregion-->
+            
+            
+            <!--Grid for Pack Vehicle tab-->
+<!--#region Pack Transport tab -->
+            <Grid x:Name="PackTab" Visibility="Hidden" Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.7*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1.1*"/>
+                    <RowDefinition Height="1.1*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <uc:ParcelList x:Name="StorageParcelInfo" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"></uc:ParcelList>
+                <uc:ParcelList x:Name="TransitParcelInfo" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2"></uc:ParcelList>
+                <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="Transport"></ComboBox>
+                <Button Grid.Row="4" Grid.Column="1"
+                        Style="{StaticResource SmallButtonStyle}"
+                        Command="{x:Static cc:CustomCommands.ClearStorageFilter}"
+                        Content="Clear Filter">
+                </Button>
+                <Button Grid.Row="4" Grid.Column="2"
+                        Style="{StaticResource SmallButtonStyle}"
+                        Command="{x:Static cc:CustomCommands.PackAll}"
+                        Content="Pack All">
+                </Button>
+                <Button Grid.Row="4" Grid.Column="4" 
+                        Style="{StaticResource SmallButtonStyle}"
+                        Command="{x:Static cc:CustomCommands.ClearFilter}"
+                        Content="Clear Filter">
+                </Button>
+                <Button Grid.Row="4" Grid.Column="5" 
+                        Style="{StaticResource SmallButtonStyle}"
+                        Command="{x:Static cc:CustomCommands.UnpackAll}"
+                        Content="Depart">
+                </Button>
+                <uc:FilterBar Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"></uc:FilterBar>
+                <uc:FilterBar Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="2"></uc:FilterBar>
+            </Grid>
+            <!--#endregion-->
+
+        </Grid>
+    </DockPanel>
+</Page>
