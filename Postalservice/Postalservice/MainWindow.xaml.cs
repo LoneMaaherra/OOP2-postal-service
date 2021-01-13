@@ -36,8 +36,7 @@ namespace Postalservice
         private Page managePackages;
         private Page addParcel;
         private Page manageTransports;
-        private Page manageVehicles;
-        
+        private Page manageVehicles;        
 
         public Customer currentCustomer
         {

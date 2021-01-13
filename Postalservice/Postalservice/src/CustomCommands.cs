@@ -181,7 +181,6 @@ namespace Postalservice.src
           {
                 new KeyGesture(Key.D, ModifierKeys.Alt)
           });
-       
 
         public static readonly RoutedUICommand ClearStorageFilter = new RoutedUICommand(
           "ClearStorageFilter",
