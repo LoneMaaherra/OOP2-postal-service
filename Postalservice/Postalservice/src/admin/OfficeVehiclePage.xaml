@@ -79,7 +79,7 @@
                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
                          ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
                                                AncestorType={x:Type Page}},
-                                               Path=Parcels}"
+                                               Path=Vehicles}"
                          SelectedItem="SelectedItem" 
                          SelectionMode="Single" SelectionChanged="ListBox_SelectionChanged"
                          Grid.Column="1" Grid.Row="1">    
@@ -87,15 +87,53 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical">
-                                <Label Content="{Binding ShipmentId}"/>
-                                <TextBlock><Run FontWeight="Bold">To:</Run> <Run Text="{Binding AddressTo.Name}"></Run></TextBlock>
-                                <TextBlock><Run FontWeight="Bold">From:</Run> <Run Text="{Binding AddressFrom.Name}"/></TextBlock>
-                                <TextBlock><Run FontWeight="Bold">Date sent:</Run> <Run Text="{Binding Departure}"/></TextBlock>
+                                <Label Content="{Binding RegNr}"/>
+                                <TextBlock><Run FontWeight="Bold">Type:</Run> <Run Text="{Binding Type}"></Run></TextBlock>
+                                <TextBlock><Run FontWeight="Bold">Status:</Run> <Run Text="{Binding Status}"/></TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <uc:FilterBar Grid.Row="2" Grid.Column="1" MaxHeight="75"></uc:FilterBar>
+                <ScrollViewer Grid.Column="3"
+                              Grid.Row="1"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto"
+                              x:Name="VehicleInfoViewer">
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Top">Registration:</TextBlock>
+                        <Label DockPanel.Dock="Top" Content="{Binding RegNr}"/>
+
+                        <TextBlock DockPanel.Dock="Top"
+                                   Margin="0, 10">
+                            <Run Text="Status:" FontWeight="Bold"/>
+                            <Run Text="{Binding Status}"/>
+                        </TextBlock>
+                        <Grid DockPanel.Dock="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">
+                                <Run Text="Max weight:" FontWeight="Bold"/>
+                                <LineBreak/>
+                                <Run Text="{Binding MaxWeight}"/>
+                            </TextBlock>
+                            <TextBlock Grid.Column="1">
+                                <Run Text="Max volume:" FontWeight="Bold"/>
+                                <LineBreak/>
+                                <Run Text="{Binding MaxVolume}"/>
+                            </TextBlock>
+                        </Grid>
+                        <TextBlock Margin="0, 10">
+                            <Run Text="Last location: " FontWeight="Bold"/>
+                            <LineBreak/>
+                            <Run Text="{Binding LocationPO.Name}"/>
+                            <LineBreak/>
+                            <Run Text="{Binding LocationPO.ZipCode}"/>
+                        </TextBlock>
+                    </DockPanel>
+                </ScrollViewer>
             </Grid>
             <!--#endregion-->
 
@@ -115,17 +153,44 @@
                     <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="0.5*"/>
                 </Grid.RowDefinitions>
+                <TextBlock x:Name="TextBlockErrorMessage"
+                           Grid.Column="1"
+                           Grid.Row="2"
+                           Text="Something went wrong blabla"
+                           Visibility="Hidden"
+                           Foreground="{StaticResource ErrorColor}"/>
                 <Grid Grid.Row="1" Grid.Column="1" Style="{StaticResource FillOutFormStyle}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Label Content="Register a vehicle into the system" VerticalAlignment="Center"></Label>
-                    <ComboBox Grid.Row="1" Text="Type:"></ComboBox>
-                    <TextBox Grid.Row="2" Style="{StaticResource placeHolder}" Tag="Max Weight"></TextBox>
-                    <TextBox Grid.Row="3" Style="{StaticResource placeHolder}" Tag="Max Volume"></TextBox>
+                    <TextBox x:Name="TextBoxRegNr" 
+                             Grid.Row="1" 
+                             Style="{StaticResource placeHolder}" 
+                             Tag="Registration number"
+                             MaxHeight="65"/>
+                    <ComboBox x:Name="ComboBoxVehicleType" 
+                              Grid.Row="2" 
+                              Text="Type:" 
+                              Tag="Type:" 
+                              ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
+                                               AncestorType={x:Type Page}},
+                                               Path=VehicleTypes}"
+                              MaxHeight="65"/>
+                    <TextBox x:Name="TextBoxMaxWeight" 
+                             Grid.Row="3" 
+                             Style="{StaticResource placeHolder}" 
+                             Tag="Max Weight (Kilograms)"
+                             MaxHeight="65"/>
+                    <TextBox x:Name="TextBoxMaxVolume" 
+                             Grid.Row="4" 
+                             Style="{StaticResource placeHolder}" 
+                             Tag="Max Volume (Cubic meters)"
+                             MaxHeight="65"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2">
                     <Grid.RowDefinitions>
