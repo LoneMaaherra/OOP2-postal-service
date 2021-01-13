@@ -74,7 +74,6 @@
                             From office: 
                             <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelInfo}}, Path=OfficeFrom.Name}"/> 
                             <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelInfo}}, Path=OfficeFrom.ZipCode}"/>
-
                         </TextBlock>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

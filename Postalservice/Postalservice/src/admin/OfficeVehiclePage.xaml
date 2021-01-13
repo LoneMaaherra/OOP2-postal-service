@@ -74,6 +74,27 @@
                     <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="0.5*"/>
                 </Grid.RowDefinitions>
+                <ListBox x:Name="MyListBox"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                         ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
+                                               AncestorType={x:Type Page}},
+                                               Path=Parcels}"
+                         SelectedItem="SelectedItem" 
+                         SelectionMode="Single" SelectionChanged="ListBox_SelectionChanged"
+                         Grid.Column="1" Grid.Row="1">    
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <Label Content="{Binding ShipmentId}"/>
+                                <TextBlock><Run FontWeight="Bold">To:</Run> <Run Text="{Binding AddressTo.Name}"></Run></TextBlock>
+                                <TextBlock><Run FontWeight="Bold">From:</Run> <Run Text="{Binding AddressFrom.Name}"/></TextBlock>
+                                <TextBlock><Run FontWeight="Bold">Date sent:</Run> <Run Text="{Binding Departure}"/></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
                 <uc:FilterBar Grid.Row="2" Grid.Column="1" MaxHeight="75"></uc:FilterBar>
             </Grid>
             <!--#endregion-->
