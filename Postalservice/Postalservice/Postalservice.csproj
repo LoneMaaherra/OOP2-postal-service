@@ -72,6 +72,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="LoadingScreen.xaml.cs">
+      <DependentUpon>LoadingScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\admin\AdminLoginPage.xaml.cs">
       <DependentUpon>AdminLoginPage.xaml</DependentUpon>
     </Compile>
@@ -83,6 +86,12 @@
     </Compile>
     <Compile Include="src\admin\OfficeHomePage.xaml.cs">
       <DependentUpon>OfficeHomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\admin\OfficeTransportPage.xaml.cs">
+      <DependentUpon>OfficeTransportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\admin\OfficeVehiclePage.xaml.cs">
+      <DependentUpon>OfficeVehiclePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\api\Address.cs" />
     <Compile Include="src\api\Customer.cs" />
@@ -125,6 +134,10 @@
     <Compile Include="src\userControl\ParcelList.xaml.cs">
       <DependentUpon>ParcelList.xaml</DependentUpon>
     </Compile>
+    <Page Include="LoadingScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -151,6 +164,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="src\admin\OfficeHomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\admin\OfficeTransportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\admin\OfficeVehiclePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
