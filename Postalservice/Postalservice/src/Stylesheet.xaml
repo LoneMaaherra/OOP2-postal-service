@@ -31,6 +31,15 @@
         </Setter>
     </Style>
 
+    <Style TargetType="Window" x:Key="WinBackground">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="pack://application:,,,/src/assets/background.png" 
+                            Stretch="UniformToFill"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="UC:LogIn">
         <Setter Property="FontFamily" Value="{StaticResource Comfortaa}"/>
         <Setter Property="FontSize" Value="30"/>
