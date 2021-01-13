@@ -121,6 +121,9 @@ namespace Postalservice
                 case "manageTransports":
                     return manageTransports;
                 case "manageVehicles":
+                    OfficeVehiclePage p = (OfficeVehiclePage)manageVehicles;
+                    p.LoadVehicles();
+                    p.MyListBox.Items.Refresh();
                     return manageVehicles;
                 default:
                     return startPage;
