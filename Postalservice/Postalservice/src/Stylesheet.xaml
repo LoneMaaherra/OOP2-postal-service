@@ -49,6 +49,12 @@
         <Setter Property="ErrorMessageForeground" Value="PaleVioletRed"/>
     </Style>
 
+    <Style TargetType="TextBlock" x:Key="ErrorMessage">
+        <Setter Property="FontFamily" Value="{StaticResource Overpass}"/>
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="Foreground" Value="{StaticResource ErrorColor}"/>
+    </Style>
+    
     <Style TargetType="TextBox">
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>

@@ -36,5 +36,10 @@ namespace Postalservice.src.api
             Status = status;
             LocationPO = postOffice;
         }
+
+        public override string ToString()
+        {
+            return $"{RegNr} {Type}";
+        }
     }
 }

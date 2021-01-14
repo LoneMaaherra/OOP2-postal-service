@@ -119,11 +119,12 @@ namespace Postalservice
                 case "addParcel":
                     return addParcel;
                 case "manageTransports":
+                    OfficeTransportPage t = (OfficeTransportPage)manageTransports;
+                    t.RefreshPage();
                     return manageTransports;
                 case "manageVehicles":
-                    OfficeVehiclePage p = (OfficeVehiclePage)manageVehicles;
-                    p.LoadVehicles();
-                    p.MyListBox.Items.Refresh();
+                    OfficeVehiclePage v = (OfficeVehiclePage)manageVehicles;
+                    v.RefreshPage();                 
                     return manageVehicles;
                 default:
                     return startPage;

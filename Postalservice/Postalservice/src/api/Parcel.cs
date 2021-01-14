@@ -30,9 +30,10 @@ namespace Postalservice.src.api
             AddressFrom = GetAddress(parcelFromValues);
             AddressTo = GetAddress(parcelToValues);
             Status = Status.Processing;
-            DBConnectionManger.InsertToPackage(Guid.NewGuid(), Int32.Parse(AddressTo.Id), Int32.Parse(AddressFrom.Id), (int)Status);
+            Guid newGuid = Guid.NewGuid();
+            ShipmentId = newGuid.ToString();
+            DBConnectionManger.InsertToPackage(newGuid, Int32.Parse(AddressTo.Id), Int32.Parse(AddressFrom.Id), (int)Status);
         }
-
 
 
         private Address GetAddress(Dictionary<string, string> addressDict)

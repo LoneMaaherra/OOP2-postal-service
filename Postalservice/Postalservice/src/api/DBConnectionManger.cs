@@ -181,6 +181,68 @@ namespace Postalservice.src.api
             return Id;
         }
 
+        public static void InsertToPostalOffice(string name, string zipCode)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand insertCommand = new SqlCommand("INSERT INTO Vehicle (ZipCode, Name) VALUES (@0, @1)", conn);
+                insertCommand.Parameters.Add(new SqlParameter("0", zipCode));
+                insertCommand.Parameters.Add(new SqlParameter("1", name));
+
+                insertCommand.ExecuteNonQuery();
+            }
+        }
+
+        public static Dictionary<string, string> GetPostalOffice(int id)
+        {
+            Dictionary<string, string> poDict = new Dictionary<string, string>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM PostalOffice WHERE id=@0", conn);
+                command.Parameters.Add(new SqlParameter("0", id));
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        poDict["Id"] = reader[0].ToString();
+                        poDict["ZipCode"] = reader[1].ToString();
+                        poDict["Name"] = reader[2].ToString();
+                    }
+                }
+            }
+            return poDict;
+        }
+
+        public static List<int> GetAllPostOffices()
+        {
+            List<int> ListOfOffices = new List<int>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand getCommand = new SqlCommand("SELECT Id FROM PostalOffice", conn);
+
+                using (SqlDataReader reader = getCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ListOfOffices.Add((int)reader[0]);
+                    }
+                }
+            }
+            return ListOfOffices;
+        }
+
         public static void InsertToPackage(Guid shipmentId, int addressTo, int addressFrom, int status)
         {
             using (SqlConnection conn = new SqlConnection())
@@ -319,46 +381,7 @@ namespace Postalservice.src.api
             return vehicleDict;
         }
 
-        public static void InsertToPostalOffice(string name, string zipCode)
-        {
-            using (SqlConnection conn = new SqlConnection())
-            {
-                conn.ConnectionString = CONNECTION_STRING;
-                conn.Open();
-
-                SqlCommand insertCommand = new SqlCommand("INSERT INTO Vehicle (ZipCode, Name) VALUES (@0, @1)", conn);
-                insertCommand.Parameters.Add(new SqlParameter("0", zipCode));
-                insertCommand.Parameters.Add(new SqlParameter("1", name));
        
-                insertCommand.ExecuteNonQuery();
-            }
-        }
-
-        public static Dictionary<string, string> GetPostalOffice(int id)
-        {
-            Dictionary<string, string> poDict = new Dictionary<string, string>();
-
-            using (SqlConnection conn = new SqlConnection())
-            {
-                conn.ConnectionString = CONNECTION_STRING;
-                conn.Open();
-
-                SqlCommand command = new SqlCommand("SELECT * FROM PostalOffice WHERE id=@0", conn);
-                command.Parameters.Add(new SqlParameter("0", id));
-
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        poDict["Id"] = reader[0].ToString();
-                        poDict["ZipCode"] = reader[1].ToString();
-                        poDict["Name"] = reader[2].ToString();
-                    }
-                }
-            }
-            return poDict;
-        }
-
         public static List<string> GetAllVehicles()
         {
             List<string> regNrs = new List<string>();
@@ -379,6 +402,129 @@ namespace Postalservice.src.api
                 }
             }
             return regNrs;
+        }
+
+        public static List<string> GetVehiclesAtPO(string postalOfficeId)
+        {
+            List<string> VehicleList = new List<string>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT RegNr FROM Vehicle WHERE PostOffice =@0 AND Status = @1", conn);
+                command.Parameters.Add(new SqlParameter("0", postalOfficeId));
+                command.Parameters.Add(new SqlParameter("1", VehicleStatus.Parked));
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        VehicleList.Add(reader[0].ToString());
+                    }
+                }
+            }
+            return VehicleList;
+        }
+
+        public static void InsertToTransport(string vehicle, int toPO, int fromPO, DateTime? dateSent, DateTime? dateArrived, DateTime prelDeparture)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand insertCommand = new SqlCommand("INSERT INTO Transport (Vehicle, ToPO, FromPO, DateSent, DateArrived, PrelDeparture) VALUES (@0, @1, @2, @3, @4, @5)", conn);
+                insertCommand.Parameters.Add(new SqlParameter("0", vehicle));
+                insertCommand.Parameters.Add(new SqlParameter("1", toPO));
+                insertCommand.Parameters.Add(new SqlParameter("2", fromPO));
+                insertCommand.Parameters.Add(new SqlParameter("3", dateSent));
+                insertCommand.Parameters.Add(new SqlParameter("4", dateArrived));
+                insertCommand.Parameters.Add(new SqlParameter("5", prelDeparture));
+
+                insertCommand.ExecuteNonQuery();
+            }
+        }
+
+        public static Dictionary<string, string> GetTransport(int id)
+        {
+            Dictionary<string, string> transportDict = new Dictionary<string, string>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM Transport WHERE id=@0", conn);
+                command.Parameters.Add(new SqlParameter("0", id));
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        transportDict["Id"] = reader[0].ToString();
+                        transportDict["Vehicle"] = reader[1].ToString();
+                        transportDict["ToPO"] = reader[2].ToString();
+                        transportDict["FromPO"] = reader[3].ToString();
+                        transportDict["DateSent"] = reader[4].ToString();
+                        transportDict["DateArrived"] = reader[5].ToString();
+                        transportDict["PrelDeparture"] = reader[6].ToString();
+                    }
+                }
+            }
+            return transportDict;
+        }
+
+        public static int GetTransportId(string vehicle, int toPO, int fromPO, DateTime? dateSent, DateTime? dateArrived, DateTime prelDeparture)
+        {
+            int Id = -1;
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand getCommand = new SqlCommand("SELECT Id FROM Transport WHERE Vehicle =@0 AND ToPO = @1 AND FromPO = @2 AND DateSent =@3 AND DateArrived = @4 AND PrelDeparture =@5", conn);
+                getCommand.Parameters.Add(new SqlParameter("0", vehicle));
+                getCommand.Parameters.Add(new SqlParameter("1", toPO));
+                getCommand.Parameters.Add(new SqlParameter("2", fromPO));
+                getCommand.Parameters.Add(new SqlParameter("3", dateSent));
+                getCommand.Parameters.Add(new SqlParameter("4", dateArrived));
+                getCommand.Parameters.Add(new SqlParameter("5", prelDeparture));
+
+                using (SqlDataReader reader = getCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (Id == -1) { Id = (int)reader[0]; }
+                        else break;
+                    }
+                }
+            }
+            return Id;
+        }
+
+        public static List<int> GetParcelsInTransport(int transportId)
+        {
+            List<int> ListOfParcels = new List<int>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand getCommand = new SqlCommand("SELECT ShipmentId FROM PackageTransport WHERE TransportId =@0", conn);
+                getCommand.Parameters.Add(new SqlParameter("0", transportId));
+
+                using (SqlDataReader reader = getCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ListOfParcels.Add((int)reader[0]);
+                    }
+                }
+            }
+            return ListOfParcels;
         }
     }
 }

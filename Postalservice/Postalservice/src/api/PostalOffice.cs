@@ -32,5 +32,10 @@ namespace Postalservice.src.api
         {
             return DBConnectionManger.GetOfficeId(name, zipCode) != -1;
         }
+
+        public override string ToString()
+        {
+            return $"{Name} {ZipCode}";
+        }
     }
 }
