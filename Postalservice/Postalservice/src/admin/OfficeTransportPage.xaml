@@ -54,7 +54,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="3*"/>      
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="1" 
                         Style="{StaticResource TabButtonStyle}" 
@@ -75,7 +75,7 @@
 
             <!-- Grid for the Manage Transport tab -->
 <!--#region Manage Transport Tab-->
-            <Grid x:Name="ManageTab" Visibility="Visible" Grid.Row="1" Grid.Column="1">
+            <Grid x:Name="ManageTab" Visibility="Hidden" Grid.Row="1" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="14*"/>
@@ -90,7 +90,67 @@
                     <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="0.5*"/>
                 </Grid.RowDefinitions>
-                
+                <ListBox x:Name="MyListBox"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                         ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
+                                               AncestorType={x:Type Page}},
+                                               Path=Vehicles}"
+                         SelectedItem="SelectedItem" 
+                         SelectionMode="Single" SelectionChanged="ListBox_SelectionChanged"
+                         Grid.Column="1" Grid.Row="1">
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <Label Content="{Binding RegNr}"/>
+                                <TextBlock><Run FontWeight="Bold">Type:</Run> <Run Text="{Binding Type}"></Run></TextBlock>
+                                <TextBlock><Run FontWeight="Bold">Status:</Run> <Run Text="{Binding Status}"/></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <ScrollViewer Grid.Column="3"
+                              Grid.Row="1"
+                              Grid.ColumnSpan="2"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto"
+                              x:Name="VehicleInfoViewer">
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Top">Registration:</TextBlock>
+                        <Label DockPanel.Dock="Top" Content="{Binding RegNr}"/>
+
+                        <TextBlock DockPanel.Dock="Top"
+                                   Margin="0, 10">
+                            <Run Text="Status:" FontWeight="Bold"/>
+                            <Run Text="{Binding Status}"/>
+                        </TextBlock>
+                        <Grid DockPanel.Dock="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">
+                                <Run Text="Max weight:" FontWeight="Bold"/>
+                                <LineBreak/>
+                                <Run Text="{Binding MaxWeight}"/>
+                            </TextBlock>
+                            <TextBlock Grid.Column="1">
+                                <Run Text="Max volume:" FontWeight="Bold"/>
+                                <LineBreak/>
+                                <Run Text="{Binding MaxVolume}"/>
+                            </TextBlock>
+                        </Grid>
+                        <TextBlock Margin="0, 10">
+                            <Run Text="Last location: " FontWeight="Bold"/>
+                            <LineBreak/>
+                            <Run Text="{Binding LocationPO.Name}"/>
+                            <LineBreak/>
+                            <Run Text="{Binding LocationPO.ZipCode}"/>
+                        </TextBlock>
+                    </DockPanel>
+                </ScrollViewer>
+
                 <Button Grid.Row="2" Grid.Column="3" 
                         Style="{StaticResource SmallButtonStyle}"
                         Command="{x:Static cc:CustomCommands.Arrival}"
@@ -107,7 +167,7 @@
                 
             <!-- Grid for the Add Transport tab --> 
 <!--#region Add Transport tab-->
-            <Grid x:Name="AddTab" Visibility="Hidden" Grid.Row="1" Grid.Column="1"> 
+            <Grid x:Name="AddTab" Visibility="Visible" Grid.Row="1" Grid.Column="1"> 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="14*"/>
