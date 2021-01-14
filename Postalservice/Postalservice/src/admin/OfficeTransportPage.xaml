@@ -23,8 +23,8 @@
             
             <CommandBinding Command="{x:Static cc:CustomCommands.Arrival}" CanExecute="ReturnTrue_CanExecute" Executed="Arrival_Execute"/>
             <CommandBinding Command="{x:Static cc:CustomCommands.Depart}" CanExecute="ReturnTrue_CanExecute" Executed="Depart_Execute"/>
-            <CommandBinding Command="{x:Static cc:CustomCommands.AddTransport}" CanExecute="ReturnTrue_CanExecute" Executed="AddTransport_Execute"/>
-            <CommandBinding Command="{x:Static cc:CustomCommands.CancelTransport}" CanExecute="ReturnTrue_CanExecute" Executed="CancelTransport_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Ok}" CanExecute="ReturnTrue_CanExecute" Executed="Ok_Execute"/>
+            <CommandBinding Command="{x:Static cc:CustomCommands.Cancel}" CanExecute="ReturnTrue_CanExecute" Executed="Cancel_Execute"/>
             <CommandBinding Command="{x:Static cc:CustomCommands.ClearStorageFilter}" CanExecute="ReturnTrue_CanExecute" Executed="ClearStorageFilter_Execute"/>
             <CommandBinding Command="{x:Static cc:CustomCommands.PackAll}" CanExecute="ReturnTrue_CanExecute" Executed="PackAll_Execute"/>
             <CommandBinding Command="{x:Static cc:CustomCommands.ClearFilter}" CanExecute="ReturnTrue_CanExecute" Executed="ClearFilter_Execute"/>
@@ -131,7 +131,7 @@
                     </Grid.RowDefinitions>
                     <Label Content="Add transport" VerticalAlignment="Center"></Label>
                     <ComboBox Grid.Row="1" Text="Transport To:"></ComboBox>
-                    <ComboBox Grid.Row="2" Text="Vehicle:"></ComboBox>
+                    <ComboBox Grid.Row="2" Text="Choose a Vehicle:"></ComboBox>
                     <TextBox Grid.Row="3" Style="{StaticResource placeHolder}" Tag="Departure Date"></TextBox>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2">
@@ -143,12 +143,12 @@
                     </Grid.RowDefinitions>
                     <Button Grid.Row="1" VerticalAlignment="Top"
                         Style="{StaticResource SmallButtonStyle}"
-                        Command="{x:Static cc:CustomCommands.AddTransport}"
+                        Command="{x:Static cc:CustomCommands.Ok}"
                         Content="Add">
                     </Button>
                     <Button Grid.Row="2" VerticalAlignment="Bottom"
                         Style="{StaticResource SmallButtonStyle}"
-                        Command="{x:Static cc:CustomCommands.CancelTransport}"
+                        Command="{x:Static cc:CustomCommands.Cancel}"
                         Content="Cancel">
                     </Button>
                 </Grid>

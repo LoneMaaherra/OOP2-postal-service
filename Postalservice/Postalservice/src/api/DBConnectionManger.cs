@@ -33,8 +33,6 @@ namespace Postalservice.src.api
             }
         }
 
-
-
         public static void InsertToCustomer(string id, int addressId, string mobileNumber)
         {
             using (SqlConnection conn = new SqlConnection())
@@ -272,6 +270,115 @@ namespace Postalservice.src.api
                 }
             }
             return PackagesList;
+        }
+
+        public static void InsertToVehicle(string regNr, int type, int maxWeight, int maxVolume, int status, int postOffice)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand insertCommand = new SqlCommand("INSERT INTO Vehicle (RegNr, Type, MaxWeight, MaxVolume, Status, PostOffice) VALUES (@0, @1, @2, @3, @4, @5)", conn);
+                insertCommand.Parameters.Add(new SqlParameter("0", regNr));
+                insertCommand.Parameters.Add(new SqlParameter("1", type));
+                insertCommand.Parameters.Add(new SqlParameter("2", maxWeight));
+                insertCommand.Parameters.Add(new SqlParameter("3", maxVolume));
+                insertCommand.Parameters.Add(new SqlParameter("4", status));
+                insertCommand.Parameters.Add(new SqlParameter("5", postOffice));
+
+                insertCommand.ExecuteNonQuery();
+            }
+        }
+
+        public static Dictionary<string,string> GetVehicle(string regNr)
+        {
+            Dictionary<string, string> vehicleDict = new Dictionary<string, string>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM Vehicle WHERE RegNr =@0", conn);
+                command.Parameters.Add(new SqlParameter("0", regNr));
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        vehicleDict["RegNr"] = reader[0].ToString();
+                        vehicleDict["Type"] = reader[1].ToString();
+                        vehicleDict["MaxWeight"] = reader[2].ToString();
+                        vehicleDict["MaxVolume"] = reader[3].ToString();
+                        vehicleDict["Status"] = reader[4].ToString();
+                        vehicleDict["PostOffice"] = reader[5].ToString();
+                    }
+                }
+            }
+            return vehicleDict;
+        }
+
+        public static void InsertToPostalOffice(string name, string zipCode)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand insertCommand = new SqlCommand("INSERT INTO Vehicle (ZipCode, Name) VALUES (@0, @1)", conn);
+                insertCommand.Parameters.Add(new SqlParameter("0", zipCode));
+                insertCommand.Parameters.Add(new SqlParameter("1", name));
+       
+                insertCommand.ExecuteNonQuery();
+            }
+        }
+
+        public static Dictionary<string, string> GetPostalOffice(int id)
+        {
+            Dictionary<string, string> poDict = new Dictionary<string, string>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM PostalOffice WHERE id=@0", conn);
+                command.Parameters.Add(new SqlParameter("0", id));
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        poDict["Id"] = reader[0].ToString();
+                        poDict["ZipCode"] = reader[1].ToString();
+                        poDict["Name"] = reader[2].ToString();
+                    }
+                }
+            }
+            return poDict;
+        }
+
+        public static List<string> GetAllVehicles()
+        {
+            List<string> regNrs = new List<string>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT RegNr FROM Vehicle", conn);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        regNrs.Add(reader[0].ToString());
+                    }
+                }
+            }
+            return regNrs;
         }
     }
 }

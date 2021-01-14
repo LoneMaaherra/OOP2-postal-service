@@ -34,9 +34,13 @@ namespace Postalservice.src.admin
             string PostOfficeName = LogInControl.TopTextBoxContent;
             string ZipCode = LogInControl.BottomTextBoxContent;
 
-            if (!PostalOffice.OfficeExist(PostOfficeName, ZipCode)) { LogInControl.ErrorMessageVisibility = Visibility.Visible; return; }
+            if (!PostalOffice.OfficeExist(PostOfficeName, ZipCode)) 
+            { 
+                LogInControl.ErrorMessageVisibility = Visibility.Visible; 
+                return; 
+            }
 
-            mainWindow.currentOffice = new PostalOffice(PostOfficeName, ZipCode);
+            mainWindow.currentOffice = new PostalOffice(DBConnectionManger.GetOfficeId(PostOfficeName, ZipCode).ToString());
             LogInControl.Reset();
             mainWindow.Content = mainWindow.GetPage("officeHome");
             // @TODO: handle user specific data?

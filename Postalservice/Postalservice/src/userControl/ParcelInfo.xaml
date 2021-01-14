@@ -6,60 +6,78 @@
              xmlns:local="clr-namespace:Postalservice.src.userControl"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel>
-        <Label DockPanel.Dock="Top"
-               Content="{Binding ShipmentId}"/>
-        <TextBlock DockPanel.Dock="Top"
-                   Text="To:"/>
-        <TextBlock DockPanel.Dock="Top">
-            <Run Text="{Binding AddressTo.Name}"/>
-            <LineBreak/>
-            <Run Text="{Binding AddressTo.Street}"/>
-            <LineBreak/>
-            <Run Text="{Binding AddressTo.ZipCode}"/>
-            <LineBreak/>
-            <Run Text="{Binding AddressTo.City}"/>
-            <LineBreak/>
-            <Run Text="{Binding AddressTo.Country}"/>
-        </TextBlock>
-        <TextBlock DockPanel.Dock="Top"
-                   Text="From:"/>
-        <TextBlock DockPanel.Dock="Top">
-            <Run Text="{Binding AddressFrom.Name}"/>
-            <LineBreak/>
-            <Run Text="{Binding AddressFrom.Street}"/>
-            <LineBreak/>
-            <Run Text="{Binding AddressFrom.ZipCode}"/>
-            <LineBreak/>
-            <Run Text="{Binding AddressFrom.City}"/>
-            <LineBreak/>
-            <Run Text="{Binding AddressFrom.Country}"/>
-        </TextBlock>
-        <TextBlock DockPanel.Dock="Top"
-                   Text="Transfer history:"/>
-        <ListBox DockPanel.Dock="Top"
-                 VerticalAlignment="Stretch"
-                 ItemsSource="{Binding 
-                               RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, 
-                               Path=Parcel.TransferHistory}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock>
-                        <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelInfo}}, Path=DateArrived}"/> 
-                        <LineBreak/>
-                        To office: 
-                        <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelInfo}}, Path=OfficeTo.Name}"/> 
-                        <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelInfo}}, Path=OfficeTo.ZipCode}"/>
-                        <LineBreak/>
-                        <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelInfo}}, Path=DateDeparted}"/> 
-                        <LineBreak/>
-                        From office: 
-                        <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelInfo}}, Path=OfficeFrom.Name}"/> 
-                        <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelInfo}}, Path=OfficeFrom.ZipCode}"/>
-                        
-                    </TextBlock>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-    </DockPanel>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                  VerticalScrollBarVisibility="Auto">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top">Shipment Id:</TextBlock>
+            <Label DockPanel.Dock="Top"
+                   Content="{Binding ShipmentId}"/>
+
+            <TextBlock DockPanel.Dock="Top"
+                       Margin="0, 10">
+                <Run Text="Status:" FontWeight="Bold"/>
+                <Run Text="{Binding Status}"/>
+            </TextBlock>
+
+            <Grid DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0">
+                    <Run Text="To:" FontWeight="Bold"/>
+                    <LineBreak/>
+                    <Run Text="{Binding AddressTo.Name}"/>
+                    <LineBreak/>
+                    <Run Text="{Binding AddressTo.Street}"/>
+                    <LineBreak/>
+                    <Run Text="{Binding AddressTo.ZipCode}"/>
+                    <Run Text="{Binding AddressTo.City}"/>
+                    <LineBreak/>
+                    <Run Text="{Binding AddressTo.Country}"/>
+                </TextBlock>
+
+                <TextBlock Grid.Column="1">
+                    <Run Text="From:" FontWeight="Bold"/>
+                    <LineBreak/>
+                    <Run Text="{Binding AddressFrom.Name}"/>
+                    <LineBreak/>
+                    <Run Text="{Binding AddressFrom.Street}"/>
+                    <LineBreak/>
+                    <Run Text="{Binding AddressFrom.ZipCode}"/>
+                    <Run Text="{Binding AddressFrom.City}"/>
+                    <LineBreak/>
+                    <Run Text="{Binding AddressFrom.Country}"/>
+                </TextBlock>
+            </Grid>
+            
+            <TextBlock DockPanel.Dock="Top"
+                       Margin="0, 10, 0, 0"
+                       Text="Transfer history:"
+                       FontWeight="Bold"/>
+            <ListBox DockPanel.Dock="Top"
+                     VerticalAlignment="Stretch"
+                     ItemsSource="{Binding 
+                                   RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, 
+                                   Path=Parcel.TransferHistory}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelInfo}}, Path=DateArrived}"/> 
+                            <LineBreak/>
+                            To office: 
+                            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelInfo}}, Path=OfficeTo.Name}"/> 
+                            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelInfo}}, Path=OfficeTo.ZipCode}"/>
+                            <LineBreak/>
+                            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelInfo}}, Path=DateDeparted}"/> 
+                            <LineBreak/>
+                            From office: 
+                            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelInfo}}, Path=OfficeFrom.Name}"/> 
+                            <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParcelInfo}}, Path=OfficeFrom.ZipCode}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+    </ScrollViewer>
 </UserControl>

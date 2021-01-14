@@ -49,7 +49,7 @@ namespace Postalservice.src.admin
 
         private void GoToManageVehiclesPage_Execute(object sender, ExecutedRoutedEventArgs e)
         {
-            mainWindow.Content = mainWindow.GetPage("officeHome");
+            mainWindow.Content = mainWindow.GetPage("manageVehicles");
         }
     }
 }

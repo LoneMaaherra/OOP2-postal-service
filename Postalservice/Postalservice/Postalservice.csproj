@@ -90,6 +90,9 @@
     <Compile Include="src\admin\OfficeTransportPage.xaml.cs">
       <DependentUpon>OfficeTransportPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\admin\OfficeVehiclePage.xaml.cs">
+      <DependentUpon>OfficeVehiclePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\api\Address.cs" />
     <Compile Include="src\api\Customer.cs" />
     <Compile Include="src\api\DBConnectionManger.cs" />
@@ -97,6 +100,9 @@
     <Compile Include="src\api\PostalOffice.cs" />
     <Compile Include="src\api\Status.cs" />
     <Compile Include="src\api\Transport.cs" />
+    <Compile Include="src\api\Vehicle.cs" />
+    <Compile Include="src\api\VehicleStatus.cs" />
+    <Compile Include="src\api\VehicleType.cs" />
     <Compile Include="src\CustomCommands.cs" />
     <Compile Include="src\customer\CustomerLoginPage.xaml.cs">
       <DependentUpon>CustomerLoginPage.xaml</DependentUpon>
@@ -165,6 +171,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="src\admin\OfficeTransportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\admin\OfficeVehiclePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
