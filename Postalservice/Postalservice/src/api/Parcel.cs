@@ -49,5 +49,10 @@ namespace Postalservice.src.api
                 return new Address(addressDict);
             }
         }
+
+        public void ChangeStatus(Status status)
+        {
+            DBConnectionManger.SetPackageStatus(ShipmentId, status);
+        }
     }
 }

@@ -23,15 +23,6 @@ namespace Postalservice.src.admin
     {
         private MainWindow mainWindow;
 
-        public List<Parcel> Parcels
-        {
-            get { return (List<Parcel>)this.GetValue(ParcelsProperty); }
-            set { this.SetValue(ParcelsProperty, value); }
-        }
-
-        public static readonly DependencyProperty ParcelsProperty = DependencyProperty.Register(
-           "Parcels", typeof(List<Parcel>), typeof(ManagePackagesPage), new PropertyMetadata());
-
         public ManagePackagesPage(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
@@ -70,6 +61,22 @@ namespace Postalservice.src.admin
         private void AddPackage_Execute(object sender, ExecutedRoutedEventArgs e)
         {
             mainWindow.Content = mainWindow.GetPage("addParcel");
+        }
+
+        private List<Parcel> GetAvailableParcels()
+        {
+            List<Parcel> parcels = new List<Parcel>();
+            foreach (string id in DBConnectionManger.GetPackagesAtPOReadyForPickup(Int32.Parse(mainWindow.currentOffice.Id)))
+            {
+                parcels.Add(new Parcel(id));
+            }
+            return parcels;
+        }
+
+        public void RefreshPage()
+        {
+            MyParcelList.Parcels = GetAvailableParcels();
+            MyParcelList.Items.Refresh();
         }
     }
 }

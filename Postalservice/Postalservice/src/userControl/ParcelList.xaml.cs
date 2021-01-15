@@ -24,20 +24,16 @@ namespace Postalservice.src.userControl
     /// </summary>
     public partial class ParcelList : UserControl
     {
-        /// <summary>
-        /// Delegate handler for ParcelList item selected.
-        /// </summary>
-        public object SelectedItem
+        public ItemCollection Items
         {
-            get { return (object)this.GetValue(SelectedItemProperty); }
-            set { this.SetValue(SelectedItemProperty, value); }
+            get { return MyListBox.Items; }
         }
 
-        /// <summary>
-        /// Dependency register for the SelectedItem property.
-        /// </summary>
-        public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(
-            "SelectedItem", typeof(object), typeof(ParcelList), new PropertyMetadata());
+        public object SelectedItem
+        {
+            get { return MyListBox.SelectedItem; }
+            set { MyListBox.SelectedItem = value; }
+        }
 
         /// <summary>
         /// List of vehicles for Parcel ListBox ItemsSource.

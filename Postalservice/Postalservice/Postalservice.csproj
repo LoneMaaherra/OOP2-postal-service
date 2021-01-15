@@ -302,6 +302,8 @@
     <Resource Include="src\assets\exit.png" />
     <Resource Include="src\assets\background.png" />
     <Content Include="src\assets\background.svg" />
+    <Resource Include="src\assets\left-arrow.png" />
+    <Resource Include="src\assets\right-arrow.png" />
     <Content Include="src\db\PostalServiceDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

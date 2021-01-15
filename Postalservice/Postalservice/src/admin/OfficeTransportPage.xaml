@@ -215,7 +215,7 @@
                 
             <!-- Grid for the Add Transport tab --> 
 <!--#region Add Transport tab-->
-            <Grid x:Name="AddTab" Visibility="Visible" Grid.Row="1" Grid.Column="1"> 
+            <Grid x:Name="AddTab" Visibility="Hidden" Grid.Row="1" Grid.Column="1"> 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="14*"/>
@@ -249,7 +249,7 @@
                                                AncestorType={x:Type Page}},
                                                Path=Offices}">
                     </ComboBox>
-                    <ComboBox x:Name="ComboBoxVehicle" Grid.Row="2" Text="Choose an avaible Vehicle:" 
+                    <ComboBox x:Name="ComboBoxVehicle" Grid.Row="2" Text="Choose an avaible Vehicle:"  Tag="Choose an avaible Vehicle:"
                               ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
                                                AncestorType={x:Type Page}},
                                                Path=Vehicles}">
@@ -282,7 +282,7 @@
             
             <!--Grid for Pack Vehicle tab-->
 <!--#region Pack Transport tab -->
-            <Grid x:Name="PackTab" Visibility="Hidden" Grid.Row="1" Grid.Column="1">
+            <Grid x:Name="PackTab" Visibility="Visible" Grid.Row="1" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="7*"/>
@@ -301,9 +301,44 @@
                     <RowDefinition Height="1.1*"/>
                     <RowDefinition Height="0.5*"/>
                 </Grid.RowDefinitions>
-                <uc:ParcelList x:Name="StorageParcelInfo" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"></uc:ParcelList>
-                <uc:ParcelList x:Name="TransitParcelInfo" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2"></uc:ParcelList>
-                <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="Transport"></ComboBox>
+                <uc:ParcelList x:Name="ParcelListInHouse" 
+                               Grid.Row="3" Grid.Column="1" 
+                               Grid.ColumnSpan="2">
+                </uc:ParcelList>
+                <uc:ParcelList x:Name="ParcelListInTransport" 
+                               Grid.Row="3" Grid.Column="4" 
+                               Grid.ColumnSpan="2">
+                </uc:ParcelList>
+                <Grid Grid.Column="3"
+                      Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="FromPoToTransport"
+                            Grid.Row="0" 
+                            VerticalAlignment="Center"
+                            Style="{StaticResource IconButtonStyle}" 
+                            Click="FromPoToTransport_Click">
+                        <Image Source="pack://application:,,,/src/assets/right-arrow.png" />
+                    </Button>
+                    <Button x:Name="FromTransportToPo"
+                            Grid.Row="1" 
+                            VerticalAlignment="Center"
+                            Style="{StaticResource IconButtonStyle}" 
+                            Click="FromTransportToPo_Click">
+                        <Image Source="pack://application:,,,/src/assets/left-arrow.png" />
+                    </Button>
+                </Grid>
+
+                <ComboBox x:Name="ComboBoxTransport"
+                          Grid.Row="1" Grid.Column="4" 
+                          Grid.ColumnSpan="2" 
+                          Text="Transport" 
+                          ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
+                                               AncestorType={x:Type Page}},
+                                               Path=TransportsFrom}"
+                          SelectionChanged="ComboBoxTransport_SelectionChanged"/>
                 <Button Grid.Row="4" Grid.Column="1"
                         Style="{StaticResource SmallButtonStyle}"
                         Command="{x:Static cc:CustomCommands.ClearStorageFilter}"

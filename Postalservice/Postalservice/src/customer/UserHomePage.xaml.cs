@@ -43,13 +43,13 @@ namespace Postalservice.src.customer
         private void GoToParcelSendingPage_Execute(object sender, ExecutedRoutedEventArgs e)
         {
             UserSendingParcelPage page = (UserSendingParcelPage)mainWindow.GetPage("userSendingParcel");
-            page.Parcels = mainWindow.currentCustomer.ParcelFrom;
+            //page.Parcels = mainWindow.currentCustomer.ParcelFrom;
             mainWindow.Content = page;
         }
         private void GoToParcelRecievingPage_Execute(object sender, ExecutedRoutedEventArgs e)
         {
             UserRecievingParcelPage page = (UserRecievingParcelPage)mainWindow.GetPage("userRecievingParcel");
-            page.Parcels = mainWindow.currentCustomer.ParcelTo;
+            //page.Parcels = mainWindow.currentCustomer.ParcelTo;
             mainWindow.Content = page;
         }
     }

@@ -43,5 +43,10 @@ namespace Postalservice.src.api
             Arrival = dateArrived;
             PrelDeparture = prelDeparture;
         }
+
+        public override string ToString()
+        {
+            return $"{Vehicle.Type}, {FromPO.ZipCode} - {ToPO.ZipCode}, {PrelDeparture}";
+        }
     }
 }

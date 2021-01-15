@@ -24,18 +24,6 @@ namespace Postalservice.src.customer
     {
         private MainWindow mainWindow;
 
-        public List<Parcel> Parcels
-        {
-            get { return (List<Parcel>)this.GetValue(ParcelsProperty); }
-            set { this.SetValue(ParcelsProperty, value); }
-
-        }
-        /// <summary>
-        /// Dependency register for the Parcels property.
-        /// </summary>
-        public static readonly DependencyProperty ParcelsProperty = DependencyProperty.Register(
-            "Parcels", typeof(List<Parcel>), typeof(UserRecievingParcelPage), new PropertyMetadata());
-
         public UserRecievingParcelPage(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
@@ -66,6 +54,12 @@ namespace Postalservice.src.customer
         private void GoToUserHomePage_Execute(object sender, ExecutedRoutedEventArgs e)
         {
             mainWindow.Content = mainWindow.GetPage("userHomePage");
+        }
+
+        public void RefreshPage()
+        {
+            MyParcelList.Parcels = mainWindow.currentCustomer.ParcelTo;
+            MyParcelList.Items.Refresh();
         }
     }
 }

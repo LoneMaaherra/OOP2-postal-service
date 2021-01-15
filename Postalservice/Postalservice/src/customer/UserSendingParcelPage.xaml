@@ -52,7 +52,8 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
-                    <uc:ParcelList Grid.Column="0" PropertyChanged="ParcelList_PropertyChanged"/>
+                    <uc:ParcelList x:Name="MyParcelList" Grid.Column="0" 
+                                   PropertyChanged="ParcelList_PropertyChanged"/>
                     <uc:ParcelInfo Grid.Column="2" x:Name="MyParcelInfo"/>
                 </Grid>
                 

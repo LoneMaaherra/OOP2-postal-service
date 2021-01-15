@@ -200,8 +200,6 @@ namespace Postalservice.src.api
                 SqlCommand command = new SqlCommand("SELECT Id FROM PostalOffice WHERE Name=@0 AND ZipCode=@1", conn);
                 AddParameter<string>(command, "0", name, SqlDbType.VarChar);
                 AddParameter<string>(command, "1", zipCode, SqlDbType.VarChar);
-                //command.Parameters.Add(new SqlParameter("0", name));
-                //command.Parameters.Add(new SqlParameter("1", zipCode));
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -298,14 +296,8 @@ namespace Postalservice.src.api
                 AddParameter<int>(insertCommand, "3", status, SqlDbType.Int);
                 AddParameter<int>(insertCommand, "4", locationPo, SqlDbType.Int);
 
-                //insertCommand.Parameters.Add(new SqlParameter("0", shipmentId));
-                //insertCommand.Parameters.Add(new SqlParameter("1", addressTo));
-                //insertCommand.Parameters.Add(new SqlParameter("2", addressFrom));
-                //insertCommand.Parameters.Add(new SqlParameter("3", status));
-
                 insertCommand.ExecuteNonQuery();
             }
-
         }
 
         public static Dictionary<string,string> GetPackage(string id)
@@ -386,6 +378,168 @@ namespace Postalservice.src.api
                 }
             }
             return PackagesList;
+        }
+
+        public static List<string> GetAllPackagesAtPO(int poId)
+        {
+            List<string> PackagesList = new List<string>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT ShipmentId FROM Package WHERE LocationPO=@0", conn);
+                AddParameter<int>(command, "0", poId, SqlDbType.Int);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        PackagesList.Add(GetSQLReaderValue<string>(reader[0]));
+                    }
+                }
+            }
+            return PackagesList;
+        }
+
+        public static List<string> GetPackagesAtPOProcessing(int poId)
+        {
+            List<string> PackagesList = new List<string>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT ShipmentId FROM Package WHERE LocationPO=@0 AND Status=@1", conn);
+                AddParameter<int>(command, "0", poId, SqlDbType.Int);
+                AddParameter<Status>(command, "1", Status.Processing, SqlDbType.Int);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        PackagesList.Add(GetSQLReaderValue<string>(reader[0]));
+                    }
+                }
+            }
+            return PackagesList;
+        }
+
+        public static List<string> GetPackagesAtPOReadyForPickup(int poId)
+        {
+            List<string> PackagesList = new List<string>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT ShipmentId FROM Package WHERE LocationPO=@0 AND Status=@1", conn);
+                AddParameter<int>(command, "0", poId, SqlDbType.Int);
+                AddParameter<Status>(command, "1", Status.ReadyForPickup, SqlDbType.Int);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        PackagesList.Add(GetSQLReaderValue<string>(reader[0]));
+                    }
+                }
+            }
+            return PackagesList;
+        }
+
+        public static List<string> GetPackagesOnTransport(int transportId)
+        {
+            List<string> PackagesList = new List<string>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT ShipmentId FROM PackageTransport WHERE TransportId=@0", conn);
+                AddParameter<int>(command, "0", transportId, SqlDbType.Int);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        PackagesList.Add(GetSQLReaderValue<string>(reader[0]));
+                    }
+                }
+            }
+            return PackagesList;
+        }
+
+        public static void SetPackageStatus(string shipmentId, Status newStatus)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("UPDATE Package SET Status=@1 WHERE ShipmentId=@0", conn);
+                AddParameter<string>(command, "0", shipmentId.ToString(), SqlDbType.VarChar);
+                AddParameter<Status>(command, "1", newStatus, SqlDbType.Int);
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public static void InsertToPackageTransport(string shipmentId, int transportId)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand insertCommand = new SqlCommand("INSERT INTO PackageTransport (ShipmentId, TransportId) VALUES (@0, @1)", conn);
+                AddParameter<string>(insertCommand, "0", shipmentId, SqlDbType.VarChar);
+                AddParameter<int>(insertCommand, "1", transportId, SqlDbType.Int);
+
+                insertCommand.ExecuteNonQuery();
+            }
+        }
+
+        public static void RemoveFromPackageTransport(string shipmentId, int transportId)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("DELETE FROM PackageTransport WHERE ShipmentId=@0 AND TransportId=@1)", conn);
+                AddParameter<string>(command, "0", shipmentId, SqlDbType.VarChar);
+                AddParameter<int>(command, "1", transportId, SqlDbType.Int);
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public static List<int> GetPackageTransferHistory(string shipmentId)
+        {
+            List<int> list = new List<int>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT TransportId FROM PackageTransport WHERE ShipmentId=@0", conn);
+                AddParameter<string>(command, "0", shipmentId, SqlDbType.VarChar);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(GetSQLReaderValue<int>(reader[0]));
+                    }
+                }
+            }
+            return list;
         }
 
         public static void InsertToVehicle(string regNr, int type, int maxWeight, int maxVolume, int status, int postOffice)

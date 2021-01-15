@@ -102,19 +102,23 @@ namespace Postalservice
                     return adminLogin;
                 case "customerLogin":
                     return customerLogin;
-                case "adminPage":
-                    return startPage;
                 case "createUser":
                     return createUser;
                 case "userHomePage":
                     return userHomePage;
                 case "userSendingParcel":
+                    UserSendingParcelPage us = (UserSendingParcelPage)userSendingParcel;
+                    us.RefreshPage();
                     return userSendingParcel;
                 case "userRecievingParcel":
+                    UserRecievingParcelPage ur = (UserRecievingParcelPage)userRecievingParcel;
+                    ur.RefreshPage();
                     return userRecievingParcel;
                 case "officeHome":
                     return officeHome;
                 case "managePackages":
+                    ManagePackagesPage mp = (ManagePackagesPage)managePackages;
+                    mp.RefreshPage();
                     return managePackages;
                 case "addParcel":
                     return addParcel;

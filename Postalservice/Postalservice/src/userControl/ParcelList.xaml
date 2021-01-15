@@ -10,10 +10,12 @@
              ScrollViewer.VerticalScrollBarVisibility="Auto" 
              ScrollViewer.HorizontalScrollBarVisibility="Auto"
              ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
-                                   AncestorType={x:Type Page}},
+                                   AncestorType={x:Type local:ParcelList}},
                                    Path=Parcels}"
              SelectedItem="SelectedItem" 
-             SelectionMode="Single" SelectionChanged="ListBox_SelectionChanged">
+             SelectionMode="Single" 
+             SelectionChanged="ListBox_SelectionChanged"
+             >
 
         <ListBox.ItemTemplate>
             <DataTemplate>

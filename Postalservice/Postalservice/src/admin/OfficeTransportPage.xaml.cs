@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Postalservice.src.api;
+using Postalservice.src.userControl;
 
 namespace Postalservice.src.admin
 {
@@ -37,6 +38,21 @@ namespace Postalservice.src.admin
         /// </summary>
         public static readonly DependencyProperty TransportsProperty = DependencyProperty.Register(
             "Transports", typeof(List<Transport>), typeof(OfficeTransportPage), new PropertyMetadata());
+
+        /// <summary>
+        /// List of vehicles for OfficeTransportPage ListBox ItemsSource.
+        /// </summary>
+        public List<Transport> TransportsFrom
+        {
+            get { return (List<Transport>)this.GetValue(TransportsFromProperty); }
+            set { this.SetValue(TransportsFromProperty, value); }
+        }
+
+        /// <summary>
+        /// Dependency register for the TransportsFrom property.
+        /// </summary>
+        public static readonly DependencyProperty TransportsFromProperty = DependencyProperty.Register(
+            "TransportsFrom", typeof(List<Transport>), typeof(OfficeTransportPage), new PropertyMetadata());
 
         /// <summary>
         /// List of vehicles for Parcel ListBox ItemsSource.
@@ -89,6 +105,7 @@ namespace Postalservice.src.admin
             Offices = new List<PostalOffice>();
             Vehicles = new List<Vehicle>();
             Transports = new List<Transport>();
+            TransportsFrom = new List<Transport>();
             this.mainWindow = mainWindow;
             InitializeComponent();
         }
@@ -233,9 +250,11 @@ namespace Postalservice.src.admin
         public void LoadTransports()
         {
             Transports.Clear();
+            TransportsFrom.Clear();
             foreach (int id in DBConnectionManger.GetTransportsFromPO(Int32.Parse(mainWindow.currentOffice.Id)))
             {
                 Transports.Add(new Transport(id.ToString()));
+                TransportsFrom.Add(new Transport(id.ToString()));
             }
             foreach (int id in DBConnectionManger.GetTransportsToPO(Int32.Parse(mainWindow.currentOffice.Id)))
             {
@@ -243,21 +262,100 @@ namespace Postalservice.src.admin
             }
         }
 
+        public void LoadParcels()
+        {
+            ParcelListInHouse.Parcels = GetAvailableParcels();
+            if (ComboBoxTransport.SelectedItem != null)
+            {
+                ParcelListInTransport.Parcels = GetParcelsInSpecifiedTransport(ComboBoxTransport.SelectedItem as Transport);
+            }
+                
+        }
+
         public void ClearAddFields()
         {
             TextBoxPrelDeparture.Text = "";
-
+            ComboBoxToPO.SelectedItem = null;
+            ComboBoxVehicle.SelectedItem = null;
         }
 
         public void RefreshPage()
         {
-            
+            ClearAddFields();
             LoadVehicles();
             ComboBoxVehicle.Items.Refresh();
             LoadOffices();
             ComboBoxToPO.Items.Refresh();
             LoadTransports();
             MyListBox.Items.Refresh();
+            LoadParcels();
+            ComboBoxTransport.Items.Refresh();
+        }
+
+        private List<Parcel> GetAvailableParcels()
+        {
+            List<Parcel> parcels = new List<Parcel>();
+            foreach (string id in DBConnectionManger.GetAllPackagesAtPO(Int32.Parse(mainWindow.currentOffice.Id)))
+            {
+                Parcel p = new Parcel(id);
+                if (p.Status != Status.InTransit && p.Status != Status.Delivered )
+                    parcels.Add(p);
+            }
+            return parcels;
+        }
+
+        private List<Parcel> GetParcelsInSpecifiedTransport(Transport transport)
+        {
+            List<Parcel> parcels = new List<Parcel>();
+            foreach (string id in DBConnectionManger.GetPackagesOnTransport(Int32.Parse(transport.Id)))
+            {
+                parcels.Add(new Parcel(id));
+            }
+            return parcels;
+        }
+
+        private void FromPoToTransport_Click(object sender, RoutedEventArgs e)
+        {
+            Parcel p = ParcelListInHouse.SelectedItem as Parcel;
+            Transport t = ComboBoxTransport.SelectedItem as Transport;
+            if (p == null || t == null) return;
+            DBConnectionManger.InsertToPackageTransport(p.ShipmentId, Int32.Parse(t.Id));
+            p.ChangeStatus(Status.InTransit);
+            LoadParcels();
+        }
+
+        private void FromTransportToPo_Click(object sender, RoutedEventArgs e)
+        {
+            Parcel p = ParcelListInTransport.SelectedItem as Parcel;
+            if (p == null) return;
+            foreach (Transport t in GetParcelTransferHistory(p.ShipmentId))
+            {
+                if (t.Arrival == null)
+                {
+                    DBConnectionManger.RemoveFromPackageTransport(p.ShipmentId, Int32.Parse(t.Id));
+                }
+            }
+            if (p.AddressTo.ZipCode.Equals(mainWindow.currentOffice.ZipCode))
+                p.ChangeStatus(Status.ReadyForPickup);
+            else
+                p.ChangeStatus(Status.Processing);
+
+            LoadParcels();
+        }
+
+        private List<Transport> GetParcelTransferHistory(string shipmentId)
+        {
+            List<Transport> t = new List<Transport>();
+            foreach(int id in DBConnectionManger.GetPackageTransferHistory(shipmentId))
+            {
+                t.Add(new Transport(id.ToString()));
+            }
+            return t;
+        }
+
+        private void ComboBoxTransport_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadParcels();
         }
     }
 }
