@@ -10,18 +10,28 @@
              ScrollViewer.VerticalScrollBarVisibility="Auto" 
              ScrollViewer.HorizontalScrollBarVisibility="Auto"
              ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
-                                   AncestorType={x:Type Page}},
+                                   AncestorType={x:Type local:ParcelList}},
                                    Path=Parcels}"
              SelectedItem="SelectedItem" 
-             SelectionMode="Single" SelectionChanged="ListBox_SelectionChanged">
+             SelectionMode="Single" 
+             SelectionChanged="ListBox_SelectionChanged">
 
         <ListBox.ItemTemplate>
             <DataTemplate>
                 <StackPanel Orientation="Vertical">
                     <Label Content="{Binding ShipmentId}"/>
-                    <TextBlock><Run FontWeight="Bold">To:</Run> <Run Text="{Binding AddressTo.Name}"></Run></TextBlock>
-                    <TextBlock><Run FontWeight="Bold">From:</Run> <Run Text="{Binding AddressFrom.Name}"/></TextBlock>
-                    <TextBlock><Run FontWeight="Bold">Date sent:</Run> <Run Text="{Binding Departure}"/></TextBlock>
+                    <TextBlock>
+                        <Run FontWeight="Bold">To:</Run> 
+                        <Run Text="{Binding AddressTo.Name}"/>
+                    </TextBlock>
+                    <TextBlock>
+                        <Run FontWeight="Bold">From:</Run> 
+                        <Run Text="{Binding AddressFrom.Name}"/>
+                    </TextBlock>
+                    <TextBlock>
+                        <Run FontWeight="Bold">Status:</Run> 
+                        <Run Text="{Binding Status}"/>
+                    </TextBlock>
                 </StackPanel>
             </DataTemplate>
         </ListBox.ItemTemplate>

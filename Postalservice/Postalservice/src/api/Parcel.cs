@@ -25,14 +25,15 @@ namespace Postalservice.src.api
             AddressTo = GetAddress(DBConnectionManger.GetAddress(values["AddressTo"]));
         }
 
-        public Parcel(Dictionary<string, string> parcelToValues, Dictionary<string, string> parcelFromValues)
+        public Parcel(Dictionary<string, string> parcelToValues, Dictionary<string, string> parcelFromValues, int locationPO)
         {
             AddressFrom = GetAddress(parcelFromValues);
             AddressTo = GetAddress(parcelToValues);
             Status = Status.Processing;
-            DBConnectionManger.InsertToPackage(Guid.NewGuid(), Int32.Parse(AddressTo.Id), Int32.Parse(AddressFrom.Id), (int)Status);
+            Guid newGuid = Guid.NewGuid();
+            ShipmentId = newGuid.ToString();
+            DBConnectionManger.InsertToPackage(newGuid, Int32.Parse(AddressTo.Id), Int32.Parse(AddressFrom.Id), (int)Status, locationPO);
         }
-
 
 
         private Address GetAddress(Dictionary<string, string> addressDict)
@@ -47,6 +48,11 @@ namespace Postalservice.src.api
             {
                 return new Address(addressDict);
             }
+        }
+
+        public void ChangeStatus(Status status)
+        {
+            DBConnectionManger.SetPackageStatus(ShipmentId, status);
         }
     }
 }

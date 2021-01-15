@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Postalservice.src.api;
 
 namespace Postalservice.src.userControl
 {
@@ -23,20 +24,31 @@ namespace Postalservice.src.userControl
     /// </summary>
     public partial class ParcelList : UserControl
     {
-        /// <summary>
-        /// Delegate handler for ParcelList item selected.
-        /// </summary>
+        public ItemCollection Items
+        {
+            get { return MyListBox.Items; }
+        }
+
         public object SelectedItem
         {
-            get { return (object)this.GetValue(SelectedItemProperty); }
-            set { this.SetValue(SelectedItemProperty, value); }
+            get { return MyListBox.SelectedItem; }
+            set { MyListBox.SelectedItem = value; }
         }
 
         /// <summary>
-        /// Dependency register for the SelectedItem property.
+        /// List of vehicles for Parcel ListBox ItemsSource.
         /// </summary>
-        public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(
-            "SelectedItem", typeof(object), typeof(ParcelList), new PropertyMetadata());
+        public List<Parcel> Parcels
+        {
+            get { return (List<Parcel>)this.GetValue(ParcelsProperty); }
+            set { this.SetValue(ParcelsProperty, value); }
+
+        }
+        /// <summary>
+        /// Dependency register for the Parcels property.
+        /// </summary>
+        public static readonly DependencyProperty ParcelsProperty = DependencyProperty.Register(
+            "Parcels", typeof(List<Parcel>), typeof(ParcelList), new PropertyMetadata());
 
         public delegate void PropertyChanged_Delegate(object sender);
 
@@ -57,6 +69,7 @@ namespace Postalservice.src.userControl
 
         public ParcelList()
         {
+            Parcels = new List<Parcel>();
             InitializeComponent();
         }
 

@@ -66,7 +66,7 @@ namespace Postalservice.src.admin
                 }
             }
 
-            Parcel newParcel = new Parcel(ParcelToDict, ParcelFromDict);
+            Parcel newParcel = new Parcel(ParcelToDict, ParcelFromDict, Int32.Parse(mainWindow.currentOffice.Id));
             ClearAllFields();
             mainWindow.Content = mainWindow.GetPage("managePackages");
 

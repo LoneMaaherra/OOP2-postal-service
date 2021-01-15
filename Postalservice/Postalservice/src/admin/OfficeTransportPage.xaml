@@ -95,7 +95,7 @@
                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
                          ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
                                                AncestorType={x:Type Page}},
-                                               Path=Vehicles}"
+                                               Path=Transports}"
                          SelectedItem="SelectedItem" 
                          SelectionMode="Single" SelectionChanged="ListBox_SelectionChanged"
                          Grid.Column="1" Grid.Row="1">
@@ -103,9 +103,25 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical">
-                                <Label Content="{Binding RegNr}"/>
-                                <TextBlock><Run FontWeight="Bold">Type:</Run> <Run Text="{Binding Type}"></Run></TextBlock>
-                                <TextBlock><Run FontWeight="Bold">Status:</Run> <Run Text="{Binding Status}"/></TextBlock>
+                                <Label Content="{Binding Vehicle.Type}"/>
+                                <TextBlock>
+                                    <Run FontWeight="Bold" Text="From:"/> 
+                                    <Run Text="{Binding FromPO.Name}"/>                                 
+                                    <Run Text="{Binding FromPO.ZipCode}"/>
+                                </TextBlock>
+                                <TextBlock>
+                                    <Run FontWeight="Bold" Text="To:"/> 
+                                    <Run Text="{Binding ToPO.Name}"/>                               
+                                    <Run Text="{Binding ToPO.ZipCode}"/>
+                                    </TextBlock>
+                                <TextBlock>
+                                    <Run FontWeight="Bold" Text="Departure:"/> 
+                                    <Run Text="{Binding Departure}"/>
+                                </TextBlock>
+                                <TextBlock>
+                                    <Run FontWeight="Bold" Text="Arrival:"/> 
+                                    <Run Text="{Binding Arrival}"/>
+                                </TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -115,15 +131,46 @@
                               Grid.ColumnSpan="2"
                               HorizontalScrollBarVisibility="Auto"
                               VerticalScrollBarVisibility="Auto"
-                              x:Name="VehicleInfoViewer">
+                              x:Name="TransportInfoViewer">
                     <DockPanel>
-                        <TextBlock DockPanel.Dock="Top">Registration:</TextBlock>
-                        <Label DockPanel.Dock="Top" Content="{Binding RegNr}"/>
 
+                        <Label DockPanel.Dock="Top">Transport Info:</Label>
+                        <Grid DockPanel.Dock="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Margin="0, 10">
+                                <Run Text="From:" FontWeight="Bold"/>
+                                <Run Text="{Binding FromPO.Name}"/>
+                                <Run Text="{Binding FromPO.ZipCode}"/>
+                            </TextBlock>
+                            <TextBlock Grid.Column="1"
+                                       Margin="0, 10">
+                                <Run Text="To:" FontWeight="Bold"/>
+                                <Run Text="{Binding ToPO.Name}"/>
+                                <Run Text="{Binding ToPO.ZipCode}"/>
+                            </TextBlock>
+                            <TextBlock Grid.Row="1"
+                                   Margin="0, 10">
+                            <Run Text="Departure:" FontWeight="Bold"/>
+                            <Run Text="{Binding Departure}"/>
+                            </TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="1"
+                                       Margin="0, 10">
+                            <Run Text="Arrived:" FontWeight="Bold"/>
+                            <Run Text="{Binding Arrival}"/>
+                            </TextBlock>
+                        </Grid>
+                        <Label DockPanel.Dock="Top" Content="Vehicle Info:"></Label>
                         <TextBlock DockPanel.Dock="Top"
                                    Margin="0, 10">
                             <Run Text="Status:" FontWeight="Bold"/>
-                            <Run Text="{Binding Status}"/>
+                            <Run Text="{Binding Vehicle.Status}"/>
                         </TextBlock>
                         <Grid DockPanel.Dock="Top">
                             <Grid.ColumnDefinitions>
@@ -133,21 +180,22 @@
                             <TextBlock Grid.Column="0">
                                 <Run Text="Max weight:" FontWeight="Bold"/>
                                 <LineBreak/>
-                                <Run Text="{Binding MaxWeight}"/>
+                                <Run Text="{Binding Vehicle.MaxWeight}"/>
                             </TextBlock>
                             <TextBlock Grid.Column="1">
                                 <Run Text="Max volume:" FontWeight="Bold"/>
                                 <LineBreak/>
-                                <Run Text="{Binding MaxVolume}"/>
+                                <Run Text="{Binding Vehicle.MaxVolume}"/>
                             </TextBlock>
                         </Grid>
-                        <TextBlock Margin="0, 10">
+                        <TextBlock DockPanel.Dock="Top" Margin="0, 10">
                             <Run Text="Last location: " FontWeight="Bold"/>
                             <LineBreak/>
-                            <Run Text="{Binding LocationPO.Name}"/>
+                            <Run Text="{Binding Vehicle.LocationPO.Name}"/>
                             <LineBreak/>
-                            <Run Text="{Binding LocationPO.ZipCode}"/>
+                            <Run Text="{Binding Vehicle.LocationPO.ZipCode}"/>
                         </TextBlock>
+                        <uc:ParcelList x:Name="PackedInTransport" DockPanel.Dock="Top"></uc:ParcelList>
                     </DockPanel>
                 </ScrollViewer>
 
@@ -167,7 +215,7 @@
                 
             <!-- Grid for the Add Transport tab --> 
 <!--#region Add Transport tab-->
-            <Grid x:Name="AddTab" Visibility="Visible" Grid.Row="1" Grid.Column="1"> 
+            <Grid x:Name="AddTab" Visibility="Hidden" Grid.Row="1" Grid.Column="1"> 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="14*"/>
@@ -182,6 +230,12 @@
                     <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="0.5*"/>
                 </Grid.RowDefinitions>
+                <TextBlock x:Name="TextBlockError" Grid.Row="2" Grid.Column="1" 
+                           Text="Please fill out the form" 
+                           Visibility="Hidden" 
+                           Style="{StaticResource ErrorMessage}">
+
+                </TextBlock>
                 <Grid Grid.Row="1" Grid.Column="1" Style="{StaticResource FillOutFormStyle}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -190,9 +244,18 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Label Content="Add transport" VerticalAlignment="Center"></Label>
-                    <ComboBox Grid.Row="1" Text="Transport To:"></ComboBox>
-                    <ComboBox Grid.Row="2" Text="Choose a Vehicle:"></ComboBox>
-                    <TextBox Grid.Row="3" Style="{StaticResource placeHolder}" Tag="Departure Date"></TextBox>
+                    <ComboBox x:Name="ComboBoxToPO" Grid.Row="1" Text="Transport To:"  Tag="Transport To:"
+                              ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
+                                               AncestorType={x:Type Page}},
+                                               Path=Offices}">
+                    </ComboBox>
+                    <ComboBox x:Name="ComboBoxVehicle" Grid.Row="2" Text="Choose an avaible Vehicle:"  Tag="Choose an avaible Vehicle:"
+                              ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
+                                               AncestorType={x:Type Page}},
+                                               Path=Vehicles}">
+                    </ComboBox>
+                    <TextBox x:Name="TextBoxPrelDeparture" Grid.Row="3" Style="{StaticResource placeHolder}" Tag="Preliminary Departure Date"></TextBox>
+                    
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2">
                     <Grid.RowDefinitions>
@@ -211,6 +274,7 @@
                         Command="{x:Static cc:CustomCommands.Cancel}"
                         Content="Cancel">
                     </Button>
+                    
                 </Grid>
             </Grid>
             <!--#endregion-->
@@ -218,7 +282,7 @@
             
             <!--Grid for Pack Vehicle tab-->
 <!--#region Pack Transport tab -->
-            <Grid x:Name="PackTab" Visibility="Hidden" Grid.Row="1" Grid.Column="1">
+            <Grid x:Name="PackTab" Visibility="Visible" Grid.Row="1" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="7*"/>
@@ -237,9 +301,44 @@
                     <RowDefinition Height="1.1*"/>
                     <RowDefinition Height="0.5*"/>
                 </Grid.RowDefinitions>
-                <uc:ParcelList x:Name="StorageParcelInfo" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"></uc:ParcelList>
-                <uc:ParcelList x:Name="TransitParcelInfo" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2"></uc:ParcelList>
-                <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="Transport"></ComboBox>
+                <uc:ParcelList x:Name="ParcelListInHouse" 
+                               Grid.Row="3" Grid.Column="1" 
+                               Grid.ColumnSpan="2">
+                </uc:ParcelList>
+                <uc:ParcelList x:Name="ParcelListInTransport" 
+                               Grid.Row="3" Grid.Column="4" 
+                               Grid.ColumnSpan="2">
+                </uc:ParcelList>
+                <Grid Grid.Column="3"
+                      Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="FromPoToTransport"
+                            Grid.Row="0" 
+                            VerticalAlignment="Center"
+                            Style="{StaticResource IconButtonStyle}" 
+                            Click="FromPoToTransport_Click">
+                        <Image Source="pack://application:,,,/src/assets/right-arrow.png" />
+                    </Button>
+                    <Button x:Name="FromTransportToPo"
+                            Grid.Row="1" 
+                            VerticalAlignment="Center"
+                            Style="{StaticResource IconButtonStyle}" 
+                            Click="FromTransportToPo_Click">
+                        <Image Source="pack://application:,,,/src/assets/left-arrow.png" />
+                    </Button>
+                </Grid>
+
+                <ComboBox x:Name="ComboBoxTransport"
+                          Grid.Row="1" Grid.Column="4" 
+                          Grid.ColumnSpan="2" 
+                          Text="Transport" 
+                          ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
+                                               AncestorType={x:Type Page}},
+                                               Path=TransportsFrom}"
+                          SelectionChanged="ComboBoxTransport_SelectionChanged"/>
                 <Button Grid.Row="4" Grid.Column="1"
                         Style="{StaticResource SmallButtonStyle}"
                         Command="{x:Static cc:CustomCommands.ClearStorageFilter}"

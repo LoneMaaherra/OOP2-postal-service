@@ -176,10 +176,17 @@ namespace Postalservice.src.admin
         public void LoadVehicles()
         {
             Vehicles.Clear();
-            foreach(string regNr in DBConnectionManger.GetAllVehicles())
+            foreach (string regNr in DBConnectionManger.GetAllVehicles())
             {
                 Vehicles.Add(new Vehicle(regNr));
             }
+        }
+        
+
+        public void RefreshPage()
+        {
+            LoadVehicles();
+            MyListBox.Items.Refresh();
         }
     }
 }
