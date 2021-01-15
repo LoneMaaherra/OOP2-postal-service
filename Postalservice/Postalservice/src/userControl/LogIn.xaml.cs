@@ -287,21 +287,34 @@ namespace Postalservice.src.userControl
         public static readonly DependencyProperty ErrorMessageForegroundProperty = DependencyProperty.Register(
             "ErrorMessageForeground", typeof(SolidColorBrush), typeof(LogIn), new PropertyMetadata());
 
+        /// <summary>
+        /// Instantiates a Login object.
+        /// </summary>
         public LogIn()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Returns the input from the password box.
+        /// </summary>
+        /// <returns></returns>
         public SecureString GetPassword()
         {
             return PwordBox.SecurePassword;
         }
 
+        /// <summary>
+        /// Clears the password box filed.
+        /// </summary>
         public void EmptyPasswordField()
         {
             PwordBox.Clear();
         }
 
+        /// <summary>
+        /// Clears all input fields.
+        /// </summary>
         public void ClearAllFields()
         {
             TextBoxTop.Clear();
@@ -309,6 +322,9 @@ namespace Postalservice.src.userControl
             EmptyPasswordField();
         }
 
+        /// <summary>
+        /// HIdes the error message and clears all input fields.
+        /// </summary>
         public void Reset()
         {
             TextBlockErrorMessage.Visibility = Visibility.Hidden;
