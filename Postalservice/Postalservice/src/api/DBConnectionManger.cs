@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -525,6 +526,35 @@ namespace Postalservice.src.api
                 }
             }
             return ListOfParcels;
+        }
+
+        public static T GetSQLReaderValue<T>(object sqlDataReaderValue)
+        {
+            if(typeof(T) == typeof(DateTime?))
+            {
+                return (sqlDataReaderValue == System.DBNull.Value) ? null
+                  : (T)Convert.ToDateTime(sqlDataReaderValue);
+            }
+        
+            if (sqlDataReaderValue == System.DBNull.Value)
+            {
+                  ? (T)null
+                  : (T)Convert.ToDateTime(sqlDataReaderValue);
+            }
+        }
+        
+        public static DateTime? ConvertFromDBNull(object sqlDataReaderValue)
+        {
+            return (sqlDataReaderValue == System.DBNull.Value)
+                    ? (DateTime?)null
+                    : (DateTime?)Convert.ToDateTime(sqlDataReaderValue);
+        }
+
+        public static void AddParameter<T>(SqlCommand sqlCommand, string position, T parameter, SqlDbType sqlDbType)
+        {
+            sqlCommand.Parameters.Add(position, sqlDbType);
+            sqlCommand.Parameters[position].Value =
+                        ((object)parameter) ?? DBNull.Value;            
         }
     }
 }
