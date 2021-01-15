@@ -24,11 +24,16 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand insertCommand = new SqlCommand("INSERT INTO Address (Name, Street, ZipCode, City, Country) VALUES (@0, @1, @2, @3, @4)", conn);
-                insertCommand.Parameters.Add(new SqlParameter("0", name));
-                insertCommand.Parameters.Add(new SqlParameter("1", street));
-                insertCommand.Parameters.Add(new SqlParameter("2", zipCode));
-                insertCommand.Parameters.Add(new SqlParameter("3", city));
-                insertCommand.Parameters.Add(new SqlParameter("4", country));
+                AddParameter<string>(insertCommand, "0", name, SqlDbType.VarChar);
+                AddParameter<string>(insertCommand, "1", street, SqlDbType.VarChar);
+                AddParameter<string>(insertCommand, "2", zipCode, SqlDbType.VarChar);
+                AddParameter<string>(insertCommand, "3", city, SqlDbType.VarChar);
+                AddParameter<string>(insertCommand, "4", country, SqlDbType.VarChar);
+                //insertCommand.Parameters.Add(new SqlParameter("0", name));
+                //insertCommand.Parameters.Add(new SqlParameter("1", street));
+                //insertCommand.Parameters.Add(new SqlParameter("2", zipCode));
+                //insertCommand.Parameters.Add(new SqlParameter("3", city));
+                //insertCommand.Parameters.Add(new SqlParameter("4", country));
 
                 insertCommand.ExecuteNonQuery();
             }
@@ -42,10 +47,12 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand insertCommand = new SqlCommand("INSERT INTO Customer (CustomerId, Address, MobileNumber) VALUES (@0, @1, @2)", conn);
-                insertCommand.Parameters.Add(new SqlParameter("0", id));
-                insertCommand.Parameters.Add(new SqlParameter("1", addressId));
-                insertCommand.Parameters.Add(new SqlParameter("2", mobileNumber));
-
+                AddParameter<string>(insertCommand, "0", id, SqlDbType.VarChar);
+                AddParameter<int>(insertCommand, "1", addressId, SqlDbType.Int);
+                AddParameter<string>(insertCommand, "2", mobileNumber, SqlDbType.VarChar);
+                //insertCommand.Parameters.Add(new SqlParameter("0", id));
+                //insertCommand.Parameters.Add(new SqlParameter("1", addressId));
+                //insertCommand.Parameters.Add(new SqlParameter("2", mobileNumber));
 
                 insertCommand.ExecuteNonQuery();
             }
@@ -60,17 +67,23 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand getCommand = new SqlCommand("SELECT Id FROM Address WHERE Name =@0 AND Street = @1 AND ZipCode = @2 AND City =@3 AND Country = @4 ", conn);
-                getCommand.Parameters.Add(new SqlParameter("0", name));
-                getCommand.Parameters.Add(new SqlParameter("1", street));
-                getCommand.Parameters.Add(new SqlParameter("2", zipCode));
-                getCommand.Parameters.Add(new SqlParameter("3", city));
-                getCommand.Parameters.Add(new SqlParameter("4", country));
+                AddParameter<string>(getCommand, "0", name, SqlDbType.VarChar);
+                AddParameter<string>(getCommand, "1", street, SqlDbType.VarChar);
+                AddParameter<string>(getCommand, "2", zipCode, SqlDbType.VarChar);
+                AddParameter<string>(getCommand, "3", city, SqlDbType.VarChar);
+                AddParameter<string>(getCommand, "4", country, SqlDbType.VarChar);
+                //getCommand.Parameters.Add(new SqlParameter("0", name));
+                //getCommand.Parameters.Add(new SqlParameter("1", street));
+                //getCommand.Parameters.Add(new SqlParameter("2", zipCode));
+                //getCommand.Parameters.Add(new SqlParameter("3", city));
+                //getCommand.Parameters.Add(new SqlParameter("4", country));
 
                 using (SqlDataReader reader = getCommand.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        if (Id == -1) { Id = (int)reader[0]; }
+                        //if (Id == -1) { Id = (int)reader[0]; }
+                        if (Id == -1) { Id = GetSQLReaderValue<int>(reader[0]); }
                         else break;
                     }
                 }
@@ -78,7 +91,7 @@ namespace Postalservice.src.api
             return Id;
         }
 
-        public static Dictionary<string, string> GetAddress(string Id)
+        public static Dictionary<string, string> GetAddress(string id)
         {
             Dictionary<string, string> AddressDict = new Dictionary<string, string>();
 
@@ -88,25 +101,33 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand join = new SqlCommand("SELECT * FROM Address WHERE Id =@0", conn);
-                join.Parameters.Add(new SqlParameter("0", Id));
+                AddParameter<string>(join, "0", id, SqlDbType.Int);
+                //join.Parameters.Add(new SqlParameter("0", Id));
 
                 using (SqlDataReader reader = join.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        AddressDict["Id"] = reader[0].ToString();
-                        AddressDict["Name"] = reader[1].ToString();
-                        AddressDict["Street"] = reader[2].ToString();
-                        AddressDict["ZipCode"] = reader[3].ToString();
-                        AddressDict["City"] = reader[4].ToString();
-                        AddressDict["Country"] = reader[5].ToString();
+                        AddressDict["Id"] = GetSQLReaderValue<int>(reader[0]).ToString();
+                        AddressDict["Name"] = GetSQLReaderValue<string>(reader[1]);
+                        AddressDict["Street"] = GetSQLReaderValue<string>(reader[2]);
+                        AddressDict["ZipCode"] = GetSQLReaderValue<string>(reader[3]);
+                        AddressDict["City"] = GetSQLReaderValue<string>(reader[4]);
+                        AddressDict["Country"] = GetSQLReaderValue<string>(reader[5]);
+
+                        //AddressDict["Id"] = reader[0].ToString();
+                        //AddressDict["Name"] = reader[1].ToString();
+                        //AddressDict["Street"] = reader[2].ToString();
+                        //AddressDict["ZipCode"] = reader[3].ToString();
+                        //AddressDict["City"] = reader[4].ToString();
+                        //AddressDict["Country"] = reader[5].ToString();
                     }
                 }
             }
             return AddressDict;
         }
 
-        public static Dictionary<string, string> GetCustomer(string Id)
+        public static Dictionary<string, string> GetCustomer(string id)
         {
             Dictionary<string, string> CustomerDict = new Dictionary<string, string>();
 
@@ -116,19 +137,28 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand join = new SqlCommand("SELECT * FROM Customer INNER JOIN Address ON Address.Id = Customer.Address WHERE CustomerId =@0", conn);
-                join.Parameters.Add(new SqlParameter("0", Id));
+                AddParameter<string>(join, "0", id, SqlDbType.VarChar);
+                //join.Parameters.Add(new SqlParameter("0", Id));
 
                 using (SqlDataReader reader = join.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        CustomerDict["Id"] = reader[0].ToString();
-                        CustomerDict["MobileNumber"] = reader[2].ToString();
-                        CustomerDict["Name"] = reader[4].ToString();
-                        CustomerDict["Street"] = reader[5].ToString();
-                        CustomerDict["ZipCode"] = reader[6].ToString();
-                        CustomerDict["City"] = reader[7].ToString();
-                        CustomerDict["Country"] = reader[8].ToString();
+                        CustomerDict["Id"] = GetSQLReaderValue<string>(reader[0]);
+                        CustomerDict["MobileNumber"] = GetSQLReaderValue<string>(reader[2]);
+                        CustomerDict["Name"] = GetSQLReaderValue<string>(reader[4]);
+                        CustomerDict["Street"] = GetSQLReaderValue<string>(reader[5]);
+                        CustomerDict["ZipCode"] = GetSQLReaderValue<string>(reader[6]);
+                        CustomerDict["City"] = GetSQLReaderValue<string>(reader[7]);
+                        CustomerDict["Country"] = GetSQLReaderValue<string>(reader[8]);
+
+                        //CustomerDict["Id"] = reader[0].ToString();
+                        //CustomerDict["MobileNumber"] = reader[2].ToString();
+                        //CustomerDict["Name"] = reader[4].ToString();
+                        //CustomerDict["Street"] = reader[5].ToString();
+                        //CustomerDict["ZipCode"] = reader[6].ToString();
+                        //CustomerDict["City"] = reader[7].ToString();
+                        //CustomerDict["Country"] = reader[8].ToString();
                     }
                 }
             }
@@ -144,13 +174,14 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT Address FROM Customer WHERE CustomerId=@0", conn);
-                command.Parameters.Add(new SqlParameter("0", customerId));
+                AddParameter<string>(command, "0", customerId, SqlDbType.VarChar);
+                //command.Parameters.Add(new SqlParameter("0", customerId));
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        if (Id == -1) { Id = (int)reader[0]; }
+                        if (Id == -1) { Id = GetSQLReaderValue<int>(reader[0]); }
                         else break;
                     }
                 }
@@ -167,14 +198,16 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT Id FROM PostalOffice WHERE Name=@0 AND ZipCode=@1", conn);
-                command.Parameters.Add(new SqlParameter("0", name));
-                command.Parameters.Add(new SqlParameter("1", zipCode));
+                AddParameter<string>(command, "0", name, SqlDbType.VarChar);
+                AddParameter<string>(command, "1", zipCode, SqlDbType.VarChar);
+                //command.Parameters.Add(new SqlParameter("0", name));
+                //command.Parameters.Add(new SqlParameter("1", zipCode));
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        if (Id == -1) { Id = (int)reader[0]; }
+                        if (Id == -1) { Id = GetSQLReaderValue<int>(reader[0]); }
                         else break;
                     }
                 }
@@ -190,8 +223,10 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand insertCommand = new SqlCommand("INSERT INTO Vehicle (ZipCode, Name) VALUES (@0, @1)", conn);
-                insertCommand.Parameters.Add(new SqlParameter("0", zipCode));
-                insertCommand.Parameters.Add(new SqlParameter("1", name));
+                AddParameter<string>(insertCommand, "0", name, SqlDbType.VarChar);
+                AddParameter<string>(insertCommand, "1", zipCode, SqlDbType.VarChar);
+                //insertCommand.Parameters.Add(new SqlParameter("0", zipCode));
+                //insertCommand.Parameters.Add(new SqlParameter("1", name));
 
                 insertCommand.ExecuteNonQuery();
             }
@@ -207,15 +242,20 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM PostalOffice WHERE id=@0", conn);
-                command.Parameters.Add(new SqlParameter("0", id));
+                AddParameter<int>(command, "0", id, SqlDbType.Int);
+                //command.Parameters.Add(new SqlParameter("0", id));
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        poDict["Id"] = reader[0].ToString();
-                        poDict["ZipCode"] = reader[1].ToString();
-                        poDict["Name"] = reader[2].ToString();
+                        poDict["Id"] = GetSQLReaderValue<int>(reader[0]).ToString();
+                        poDict["ZipCode"] = GetSQLReaderValue<string>(reader[1]);
+                        poDict["Name"] = GetSQLReaderValue<string>(reader[2]);
+
+                        //poDict["Id"] = reader[0].ToString();
+                        //poDict["ZipCode"] = reader[1].ToString();
+                        //poDict["Name"] = reader[2].ToString();
                     }
                 }
             }
@@ -237,26 +277,31 @@ namespace Postalservice.src.api
                 {
                     while (reader.Read())
                     {
-                        ListOfOffices.Add((int)reader[0]);
+                        ListOfOffices.Add(GetSQLReaderValue<int>(reader[0]));
                     }
                 }
             }
             return ListOfOffices;
         }
 
-        public static void InsertToPackage(Guid shipmentId, int addressTo, int addressFrom, int status)
+        public static void InsertToPackage(Guid shipmentId, int addressTo, int addressFrom, int status, int locationPo)
         {
             using (SqlConnection conn = new SqlConnection())
             {
                 conn.ConnectionString = CONNECTION_STRING;
                 conn.Open();
 
-                SqlCommand insertCommand = new SqlCommand("INSERT INTO Package (ShipmentId, AddressTo, AddressFrom, Status) VALUES (@0, @1, @2, @3)", conn);
-                insertCommand.Parameters.Add(new SqlParameter("0", shipmentId));
-                insertCommand.Parameters.Add(new SqlParameter("1", addressTo));
-                insertCommand.Parameters.Add(new SqlParameter("2", addressFrom));
-                insertCommand.Parameters.Add(new SqlParameter("3", status));
+                SqlCommand insertCommand = new SqlCommand("INSERT INTO Package (ShipmentId, AddressTo, AddressFrom, Status, LocationPO) VALUES (@0, @1, @2, @3, @4)", conn);
+                AddParameter<string>(insertCommand, "0", shipmentId.ToString(), SqlDbType.VarChar);
+                AddParameter<int>(insertCommand, "1", addressTo, SqlDbType.Int);
+                AddParameter<int>(insertCommand, "2", addressFrom, SqlDbType.Int);
+                AddParameter<int>(insertCommand, "3", status, SqlDbType.Int);
+                AddParameter<int>(insertCommand, "4", locationPo, SqlDbType.Int);
 
+                //insertCommand.Parameters.Add(new SqlParameter("0", shipmentId));
+                //insertCommand.Parameters.Add(new SqlParameter("1", addressTo));
+                //insertCommand.Parameters.Add(new SqlParameter("2", addressFrom));
+                //insertCommand.Parameters.Add(new SqlParameter("3", status));
 
                 insertCommand.ExecuteNonQuery();
             }
@@ -273,16 +318,22 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM Package WHERE ShipmentId =@0", conn);
-                command.Parameters.Add(new SqlParameter("0", id));
+                AddParameter<string>(command, "0", id, SqlDbType.VarChar);
+                //command.Parameters.Add(new SqlParameter("0", id));
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        PackageDict["ShipmentId"] = reader[0].ToString();
-                        PackageDict["AddressTo"] = reader[1].ToString();
-                        PackageDict["AddressFrom"] = reader[2].ToString();
-                        PackageDict["Status"] = reader[3].ToString();
+                        PackageDict["ShipmentId"] = GetSQLReaderValue<string>(reader[0]);
+                        PackageDict["AddressTo"] = GetSQLReaderValue<int>(reader[1]).ToString();
+                        PackageDict["AddressFrom"] = GetSQLReaderValue<int>(reader[2]).ToString();
+                        PackageDict["Status"] = GetSQLReaderValue<int>(reader[3]).ToString();
+
+                        //PackageDict["ShipmentId"] = reader[0].ToString();
+                        //PackageDict["AddressTo"] = reader[1].ToString();
+                        //PackageDict["AddressFrom"] = reader[2].ToString();
+                        //PackageDict["Status"] = reader[3].ToString();
                     }
                 }
             }
@@ -299,13 +350,14 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT ShipmentId FROM Package WHERE AddressTo =@0", conn);
-                command.Parameters.Add(new SqlParameter("0", addressId));
+                AddParameter<string>(command, "0", addressId, SqlDbType.Int);
+                //command.Parameters.Add(new SqlParameter("0", addressId));
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        PackagesList.Add(reader[0].ToString());
+                        PackagesList.Add(GetSQLReaderValue<string>(reader[0]));
                     }
                 }
             }
@@ -322,13 +374,14 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT ShipmentId FROM Package WHERE AddressFrom =@0", conn);
-                command.Parameters.Add(new SqlParameter("0", addressId));
+                AddParameter<string>(command, "0", addressId, SqlDbType.Int);
+                //command.Parameters.Add(new SqlParameter("0", addressId));
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        PackagesList.Add(reader[0].ToString());
+                        PackagesList.Add(GetSQLReaderValue<string>(reader[0]));
                     }
                 }
             }
@@ -343,12 +396,18 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand insertCommand = new SqlCommand("INSERT INTO Vehicle (RegNr, Type, MaxWeight, MaxVolume, Status, PostOffice) VALUES (@0, @1, @2, @3, @4, @5)", conn);
-                insertCommand.Parameters.Add(new SqlParameter("0", regNr));
-                insertCommand.Parameters.Add(new SqlParameter("1", type));
-                insertCommand.Parameters.Add(new SqlParameter("2", maxWeight));
-                insertCommand.Parameters.Add(new SqlParameter("3", maxVolume));
-                insertCommand.Parameters.Add(new SqlParameter("4", status));
-                insertCommand.Parameters.Add(new SqlParameter("5", postOffice));
+                AddParameter<string>(insertCommand, "0", regNr, SqlDbType.VarChar);
+                AddParameter<int>(insertCommand, "1", type, SqlDbType.Int);
+                AddParameter<int>(insertCommand, "2", maxWeight, SqlDbType.Int);
+                AddParameter<int>(insertCommand, "3", maxVolume, SqlDbType.Int);
+                AddParameter<int>(insertCommand, "4", status, SqlDbType.Int);
+                AddParameter<int>(insertCommand, "5", postOffice, SqlDbType.Int);
+                //insertCommand.Parameters.Add(new SqlParameter("0", regNr));
+                //insertCommand.Parameters.Add(new SqlParameter("1", type));
+                //insertCommand.Parameters.Add(new SqlParameter("2", maxWeight));
+                //insertCommand.Parameters.Add(new SqlParameter("3", maxVolume));
+                //insertCommand.Parameters.Add(new SqlParameter("4", status));
+                //insertCommand.Parameters.Add(new SqlParameter("5", postOffice));
 
                 insertCommand.ExecuteNonQuery();
             }
@@ -364,24 +423,31 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM Vehicle WHERE RegNr =@0", conn);
-                command.Parameters.Add(new SqlParameter("0", regNr));
+                AddParameter<string>(command, "0", regNr, SqlDbType.VarChar);
+                //command.Parameters.Add(new SqlParameter("0", regNr));
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        vehicleDict["RegNr"] = reader[0].ToString();
-                        vehicleDict["Type"] = reader[1].ToString();
-                        vehicleDict["MaxWeight"] = reader[2].ToString();
-                        vehicleDict["MaxVolume"] = reader[3].ToString();
-                        vehicleDict["Status"] = reader[4].ToString();
-                        vehicleDict["PostOffice"] = reader[5].ToString();
+                        vehicleDict["RegNr"] = GetSQLReaderValue<string>(reader[0]);
+                        vehicleDict["Type"] = GetSQLReaderValue<int>(reader[1]).ToString();
+                        vehicleDict["MaxWeight"] = GetSQLReaderValue<int>(reader[2]).ToString();
+                        vehicleDict["MaxVolume"] = GetSQLReaderValue<int>(reader[3]).ToString();
+                        vehicleDict["Status"] = GetSQLReaderValue<int>(reader[4]).ToString();
+                        vehicleDict["PostOffice"] = GetSQLReaderValue<int>(reader[5]).ToString();
+
+                        //vehicleDict["RegNr"] = reader[0].ToString();
+                        //vehicleDict["Type"] = reader[1].ToString();
+                        //vehicleDict["MaxWeight"] = reader[2].ToString();
+                        //vehicleDict["MaxVolume"] = reader[3].ToString();
+                        //vehicleDict["Status"] = reader[4].ToString();
+                        //vehicleDict["PostOffice"] = reader[5].ToString();
                     }
                 }
             }
             return vehicleDict;
         }
-
        
         public static List<string> GetAllVehicles()
         {
@@ -398,7 +464,7 @@ namespace Postalservice.src.api
                 {
                     while (reader.Read())
                     {
-                        regNrs.Add(reader[0].ToString());
+                        regNrs.Add(GetSQLReaderValue<string>(reader[0]));
                     }
                 }
             }
@@ -415,14 +481,17 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT RegNr FROM Vehicle WHERE PostOffice =@0 AND Status = @1", conn);
-                command.Parameters.Add(new SqlParameter("0", postalOfficeId));
-                command.Parameters.Add(new SqlParameter("1", VehicleStatus.Parked));
+                AddParameter<string>(command, "0", postalOfficeId, SqlDbType.VarChar);
+                AddParameter<VehicleStatus>(command, "1", VehicleStatus.Parked, SqlDbType.Int);
+
+                //command.Parameters.Add(new SqlParameter("0", postalOfficeId));
+                //command.Parameters.Add(new SqlParameter("1", VehicleStatus.Parked));
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        VehicleList.Add(reader[0].ToString());
+                        VehicleList.Add(GetSQLReaderValue<string>(reader[0]));
                     }
                 }
             }
@@ -437,12 +506,19 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand insertCommand = new SqlCommand("INSERT INTO Transport (Vehicle, ToPO, FromPO, DateSent, DateArrived, PrelDeparture) VALUES (@0, @1, @2, @3, @4, @5)", conn);
-                insertCommand.Parameters.Add(new SqlParameter("0", vehicle));
-                insertCommand.Parameters.Add(new SqlParameter("1", toPO));
-                insertCommand.Parameters.Add(new SqlParameter("2", fromPO));
-                insertCommand.Parameters.Add(new SqlParameter("3", dateSent));
-                insertCommand.Parameters.Add(new SqlParameter("4", dateArrived));
-                insertCommand.Parameters.Add(new SqlParameter("5", prelDeparture));
+                AddParameter<string>(insertCommand, "0", vehicle, SqlDbType.VarChar);
+                AddParameter<int>(insertCommand, "1", toPO, SqlDbType.Int);
+                AddParameter<int>(insertCommand, "2", fromPO, SqlDbType.Int);
+                AddParameter<DateTime?>(insertCommand, "3", dateSent, SqlDbType.DateTime);
+                AddParameter<DateTime?>(insertCommand, "4", dateArrived, SqlDbType.DateTime);
+                AddParameter<DateTime>(insertCommand, "5", prelDeparture, SqlDbType.DateTime);
+
+                //insertCommand.Parameters.Add(new SqlParameter("0", vehicle));
+                //insertCommand.Parameters.Add(new SqlParameter("1", toPO));
+                //insertCommand.Parameters.Add(new SqlParameter("2", fromPO));
+                //insertCommand.Parameters.Add(new SqlParameter("3", dateSent));
+                //insertCommand.Parameters.Add(new SqlParameter("4", dateArrived));
+                //insertCommand.Parameters.Add(new SqlParameter("5", prelDeparture));
 
                 insertCommand.ExecuteNonQuery();
             }
@@ -458,19 +534,28 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM Transport WHERE id=@0", conn);
-                command.Parameters.Add(new SqlParameter("0", id));
+                AddParameter<int>(command, "0", id, SqlDbType.Int);
+                //command.Parameters.Add(new SqlParameter("0", id));
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        transportDict["Id"] = reader[0].ToString();
-                        transportDict["Vehicle"] = reader[1].ToString();
-                        transportDict["ToPO"] = reader[2].ToString();
-                        transportDict["FromPO"] = reader[3].ToString();
-                        transportDict["DateSent"] = reader[4].ToString();
-                        transportDict["DateArrived"] = reader[5].ToString();
-                        transportDict["PrelDeparture"] = reader[6].ToString();
+                        transportDict["Id"] = GetSQLReaderValue<int>(reader[0]).ToString();
+                        transportDict["Vehicle"] = GetSQLReaderValue<string>(reader[1]);
+                        transportDict["ToPO"] = GetSQLReaderValue<int>(reader[2]).ToString();
+                        transportDict["FromPO"] = GetSQLReaderValue<int>(reader[3]).ToString();
+                        transportDict["DateSent"] = GetDateTimeFromSqlReaderValue(reader[4]).ToString();
+                        transportDict["DateArrived"] = GetDateTimeFromSqlReaderValue(reader[5]).ToString();
+                        transportDict["PrelDeparture"] = GetDateTimeFromSqlReaderValue(reader[6]).ToString();
+
+                        //transportDict["Id"] = reader[0].ToString();
+                        //transportDict["Vehicle"] = reader[1].ToString();
+                        //transportDict["ToPO"] = reader[2].ToString();
+                        //transportDict["FromPO"] = reader[3].ToString();
+                        //transportDict["DateSent"] = reader[4].ToString();
+                        //transportDict["DateArrived"] = reader[5].ToString();
+                        //transportDict["PrelDeparture"] = reader[6].ToString();
                     }
                 }
             }
@@ -486,18 +571,25 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand getCommand = new SqlCommand("SELECT Id FROM Transport WHERE Vehicle =@0 AND ToPO = @1 AND FromPO = @2 AND DateSent =@3 AND DateArrived = @4 AND PrelDeparture =@5", conn);
-                getCommand.Parameters.Add(new SqlParameter("0", vehicle));
-                getCommand.Parameters.Add(new SqlParameter("1", toPO));
-                getCommand.Parameters.Add(new SqlParameter("2", fromPO));
-                getCommand.Parameters.Add(new SqlParameter("3", dateSent));
-                getCommand.Parameters.Add(new SqlParameter("4", dateArrived));
-                getCommand.Parameters.Add(new SqlParameter("5", prelDeparture));
+                AddParameter<string>(getCommand, "0", vehicle, SqlDbType.VarChar);
+                AddParameter<int>(getCommand, "1", toPO, SqlDbType.Int);
+                AddParameter<int>(getCommand, "2", fromPO, SqlDbType.Int);
+                AddParameter<DateTime?>(getCommand, "3", dateSent, SqlDbType.DateTime);
+                AddParameter<DateTime?>(getCommand, "4", dateArrived, SqlDbType.DateTime);
+                AddParameter<DateTime>(getCommand, "5", prelDeparture, SqlDbType.DateTime);
+
+                //getCommand.Parameters.Add(new SqlParameter("0", vehicle));
+                //getCommand.Parameters.Add(new SqlParameter("1", toPO));
+                //getCommand.Parameters.Add(new SqlParameter("2", fromPO));
+                //getCommand.Parameters.Add(new SqlParameter("3", dateSent));
+                //getCommand.Parameters.Add(new SqlParameter("4", dateArrived));
+                //getCommand.Parameters.Add(new SqlParameter("5", prelDeparture));
 
                 using (SqlDataReader reader = getCommand.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        if (Id == -1) { Id = (int)reader[0]; }
+                        if (Id == -1) { Id = GetSQLReaderValue<int>(reader[0]); }
                         else break;
                     }
                 }
@@ -515,35 +607,73 @@ namespace Postalservice.src.api
                 conn.Open();
 
                 SqlCommand getCommand = new SqlCommand("SELECT ShipmentId FROM PackageTransport WHERE TransportId =@0", conn);
-                getCommand.Parameters.Add(new SqlParameter("0", transportId));
+                AddParameter<int>(getCommand, "0", transportId, SqlDbType.Int);
+                //getCommand.Parameters.Add(new SqlParameter("0", transportId));
 
                 using (SqlDataReader reader = getCommand.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        ListOfParcels.Add((int)reader[0]);
+                        ListOfParcels.Add(GetSQLReaderValue<int>(reader[0]));
                     }
                 }
             }
             return ListOfParcels;
         }
 
+        public static List<int> GetTransportsToPO(int poId)
+        {
+            List<int> list = new List<int>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand getCommand = new SqlCommand("SELECT Id FROM Transport WHERE ToPO=@0", conn);
+                AddParameter<int>(getCommand, "0", poId, SqlDbType.Int);
+
+                using (SqlDataReader reader = getCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(GetSQLReaderValue<int>(reader[0]));
+                    }
+                }
+            }
+            return list;
+        }
+
+        public static List<int> GetTransportsFromPO(int poId)
+        {
+            List<int> list = new List<int>();
+
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand getCommand = new SqlCommand("SELECT Id FROM Transport WHERE FromPO=@0", conn);
+                AddParameter<int>(getCommand, "0", poId, SqlDbType.Int);
+
+                using (SqlDataReader reader = getCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(GetSQLReaderValue<int>(reader[0]));
+                    }
+                }
+            }
+            return list;
+        }
+
         public static T GetSQLReaderValue<T>(object sqlDataReaderValue)
         {
-            if(typeof(T) == typeof(DateTime?))
-            {
-                return (sqlDataReaderValue == System.DBNull.Value) ? null
-                  : (T)Convert.ToDateTime(sqlDataReaderValue);
-            }
-        
-            if (sqlDataReaderValue == System.DBNull.Value)
-            {
-                  ? (T)null
-                  : (T)Convert.ToDateTime(sqlDataReaderValue);
-            }
+            return (sqlDataReaderValue == System.DBNull.Value) ? default
+                  : (T)sqlDataReaderValue;
         }
         
-        public static DateTime? ConvertFromDBNull(object sqlDataReaderValue)
+        public static DateTime? GetDateTimeFromSqlReaderValue(object sqlDataReaderValue)
         {
             return (sqlDataReaderValue == System.DBNull.Value)
                     ? (DateTime?)null

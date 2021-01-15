@@ -105,12 +105,12 @@
                             <StackPanel Orientation="Vertical">
                                 <Label Content="{Binding Vehicle.Type}"/>
                                 <TextBlock>
-                                    <Run FontWeight="Bold" Text="Departure:"/> 
+                                    <Run FontWeight="Bold" Text="From:"/> 
                                     <Run Text="{Binding FromPO.Name}"/>                                 
                                     <Run Text="{Binding FromPO.ZipCode}"/>
                                 </TextBlock>
                                 <TextBlock>
-                                    <Run FontWeight="Bold" Text="Departure:"/> 
+                                    <Run FontWeight="Bold" Text="To:"/> 
                                     <Run Text="{Binding ToPO.Name}"/>                               
                                     <Run Text="{Binding ToPO.ZipCode}"/>
                                     </TextBlock>
@@ -244,7 +244,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Label Content="Add transport" VerticalAlignment="Center"></Label>
-                    <ComboBox x:Name="ComboBoxToPO" Grid.Row="1" Text="Transport To:" 
+                    <ComboBox x:Name="ComboBoxToPO" Grid.Row="1" Text="Transport To:"  Tag="Transport To:"
                               ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,
                                                AncestorType={x:Type Page}},
                                                Path=Offices}">

@@ -205,7 +205,7 @@ namespace Postalservice.src.admin
             TransportInfoViewer.DataContext = t;
 
             Parcels.Clear();
-
+            if (t == null) return;
             foreach (int parcel in DBConnectionManger.GetParcelsInTransport(Int32.Parse(t.Id)))
             {
                 Parcels.Add(new Parcel(parcel.ToString()));
@@ -230,10 +230,33 @@ namespace Postalservice.src.admin
             }
         }
 
+        public void LoadTransports()
+        {
+            Transports.Clear();
+            foreach (int id in DBConnectionManger.GetTransportsFromPO(Int32.Parse(mainWindow.currentOffice.Id)))
+            {
+                Transports.Add(new Transport(id.ToString()));
+            }
+            foreach (int id in DBConnectionManger.GetTransportsToPO(Int32.Parse(mainWindow.currentOffice.Id)))
+            {
+                Transports.Add(new Transport(id.ToString()));
+            }
+        }
+
+        public void ClearAddFields()
+        {
+            TextBoxPrelDeparture.Text = "";
+
+        }
+
         public void RefreshPage()
         {
+            
             LoadVehicles();
+            ComboBoxVehicle.Items.Refresh();
             LoadOffices();
+            ComboBoxToPO.Items.Refresh();
+            LoadTransports();
             MyListBox.Items.Refresh();
         }
     }

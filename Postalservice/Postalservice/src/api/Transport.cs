@@ -18,14 +18,14 @@ namespace Postalservice.src.api
 
         public Transport(string id)
         {
-            Dictionary<string,string> transportDict = DBConnectionManger.GetTransport(Int32.Parse(id));
+            Dictionary<string, string> transportDict = DBConnectionManger.GetTransport(Int32.Parse(id));
 
             Id = id;
             Vehicle = new Vehicle(transportDict["Vehicle"]);
             FromPO = new PostalOffice(transportDict["FromPO"]);
             ToPO = new PostalOffice(transportDict["ToPO"]);
-            Departure = DateTime.Parse(transportDict["DateSent"]);
-            Arrival = DateTime.Parse(transportDict["DateArrived"]);
+            Departure = string.IsNullOrEmpty(transportDict["DateSent"]) ? (DateTime?)null : DateTime.Parse(transportDict["DateSent"]);
+            Arrival = string.IsNullOrEmpty(transportDict["DateArrived"]) ? (DateTime?)null : DateTime.Parse(transportDict["DateArrived"]);
             PrelDeparture = DateTime.Parse(transportDict["PrelDeparture"]);
         }
 
