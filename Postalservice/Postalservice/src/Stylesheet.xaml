@@ -46,7 +46,7 @@
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="LabelForeground" Value="Black"/>
         <Setter Property="TextBoxForeground" Value="{StaticResource TextBoxColor}"/>
-        <Setter Property="ErrorMessageForeground" Value="PaleVioletRed"/>
+        <Setter Property="ErrorMessageForeground" Value="#C23A5F"/>
     </Style>
 
     <Style TargetType="TextBlock" x:Key="ErrorMessage">
@@ -71,7 +71,6 @@
 
         <Style.Resources>
             <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-                <!--<Setter Property="Background" Value="{StaticResource SmallButtonEnabledColor}"/>-->
                 <Setter Property="Foreground" Value="{StaticResource ButtonTextColor}"/>
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
@@ -251,53 +250,21 @@
             </Style>
         </Style.Resources>
     </Style>
-        
-    
+
     <Style TargetType="UserControl" x:Key="HeaderBackground">
-        <Setter Property="VerticalAlignment"
-                Value="Top"/>
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch"/>
-        <Setter Property="Height"
-                Value="120"/>
-        <Setter
-               Property="Background"
-               Value="{StaticResource HeaderColor}"></Setter>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Height" Value="120"/>
+        <Setter Property="Background" Value="{StaticResource HeaderColor}"></Setter>
     </Style>
 
     <Style TargetType="Rectangle" x:Key="PanelBackground">
-        <Setter Property="VerticalAlignment"
-                Value="Stretch"/>
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch"/>
-        <!--<Setter Property="Margin"
-                Value="100,250,100,100"/>-->
-        <Setter Property="RadiusX"
-                Value="50"/>
-        <Setter Property="RadiusY"
-                Value="50"/>
-        <Setter
-               Property="Fill"
-               Value="{StaticResource PanelBackgroundColor}"></Setter>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="RadiusX" Value="50"/>
+        <Setter Property="RadiusY" Value="50"/>
+        <Setter Property="Fill" Value="{StaticResource PanelBackgroundColor}"></Setter>
     </Style>
-
-    <SolidColorBrush x:Key="CoolBluesBackground">#FF548C93</SolidColorBrush>
-    <LinearGradientBrush x:Key="ProgressBarIndicatorAnimatedFill"
-                          StartPoint="0,0"
-                          EndPoint="1,0">
-        <LinearGradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Color="#000000FF"
-                                Offset="0" />
-                <GradientStop Color="#600000FF"
-                                Offset="0.4" />
-                <GradientStop Color="#600000FF"
-                                Offset="0.6" />
-                <GradientStop Color="#000000FF"
-                                Offset="1" />
-            </GradientStopCollection>
-        </LinearGradientBrush.GradientStops>
-    </LinearGradientBrush>
 
     <Style TargetType="Grid" x:Key="FillOutFormStyle">
         <Style.Resources>
@@ -393,7 +360,5 @@
             </Style>
         </Style.Resources>
     </Style>
-
-
 
 </ResourceDictionary>
