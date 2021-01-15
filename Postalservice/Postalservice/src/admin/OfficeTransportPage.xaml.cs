@@ -106,6 +106,7 @@ namespace Postalservice.src.admin
             Vehicles = new List<Vehicle>();
             Transports = new List<Transport>();
             TransportsFrom = new List<Transport>();
+
             this.mainWindow = mainWindow;
             InitializeComponent();
         }
@@ -223,9 +224,9 @@ namespace Postalservice.src.admin
 
             Parcels.Clear();
             if (t == null) return;
-            foreach (int parcel in DBConnectionManger.GetParcelsInTransport(Int32.Parse(t.Id)))
+            foreach (string parcel in DBConnectionManger.GetParcelsInTransport(Int32.Parse(t.Id)))
             {
-                Parcels.Add(new Parcel(parcel.ToString()));
+                Parcels.Add(new Parcel(parcel));
             }
         }
 
@@ -264,6 +265,9 @@ namespace Postalservice.src.admin
 
         public void LoadParcels()
         {
+            ParcelListInHouse.Parcels.Clear();
+            ParcelListInTransport.Parcels.Clear();
+
             ParcelListInHouse.Parcels = GetAvailableParcels();
             if (ComboBoxTransport.SelectedItem != null)
             {
@@ -332,7 +336,8 @@ namespace Postalservice.src.admin
             {
                 if (t.Arrival == null)
                 {
-                    DBConnectionManger.RemoveFromPackageTransport(p.ShipmentId, Int32.Parse(t.Id));
+                    int packageTransportId = DBConnectionManger.GetPackageTransportId(p.ShipmentId, Int32.Parse(t.Id));
+                    DBConnectionManger.RemoveFromPackageTransport(packageTransportId);
                 }
             }
             if (p.AddressTo.ZipCode.Equals(mainWindow.currentOffice.ZipCode))

@@ -69,6 +69,7 @@ namespace Postalservice.src.userControl
 
         public ParcelList()
         {
+            Parcels = new List<Parcel>();
             InitializeComponent();
         }
 

@@ -48,6 +48,7 @@ namespace Postalservice.src.admin
             mainWindow.currentOffice = null;
             mainWindow.Content = mainWindow.GetPage("start");
         }
+
         private void GoToHomePage_Execute(object sender, ExecutedRoutedEventArgs e)
         {
             mainWindow.Content = mainWindow.GetPage("officeHome");

@@ -241,7 +241,6 @@ namespace Postalservice.src.api
 
                 SqlCommand command = new SqlCommand("SELECT * FROM PostalOffice WHERE id=@0", conn);
                 AddParameter<int>(command, "0", id, SqlDbType.Int);
-                //command.Parameters.Add(new SqlParameter("0", id));
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -250,10 +249,6 @@ namespace Postalservice.src.api
                         poDict["Id"] = GetSQLReaderValue<int>(reader[0]).ToString();
                         poDict["ZipCode"] = GetSQLReaderValue<string>(reader[1]);
                         poDict["Name"] = GetSQLReaderValue<string>(reader[2]);
-
-                        //poDict["Id"] = reader[0].ToString();
-                        //poDict["ZipCode"] = reader[1].ToString();
-                        //poDict["Name"] = reader[2].ToString();
                     }
                 }
             }
@@ -262,7 +257,7 @@ namespace Postalservice.src.api
 
         public static List<int> GetAllPostOffices()
         {
-            List<int> ListOfOffices = new List<int>();
+            List<int> list = new List<int>();
 
             using (SqlConnection conn = new SqlConnection())
             {
@@ -275,11 +270,11 @@ namespace Postalservice.src.api
                 {
                     while (reader.Read())
                     {
-                        ListOfOffices.Add(GetSQLReaderValue<int>(reader[0]));
+                        list.Add(GetSQLReaderValue<int>(reader[0]));
                     }
                 }
             }
-            return ListOfOffices;
+            return list;
         }
 
         public static void InsertToPackage(Guid shipmentId, int addressTo, int addressFrom, int status, int locationPo)
@@ -504,19 +499,42 @@ namespace Postalservice.src.api
             }
         }
 
-        public static void RemoveFromPackageTransport(string shipmentId, int transportId)
+        public static void RemoveFromPackageTransport(int id)
         {
             using (SqlConnection conn = new SqlConnection())
             {
                 conn.ConnectionString = CONNECTION_STRING;
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("DELETE FROM PackageTransport WHERE ShipmentId=@0 AND TransportId=@1)", conn);
-                AddParameter<string>(command, "0", shipmentId, SqlDbType.VarChar);
-                AddParameter<int>(command, "1", transportId, SqlDbType.Int);
+                SqlCommand command = new SqlCommand("DELETE FROM PackageTransport WHERE Id=@0", conn);
+                AddParameter<int>(command, "0", id, SqlDbType.Int);
 
                 command.ExecuteNonQuery();
             }
+        }
+
+        public static int GetPackageTransportId(string shipmentId, int transportId)
+        {
+            int Id = -1;
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = CONNECTION_STRING;
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT Id FROM PackageTransport WHERE ShipmentId=@0 AND TransportId=@1", conn);
+                AddParameter<string>(command, "0", shipmentId, SqlDbType.VarChar);
+                AddParameter<int>(command, "1", transportId, SqlDbType.Int);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (Id == -1) { Id = GetSQLReaderValue<int>(reader[0]); }
+                        else break;
+                    }
+                }
+            }
+            return Id;
         }
 
         public static List<int> GetPackageTransferHistory(string shipmentId)
@@ -751,9 +769,9 @@ namespace Postalservice.src.api
             return Id;
         }
 
-        public static List<int> GetParcelsInTransport(int transportId)
+        public static List<string> GetParcelsInTransport(int transportId)
         {
-            List<int> ListOfParcels = new List<int>();
+            List<string> ListOfParcels = new List<string>();
 
             using (SqlConnection conn = new SqlConnection())
             {
@@ -762,13 +780,12 @@ namespace Postalservice.src.api
 
                 SqlCommand getCommand = new SqlCommand("SELECT ShipmentId FROM PackageTransport WHERE TransportId =@0", conn);
                 AddParameter<int>(getCommand, "0", transportId, SqlDbType.Int);
-                //getCommand.Parameters.Add(new SqlParameter("0", transportId));
 
                 using (SqlDataReader reader = getCommand.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        ListOfParcels.Add(GetSQLReaderValue<int>(reader[0]));
+                        ListOfParcels.Add(GetSQLReaderValue<string>(reader[0]));
                     }
                 }
             }
